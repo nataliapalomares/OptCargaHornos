@@ -5,7 +5,7 @@
  */
 package optimizarcargahornos;
 
-/**
+/**PENDIENTE: crear las clases con las estructuras del problema
  *
  * @author Natalia
  */
@@ -16,6 +16,9 @@ public class OptimizarCargaHornos {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        if(true){
+            
+        }
     }
     
 }
