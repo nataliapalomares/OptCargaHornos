@@ -1,11 +1,22 @@
 package optimizarcargahornos;
 
+import java.util.Date;
+
 /**
  * @author Natalia Palomares Melgarejo
  */
 public class Pedido {
-    int idPedido; //id del set que se está pidiendo
+    int idPedido; //código que identifica el pedido
+    int idSet;//set pedido
     int cantidad;
-    int prioridadCliente; //idCliente o puede ser la prioridad del cliente (PREGUNTAR)
-    int fecha; //nivel de cercania de la fecha O fecha de entrega (PREGUNTAR)
+    Date fEntrega; //fecha de entrega
+    int pCliente; //prioridad del cliente 
+
+    public Pedido(int idP, int idS, int cant, Date entrega,int priorCliente){
+        this.idPedido=idP;
+        this.idSet=idS;
+        this.cantidad=cant;
+        this.fEntrega=entrega;
+        this.pCliente=priorCliente;
+    }
 }

@@ -6,10 +6,19 @@ package optimizarcargahornos;
 public class Pieza {
     int id;
     String descripcion;
-    double ancho;//ancho de la pieza en cm
-    double alto;//alto de la pieza en cm
-    double largo;//largo de la pieza en cm
+    int ancho;//ancho de la pieza en mm
+    int alto;//alto de la pieza en mm
+    int largo;//largo de la pieza en mm
     double volumen;//volumen de la pieza en cm3
     double peso; //peso de la pieza en Kg
-    //int stockActual; //cantidad de piezas finalizadas que están en el almacén
+    
+    public Pieza(int id,String descripcion,int h,int w,int l,double peso,double volumen){
+        this.id=id;
+        this.descripcion=descripcion;
+        this.ancho=w;
+        this.alto=h;
+        this.largo=l;
+        this.volumen=volumen;
+        this.peso=peso;
+    }
 }
