@@ -5,10 +5,10 @@ package optimizarcargahornos;
  */
 public class Compartimento {
     int id; //código del compartimento
-    double ancho; //medida del ancho del compartimento en centimetros
-    double largo; //medida del largo del compartimento en centimetros
-    double alto; //medida del largo del compartimento en centimetros
-    public Compartimento(int id,double w, double l, double h){
+    int ancho; //medida del ancho del compartimento en mm
+    int largo; //medida del largo del compartimento en mm
+    int alto; //medida del largo del compartimento en mm
+    public Compartimento(int id,int w, int l, int h){
         this.id=id;
         this.ancho=w;
         this.largo=l;

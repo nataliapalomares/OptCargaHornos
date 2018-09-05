@@ -12,13 +12,13 @@ public class Pieza {
     double volumen;//volumen de la pieza en cm3
     double peso; //peso de la pieza en Kg
     
-    public Pieza(int id,String descripcion,int h,int w,int l,double peso,double volumen){
+    public Pieza(int id,String descripcion,int h,int w,int l,double peso){
         this.id=id;
         this.descripcion=descripcion;
         this.ancho=w;
         this.alto=h;
         this.largo=l;
-        this.volumen=volumen;
+        this.volumen=h*w*l/(10^3);
         this.peso=peso;
     }
 }

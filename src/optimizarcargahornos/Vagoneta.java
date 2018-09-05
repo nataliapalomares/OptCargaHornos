@@ -6,11 +6,11 @@ package optimizarcargahornos;
 public class Vagoneta {
     static double pesoMaximo;
     static int nCompartimentos; //numero de compartimentos que tiene la vagoneta
-    Compartimento[] lCompartimentos;
+    static Compartimento[] lCompartimentos;
     public Vagoneta(){
-        this.lCompartimentos=new Compartimento[nCompartimentos];
+        //this.lCompartimentos=new Compartimento[nCompartimentos];
     }
-    public void agregarCompartimento(int i,int id,double w,double h,double l){
+    public void agregarCompartimento(int i,int id,int w,int h,int l){
         this.lCompartimentos[i]=new Compartimento(id,w,l,h);
     }
 }

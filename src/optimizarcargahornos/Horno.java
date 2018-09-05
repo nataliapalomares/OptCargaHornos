@@ -7,6 +7,7 @@ public class Horno {
     //double pesoMaximo; //peso máximo que pueden soportar las vagonetas
     static int nVagonetas; //numero de vagonetas que entran en el horno
     //int nCompartimentos; //numero de compartimentos que tiene una vagoneta
+    Vagoneta[] lVagonetas;
     
     public Horno(double volMaximo, double pesoMaximo,int nVagonetas,int nCompartimentos){
         this.volMaximo=volMaximo;
@@ -15,5 +16,10 @@ public class Horno {
         //this.nCompartimentos=nCompartimentos;
         Vagoneta.pesoMaximo=pesoMaximo;
         Vagoneta.nCompartimentos=nCompartimentos;
+        this.lVagonetas=new Vagoneta[nVagonetas];
+        Vagoneta.lCompartimentos=new Compartimento[nCompartimentos];
+    }
+    public void agregarVagoneta(int i,Vagoneta wagon){
+        this.lVagonetas[i]=wagon;
     }
 }
