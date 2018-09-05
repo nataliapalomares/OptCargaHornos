@@ -21,4 +21,15 @@ public class Pieza {
         this.volumen=h*w*l/(10^3);
         this.peso=peso;
     }
+    public boolean cabeEnCompartimento(int maxDC,int minDC,int medDC){
+        //Hallando que lado es el más grande, más pequeño y mediano
+        int maximo=Math.max(this.ancho,Math.max(this.largo,this.alto));
+        int minimo=Math.min(this.ancho,Math.min(this.largo,this.alto));
+        int medio= this.ancho+this.largo+this.alto-maximo-minimo;
+        //Comparando cada lado con el compartimento
+        if(maximo<=maxDC && minimo<=minDC && medio<=medDC){
+            return true;
+        }
+        return false;
+    }
 }

@@ -14,4 +14,13 @@ public class Compartimento {
         this.largo=l;
         this.alto=h;
     }
+    public int maximo(){
+        return Math.max(ancho,Math.max(largo,alto));
+    }
+    public int minimo(){
+        return Math.min(ancho,Math.min(largo,ancho));
+    }
+    public int medio(){
+        return this.ancho+this.largo+this.alto-maximo()-minimo();
+    }
 }

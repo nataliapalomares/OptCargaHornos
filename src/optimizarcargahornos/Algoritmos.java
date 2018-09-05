@@ -15,11 +15,25 @@ import java.util.logging.Logger;
  * @author Natalia Palomares Melgarejo
  */
 public class Algoritmos {
-
+    Horno oven;
+    List<Set> lSets; //conjunto de sets
+    List<Producto> lProductos; //conjunto de productos
+    List<Pieza> lPiezas; //conjunto de piezas
+    List<Pedido> lPedidos;
+    //ESTRUCTURAS AUXILIARES
+    boolean[][] mDimension; //indica las piezas que caben en cada compartimento 
+    int[][] rSets;//resumen de sets (pedidos,almacen,faltante)
+    int[][] rProd;//resumen de productos (pedidos,almacen,faltante)
+    int[][] rPiezas;//resumen de piezas (pedidos,almacen,faltante)
+    
     public Algoritmos() {
+        lSets = new ArrayList();
+        lProductos = new ArrayList();
+        lPiezas = new ArrayList();
+        lPedidos=new ArrayList();
     }
 
-    public void cargarDatos(List<Set> lSets, List<Producto> lProductos, List<Pieza> lPiezas) {
+    public void cargarDatos() {
         System.out.print("Archivo de Sets: ");
         String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\setsProdPiezas.csv";
 
@@ -60,14 +74,13 @@ public class Algoritmos {
         String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\hornoCompartimentos.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            Horno oven;
             line = br.readLine();
             String[] linea = line.split(",");
             double volMaximo = Double.parseDouble(linea[0]);
             double pMaximo = Double.parseDouble(linea[1]);
             int nVagonetas = Integer.parseInt(linea[2]);
             int cantC = Integer.parseInt(linea[3]); //cantidad de compartimentos
-            oven = new Horno(volMaximo, pMaximo, nVagonetas, cantC);
+            Horno oven = new Horno(volMaximo, pMaximo, nVagonetas, cantC);
             Vagoneta wagon = new Vagoneta();
             while ((line = br.readLine()) != null) {
                 //COMPARTIMENTOS
@@ -88,7 +101,7 @@ public class Algoritmos {
         }
         return null;
     }
-    public void cargarPedidos(List<Pedido> lPedidos){
+    public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
         System.out.print("Archivo de Pedidos: ");
         String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\pedidos.csv";
@@ -111,15 +124,67 @@ public class Algoritmos {
             Logger.getLogger(Algoritmos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void crearEstructuraAuxiliares(){
+        //MATRIZ DE DIMENSIONES
+        int cantPiezas=this.lPiezas.size();
+        mDimension=new boolean[cantPiezas][Vagoneta.nCompartimentos];
+        for(int j=0;j<Vagoneta.nCompartimentos;j++){
+            int maximoDC=Vagoneta.lCompartimentos[j].maximo();
+            int minimoDC=Vagoneta.lCompartimentos[j].minimo();
+            int medioDC=Vagoneta.lCompartimentos[j].medio();
+            for(int i=0;i<cantPiezas;i++){
+                if(this.lPiezas.get(i).cabeEnCompartimento(maximoDC,minimoDC,medioDC))
+                    mDimension[i][j]=true;
+                else mDimension[i][j]=false;
+            }
+        }
+        //RESUMEN DE SETS
+        int cantSets=this.lSets.size();
+         
+    }
+    public void cargarDatosAlmacen(){
+        this.rSets=new int[this.lSets.size()][3];
+        this.rProd=new int[this.lProductos.size()][3];
+        this.rPiezas=new int[this.lPiezas.size()][3];
+        System.out.print("Archivo de Almacen: ");
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\almacenes.csv";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            int cant=0;
+            String tipo="";
+            while ((line = br.readLine()) != null) {
+                String[] linea = line.split(",");
+                if(cant==0){
+                    tipo=linea[0];
+                    cant=Integer.parseInt(linea[1]);
+                    continue;
+                }
+                int id=Integer.parseInt(linea[0]);
+                int cantidad=Integer.parseInt(linea[1]);
+                if(tipo=="S"){//PENDIENTE: verificar como comparar strings
+                    //SETS
+                    rSets[id][1]=cantidad; //cantidad en almacen;
+                }
+                else if(tipo=="P"){
+                    //PRODUCTOS
+                    rProd[id][1]=cantidad;
+                }
+                else{
+                    rPiezas[id][1]=cantidad;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void ejecutar() {
         //CARGA DE DATOS: horno, productos, pedidos
-        Horno oven = datosHorno();
-        List<Set> lSets = new ArrayList();
-        List<Producto> lProductos = new ArrayList();
-        List<Pieza> lPiezas = new ArrayList();
-        cargarDatos(lSets, lProductos, lPiezas);
-        List<Pedido> lPedidos=new ArrayList();
-        cargarPedidos(lPedidos);
+        this.oven = datosHorno();
+        cargarDatos();
+        cargarDatosAlmacen();
+        cargarPedidos();
+        //CREACION DE ESTRUCTURAS AUXILIARES
+        crearEstructuraAuxiliares();
         //ALGORITMO MEMETICO
         
         //System.out.println("Termino de cargar");
