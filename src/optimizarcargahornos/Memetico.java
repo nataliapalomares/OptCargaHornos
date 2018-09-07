@@ -63,7 +63,7 @@ public class Memetico {
                 if(Math.random()<T_MUTACION){
                     hijo.mutar(NPIEZAS_MUTAR_GENERAR,gPiezas,mDimension);
                 }
-                if(hijo.valida()){
+                if(hijo.valida(this.gPiezas)){
                     //PENDIENTE: ¿se debe reparar las aberraciones?
                     nuevaPob.add(hijo);
                     cant++;

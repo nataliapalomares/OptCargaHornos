@@ -29,12 +29,12 @@ public class Compartimento {
         return this.porcentVolumen;
     }
     public void setPorcentVolumen(){
-        this.porcentVolumen=(ancho*alto*largo)/Vagoneta.volumenTotalComp;
+        this.porcentVolumen=(ancho*alto*largo)/(Vagoneta.volumenTotalComp*Math.pow(10,3));
     }
     public double getPesoLimite(){
         return this.porcentVolumen*Vagoneta.pesoMaximo;
     }
     public double getVolumenLimite(){
-        return this.porcentVolumen*Horno.volMaximo/Vagoneta.nCompartimentos;
+        return this.porcentVolumen*(Horno.volMaximo/Vagoneta.nCompartimentos);
     }
 }

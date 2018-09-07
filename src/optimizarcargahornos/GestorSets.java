@@ -7,20 +7,26 @@ import java.util.List;
  * @author Natalia Palomares Melgarejo
  */
 public class GestorSets {
-    List<Set> lSets;
+    //List<Set> lSets;
+    Set[] lSets;
     int[][] rSets;
     double[] prioridadProm;
     
     public GestorSets(){
-        lSets=new ArrayList();
+       // lSets=new ArrayList();
     }
-    public void add(Set setAgregar){
+/*    public void add(Set setAgregar){  
         this.lSets.add(setAgregar);
+    }*/
+    public void add(Set setAgregar,int ind){
+        this.lSets[ind]=setAgregar;
     }
     public int size(){
-        return lSets.size();
+          return this.lSets.length;  
+        //return lSets.size();
     }
     public void completarIni(int cant){
+        this.lSets=new Set[cant];
         this.rSets=new int[cant][3];
         this.prioridadProm=new double[cant];
     }
@@ -44,6 +50,7 @@ public class GestorSets {
         return rSets[id][2];
     }
     public int[] productos(int id){
-        return this.lSets.get(id).listaProd();
+        return this.lSets[id].listaProd();
+        //return this.lSets.get(id).listaProd();
     }
 }

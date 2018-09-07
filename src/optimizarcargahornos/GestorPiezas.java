@@ -7,22 +7,26 @@ import java.util.List;
  * @author Natalia Palomares Melgarejo
  */
 public class GestorPiezas {
-    List<Pieza> lPiezas;
+    //List<Pieza> lPiezas;
+    Pieza[] lPiezas;
     int[][] rPiezas;
     double[] prioridadProm;
     int maxFaltantes;
     
     public GestorPiezas(){
-        lPiezas=new ArrayList();
+        //lPiezas=new ArrayList();
         maxFaltantes=0;
     }
-    public void add(Pieza piezaAgregar){
-        this.lPiezas.add(piezaAgregar);
+    public void add(Pieza piezaAgregar, int ind){
+        this.lPiezas[ind]=piezaAgregar;
+        //this.lPiezas.add(piezaAgregar);
     }
     public int size(){
-        return lPiezas.size();
+        return lPiezas.length;
+        //return lPiezas.size();
     }
     public void completarIni(int cant){
+        this.lPiezas=new Pieza[cant];
         this.rPiezas=new int[cant][4];//PEDIDOS, EN ALMACEN, FALTANTES, PENDIENTES POR HORNEAR
         this.prioridadProm=new double[cant];
     }
@@ -36,7 +40,8 @@ public class GestorPiezas {
         }
     }
     public boolean cabeEnCompartimento(int id,int maximoDC,int minimoDC,int medioDC){
-        return this.lPiezas.get(id).cabeEnCompartimento(maximoDC,minimoDC,medioDC);
+        return this.lPiezas[id].cabeEnCompartimento(maximoDC, medioDC, medioDC);
+        //return this.lPiezas.get(id).cabeEnCompartimento(maximoDC,minimoDC,medioDC);
     }
     public int calcularFaltante(int id){
         rPiezas[id][2]=Math.max(rPiezas[id][0]-rPiezas[id][1],0);
@@ -55,13 +60,16 @@ public class GestorPiezas {
         return prioridadProm[id];
     }
     public double getVolumen(int id){
-        return this.lPiezas.get(id).getVolumen();
+        return this.lPiezas[id].getVolumen();
+        //return this.lPiezas.get(id).getVolumen();
     }
     public double getPeso(int id){
-        return this.lPiezas.get(id).getPeso();
+        return this.lPiezas[id].getPeso();
+        //return this.lPiezas.get(id).getPeso();
     }
     public Pieza getPieza(int id){
-        return this.lPiezas.get(id);
+        return this.lPiezas[id];
+        //return this.lPiezas.get(id);
     }
     public int pendientes(int id){
         return rPiezas[id][3];

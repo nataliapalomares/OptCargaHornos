@@ -13,7 +13,7 @@ public class Vagoneta {
         //this.lCompartimentos=new Compartimento[nCompartimentos];
     }
     public void agregarCompartimento(int i,int id,int w,int h,int l){
-        this.lCompartimentos[i]=new Compartimento(id,w,l,h);
+        lCompartimentos[i]=new Compartimento(id,w,l,h);
         volumenTotalComp+=(w*h*l);
     }
     public double getPesoLimite(int compartimento){
@@ -21,5 +21,10 @@ public class Vagoneta {
     }
     public double getVolLimite(int compartimento){
         return lCompartimentos[compartimento].getVolumenLimite();
+    }
+    public void setPorcentVolumen(){
+        for(int i=0;i<Vagoneta.nCompartimentos;i++){
+            lCompartimentos[i].setPorcentVolumen();
+        }
     }
 }

@@ -26,9 +26,7 @@ public class Algoritmos {
         lPedidos=new ArrayList();
     }
     public Horno datosHorno() {
-        System.out.print("Archivo de Horno: ");
-        //PROVISIONAL NOMBRE DEL ARCHIVO
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\hornoCompartimentos.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoCompartimentos.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             line = br.readLine();
@@ -48,18 +46,14 @@ public class Algoritmos {
                 int largo = Integer.parseInt(linea[3]);
                 wagon.agregarCompartimento(id-1, id, ancho, largo, alto);
             }
-            for(int i=0;i<Vagoneta.nCompartimentos;i++){
-                wagon.getPesoLimite(i);
-                wagon.getVolLimite(i);
-            }
+            wagon.setPorcentVolumen();
             return oven;
         } catch (IOException e) {
         }
         return null;
     }
     public void cargarDatos() {
-        System.out.print("Archivo de Sets: ");
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\setsProdPiezas.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsProdPiezas.csv";
 
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -81,12 +75,12 @@ public class Algoritmos {
                     continue;
                 } else if (tipo == 1) {//SETS
                     Set setActual = new Set(Integer.parseInt(linea[0]), linea[1], linea[2], Integer.parseInt(linea[3]), linea[4]);
-                    gSets.addRSet(i++,'A',Integer.parseInt(linea[5]));
-                    gSets.add(setActual);
+                    gSets.addRSet(i,'A',Integer.parseInt(linea[5]));
+                    gSets.add(setActual,i++);
                 } else if (tipo == 2) {//PRODUCTO
                     Producto prodActual = new Producto(Integer.parseInt(linea[0]), linea[1], Integer.parseInt(linea[2]), linea[3]);
-                    gProd.addRProd(i++,'A',Integer.parseInt(linea[4]));
-                    gProd.add(prodActual);
+                    gProd.addRProd(i,'A',Integer.parseInt(linea[4]));
+                    gProd.add(prodActual,i++);
                 } else {//PIEZA
                     String descripcion = linea[1] + " " + linea[2] + " " + linea[3];
                     int alto = Integer.parseInt(linea[4]);
@@ -95,8 +89,8 @@ public class Algoritmos {
                     Double peso = Double.parseDouble(linea[7]);
                     Pieza pActual = new Pieza(Integer.parseInt(linea[0]), descripcion, alto, ancho, largo, peso);
                     gPiezas.addRPiezas(i,'A',Integer.parseInt(linea[8]));//cantidad de piezas terminadas en el almacen
-                    gPiezas.addRPiezas(i++, 'Q',Integer.parseInt(linea[9]));//cantidad pendiente a hornear 
-                    gPiezas.add(pActual);
+                    gPiezas.addRPiezas(i, 'Q',Integer.parseInt(linea[9]));//cantidad pendiente a hornear 
+                    gPiezas.add(pActual,i++);
                 }
                 cant--;
             }
@@ -106,8 +100,7 @@ public class Algoritmos {
 
     public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
-        System.out.print("Archivo de Pedidos: ");
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\pedidos.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidos.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -174,6 +167,6 @@ public class Algoritmos {
         crearEstructuraAuxiliares();
         //ALGORITMO MEMETICO
         
-        //System.out.println("Termino de cargar");
+        System.out.println("Termino de cargar");
     }
 }

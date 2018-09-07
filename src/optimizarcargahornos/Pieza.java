@@ -18,7 +18,7 @@ public class Pieza {
         this.ancho=w;
         this.alto=h;
         this.largo=l;
-        this.volumen=h*w*l/(10^3);
+        this.volumen=h*w*l/Math.pow(10,3);
         this.peso=peso;
     }
     public boolean cabeEnCompartimento(int maxDC,int minDC,int medDC){

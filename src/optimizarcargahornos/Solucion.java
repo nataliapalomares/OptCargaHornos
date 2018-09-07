@@ -84,29 +84,37 @@ public class Solucion {
             int id=this.getPieza(rV, rC);
             //Quito la pieza junto con la prioridad, peso y volumen cargado de la pieza
             quitarElemento(rV,rC,gPiezas);
-            Pieza nuevaPieza=buscarReemplazo(id,rC,mDimensiones,gPiezas);//PENDIENTE: seleccionar una pieza que entre en el compartimento
+            Pieza nuevaPieza=buscarReemplazo(id,rC,mDimensiones,gPiezas);
             agregarElemento(rV,rC,nuevaPieza,gPiezas);
         }
         actualizarFitness();
         return this;
     }
-    public boolean valida(){
+    public boolean valida(GestorPiezas gPieza){
         double volTotal=0;
+        int[]piezasColocadas=new int[gPieza.size()];
         for(int i=0;i<Horno.nVagonetas;i++){
             //RE1: no exceder el peso máximo de la vagoneta
-            if(pesoV[i]>Vagoneta.pesoMaximo)
+            if(pesoV[i]>Vagoneta.pesoMaximo){
                 return false;
+            }
+            for(int j=0;j<Vagoneta.nCompartimentos;j++){
+                piezasColocadas[this.arregloPiezas[i][j]]+=1;
+            }
             volTotal+=volV[i];
         }
         //RE2: no exceder el volumen máximo del horno
         if(volTotal>Horno.volMaximo)
             return false;
-        
+        for(int i=0;i<gPieza.size();i++){
+            if(gPieza.pendientes(i)-piezasColocadas[i]<0) return false;
+        }
         //RE3: la pieza debe caber en el compartimento asignado
         //      Esto se asegura en la asignación
         //RE4: solo se puede colocar hasta 1 pieza por compartimento
         //      Esto lo asegura la estructura
-        //PENDIENTE RE5: no exceder la cantidad de piezas pendientes
+        //RE5: no exceder la cantidad de piezas pendientes
+        
         return true;
     }
     public void copiar(Solucion original){

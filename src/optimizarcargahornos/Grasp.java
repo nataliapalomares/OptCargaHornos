@@ -94,7 +94,7 @@ public class Grasp {
         int cant=0;
         while(cant!=tamPoblacion){
             Solucion sol=construirSol();
-            if(sol.valida()){
+            if(sol.valida(gPiezas)){
                 //Se descartaran las soluciones no validas
                 pob.add(sol);
             }

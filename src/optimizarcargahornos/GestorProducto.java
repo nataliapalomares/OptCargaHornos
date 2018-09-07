@@ -7,19 +7,23 @@ import java.util.List;
  * @author Natalia Palomares Melgarejo
  */
 public class GestorProducto {
-    List<Producto> lProd;
+    //List<Producto> lProd;
+    Producto[] lProd;
     int[][] rProd;
     double[] prioridadProm;
     public GestorProducto(){
-        lProd=new ArrayList();
+        //lProd=new ArrayList();
     }
-    public void add(Producto prodAgregar){
-        this.lProd.add(prodAgregar);
+    public void add(Producto prodAgregar,int ind){
+        this.lProd[ind]=prodAgregar;
+        //this.lProd.add(prodAgregar);
     }
     public int size(){
-        return lProd.size();
+        return lProd.length;
+//        return lProd.size();
     }
     public void completarIni(int cant){
+        this.lProd=new Producto[cant];
         this.rProd=new int[cant][3]; //PEDIDO, ALMACEN, FALTANTE
         this.prioridadProm=new double[cant];
     }
@@ -43,6 +47,7 @@ public class GestorProducto {
         return prioridadProm[id];
     }
     public int[] piezas(int id){
-        return this.lProd.get(id).listaPiezas();
+        return this.lProd[id].listaPiezas();
+//        return this.lProd.get(id).listaPiezas();
     }
 }
