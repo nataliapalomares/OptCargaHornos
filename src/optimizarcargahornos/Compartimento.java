@@ -8,6 +8,8 @@ public class Compartimento {
     int ancho; //medida del ancho del compartimento en mm
     int largo; //medida del largo del compartimento en mm
     int alto; //medida del largo del compartimento en mm
+    double porcentVolumen;//para asignar proporcionalmente al volumen que ocupa en la vagoneta
+    
     public Compartimento(int id,int w, int l, int h){
         this.id=id;
         this.ancho=w;
@@ -22,5 +24,17 @@ public class Compartimento {
     }
     public int medio(){
         return this.ancho+this.largo+this.alto-maximo()-minimo();
+    }
+    public double getPorcentVolumen(){
+        return this.porcentVolumen;
+    }
+    public void setPorcentVolumen(){
+        this.porcentVolumen=(ancho*alto*largo)/Vagoneta.volumenTotalComp;
+    }
+    public double getPesoLimite(){
+        return this.porcentVolumen*Vagoneta.pesoMaximo;
+    }
+    public double getVolumenLimite(){
+        return this.porcentVolumen*Horno.volMaximo/Vagoneta.nCompartimentos;
     }
 }

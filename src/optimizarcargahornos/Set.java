@@ -9,7 +9,6 @@ public class Set {
    String color;//int idColor;
    int nProductos; //numero de productos que componen el set
    int[] lProductos; //lista de los id de los productos
-   //int stockActual; //cantidad de sets completos que se encuentran en el almacén
 
    public Set(int id, String modelo,String color,int nProductos,String lista){
        this.id=id;
@@ -21,5 +20,8 @@ public class Set {
        for(int i=0;i<nProductos;i++){
            lProductos[i]=Integer.parseInt(productos[i]);
        }
+   }
+   public int[] listaProd(){
+       return this.lProductos;
    }
 }

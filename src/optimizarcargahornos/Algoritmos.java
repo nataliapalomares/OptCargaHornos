@@ -1,73 +1,30 @@
 package optimizarcargahornos;
-import java.text.SimpleDateFormat;  
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Natalia Palomares Melgarejo
  */
 public class Algoritmos {
     Horno oven;
-    List<Set> lSets; //conjunto de sets
-    List<Producto> lProductos; //conjunto de productos
-    List<Pieza> lPiezas; //conjunto de piezas
+    GestorSets gSets;
+    GestorProducto gProd; //conjunto de productos
+    GestorPiezas gPiezas; //conjunto de piezas
     List<Pedido> lPedidos;
     //ESTRUCTURAS AUXILIARES
-    boolean[][] mDimension; //indica las piezas que caben en cada compartimento 
-    int[][] rSets;//resumen de sets (pedidos,almacen,faltante)
-    int[][] rProd;//resumen de productos (pedidos,almacen,faltante)
-    int[][] rPiezas;//resumen de piezas (pedidos,almacen,faltante)
+    boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
     public Algoritmos() {
-        lSets = new ArrayList();
-        lProductos = new ArrayList();
-        lPiezas = new ArrayList();
+        gSets=new GestorSets();
+        gProd=new GestorProducto();
+        gPiezas = new GestorPiezas();
         lPedidos=new ArrayList();
     }
-
-    public void cargarDatos() {
-        System.out.print("Archivo de Sets: ");
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\setsProdPiezas.csv";
-
-        String line = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            int cant = 0, tipo = 0;
-            while ((line = br.readLine()) != null) {
-                String[] linea = line.split(",");
-                if (cant == 0) {
-                    cant = Integer.parseInt(linea[0]);
-                    tipo++;
-                    continue;
-                } else if (tipo == 1) {//SETS
-                    Set setActual = new Set(Integer.parseInt(linea[0]), linea[1], linea[2], Integer.parseInt(linea[3]), linea[4]);
-                    lSets.add(setActual);
-                } else if (tipo == 2) {//PRODUCTO
-                    Producto prodActual = new Producto(Integer.parseInt(linea[0]), linea[1], Integer.parseInt(linea[2]), linea[3]);
-                    lProductos.add(prodActual);
-                } else {//PIEZA
-                    String descripcion = linea[1] + " " + linea[2] + " " + linea[3];
-                    int alto = Integer.parseInt(linea[4]);
-                    int ancho = Integer.parseInt(linea[5]);
-                    int largo = Integer.parseInt(linea[6]);
-                    Double peso = Double.parseDouble(linea[7]);
-                    Pieza pActual = new Pieza(Integer.parseInt(linea[0]), descripcion, alto, ancho, largo, peso);
-                    lPiezas.add(pActual);
-                }
-                cant--;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Horno datosHorno() {
         System.out.print("Archivo de Horno: ");
         //PROVISIONAL NOMBRE DEL ARCHIVO
@@ -91,99 +48,129 @@ public class Algoritmos {
                 int largo = Integer.parseInt(linea[3]);
                 wagon.agregarCompartimento(id-1, id, ancho, largo, alto);
             }
-            for(int i=0;i<nVagonetas;i++){
-                Vagoneta wagonAux=new Vagoneta();
-                oven.agregarVagoneta(i, wagonAux);
+            for(int i=0;i<Vagoneta.nCompartimentos;i++){
+                wagon.getPesoLimite(i);
+                wagon.getVolLimite(i);
             }
             return oven;
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }
+    public void cargarDatos() {
+        System.out.print("Archivo de Sets: ");
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\setsProdPiezas.csv";
+
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            int cant = 0, tipo = 0,i=0;
+            while ((line = br.readLine()) != null) {
+                String[] linea = line.split(",");
+                if (cant == 0) {
+                    cant = Integer.parseInt(linea[0]);
+                    i=0;
+                    tipo++;
+                    switch(tipo){
+                        case 1: this.gSets.completarIni(cant);
+                                break;
+                        case 2: this.gProd.completarIni(cant);
+                                break;
+                        case 3: this.gPiezas.completarIni(cant);
+                                break;
+                    }
+                    continue;
+                } else if (tipo == 1) {//SETS
+                    Set setActual = new Set(Integer.parseInt(linea[0]), linea[1], linea[2], Integer.parseInt(linea[3]), linea[4]);
+                    gSets.addRSet(i++,'A',Integer.parseInt(linea[5]));
+                    gSets.add(setActual);
+                } else if (tipo == 2) {//PRODUCTO
+                    Producto prodActual = new Producto(Integer.parseInt(linea[0]), linea[1], Integer.parseInt(linea[2]), linea[3]);
+                    gProd.addRProd(i++,'A',Integer.parseInt(linea[4]));
+                    gProd.add(prodActual);
+                } else {//PIEZA
+                    String descripcion = linea[1] + " " + linea[2] + " " + linea[3];
+                    int alto = Integer.parseInt(linea[4]);
+                    int ancho = Integer.parseInt(linea[5]);
+                    int largo = Integer.parseInt(linea[6]);
+                    Double peso = Double.parseDouble(linea[7]);
+                    Pieza pActual = new Pieza(Integer.parseInt(linea[0]), descripcion, alto, ancho, largo, peso);
+                    gPiezas.addRPiezas(i,'A',Integer.parseInt(linea[8]));//cantidad de piezas terminadas en el almacen
+                    gPiezas.addRPiezas(i++, 'Q',Integer.parseInt(linea[9]));//cantidad pendiente a hornear 
+                    gPiezas.add(pActual);
+                }
+                cant--;
+            }
+        } catch (IOException e) {
+        }
+    }
+
     public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
         System.out.print("Archivo de Pedidos: ");
         String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\pedidos.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             while ((line = br.readLine()) != null) {
                 String[] linea = line.split(",");
                 int idP=Integer.parseInt(linea[0]);
                 int idS=Integer.parseInt(linea[1]);
                 int cant=Integer.parseInt(linea[2]);
-                Date entrega=formatter.parse(linea[3]);
+                LocalDate entrega=LocalDate.parse(linea[3],formatter);
                 int priorCliente=Integer.parseInt(linea[4]);
                 Pedido pActual=new Pedido(idP,idS,cant,entrega,priorCliente);
+                gSets.addRSet(idS-1, 'P', cant);
+                gSets.addRSet(idS-1, 'R', pActual.calcularPrioridad());
                 lPedidos.add(pActual);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException ex) {
-            Logger.getLogger(Algoritmos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void crearEstructuraAuxiliares(){
         //MATRIZ DE DIMENSIONES
-        int cantPiezas=this.lPiezas.size();
+        int cantPiezas=this.gPiezas.size();
         mDimension=new boolean[cantPiezas][Vagoneta.nCompartimentos];
         for(int j=0;j<Vagoneta.nCompartimentos;j++){
             int maximoDC=Vagoneta.lCompartimentos[j].maximo();
             int minimoDC=Vagoneta.lCompartimentos[j].minimo();
             int medioDC=Vagoneta.lCompartimentos[j].medio();
             for(int i=0;i<cantPiezas;i++){
-                if(this.lPiezas.get(i).cabeEnCompartimento(maximoDC,minimoDC,medioDC))
+                if(this.gPiezas.cabeEnCompartimento(i,maximoDC,minimoDC,medioDC))
                     mDimension[i][j]=true;
                 else mDimension[i][j]=false;
             }
         }
-        //RESUMEN DE SETS
-        int cantSets=this.lSets.size();
-         
-    }
-    public void cargarDatosAlmacen(){
-        this.rSets=new int[this.lSets.size()][3];
-        this.rProd=new int[this.lProductos.size()][3];
-        this.rPiezas=new int[this.lPiezas.size()][3];
-        System.out.print("Archivo de Almacen: ");
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\almacenes.csv";
-        String line = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            int cant=0;
-            String tipo="";
-            while ((line = br.readLine()) != null) {
-                String[] linea = line.split(",");
-                if(cant==0){
-                    tipo=linea[0];
-                    cant=Integer.parseInt(linea[1]);
-                    continue;
-                }
-                int id=Integer.parseInt(linea[0]);
-                int cantidad=Integer.parseInt(linea[1]);
-                if(tipo=="S"){//PENDIENTE: verificar como comparar strings
-                    //SETS
-                    rSets[id][1]=cantidad; //cantidad en almacen;
-                }
-                else if(tipo=="P"){
-                    //PRODUCTOS
-                    rProd[id][1]=cantidad;
-                }
-                else{
-                    rPiezas[id][1]=cantidad;
+        //ESTRUCTURAS RESUMEN
+        for(int i=0;i<this.gSets.size();i++){
+            //Completando RESUMEN SETS
+            int cantFS=this.gSets.calcularFaltante(i);
+            double pPromS=this.gSets.pPromedio(i);
+            int[] listaProd=this.gSets.productos(i);
+            for(int j=0;j<listaProd.length;j++){
+                //Completando RESUMEN PRODUCTOS
+                //La cantidad pedida del producto es la cantidad faltante de sets
+                this.gProd.addRProd(listaProd[j]-1, 'P', cantFS);
+                //Se calcula la cantidad faltante de productos
+                int cantFP=this.gProd.calcularFaltante(listaProd[j]-1);
+                double pPromP=this.gProd.pPromedio(listaProd[j]-1,pPromS);
+                int[] listaPieza=this.gProd.piezas(listaProd[j]-1);
+                for(int k=0;k<listaPieza.length;k++){
+                    //Completando RESUMEN PIEZAS
+                    this.gPiezas.addRPiezas(listaPieza[k]-1, 'P', cantFP);
+                    this.gPiezas.calcularFaltante(listaPieza[k]-1);
+                    this.gPiezas.setpPromedio(listaPieza[k]-1,pPromP);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+         
     }
+    
     public void ejecutar() {
         //CARGA DE DATOS: horno, productos, pedidos
         this.oven = datosHorno();
         cargarDatos();
-        cargarDatosAlmacen();
         cargarPedidos();
-        //CREACION DE ESTRUCTURAS AUXILIARES
+        //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
         //ALGORITMO MEMETICO
         

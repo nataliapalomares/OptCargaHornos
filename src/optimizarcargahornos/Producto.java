@@ -18,4 +18,7 @@ public class Producto {
         for(int i=0;i<nPiezas;i++)
             lPiezas[i]=Integer.parseInt(piezas[i]);
     }
+    public int[] listaPiezas(){
+        return this.lPiezas;
+    }
 }

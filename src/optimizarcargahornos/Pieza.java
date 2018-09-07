@@ -32,4 +32,13 @@ public class Pieza {
         }
         return false;
     }
+    public double getVolumen(){
+        return this.volumen;
+    }
+    public double getPeso(){
+        return this.peso;
+    }
+    public int getId(){
+        return this.id;
+    }
 }
