@@ -110,15 +110,14 @@ public class Solucion {
         //RE2: no exceder el volumen máximo del horno
         if(volTotal>Horno.volMaximo)
             return false;
-        for(int i=0;i<gPieza.size();i++){
-            if(gPieza.pendientes(i)-piezasColocadas[i]<0) return false;
-        }
         //RE3: la pieza debe caber en el compartimento asignado
         //      Esto se asegura en la asignación
         //RE4: solo se puede colocar hasta 1 pieza por compartimento
         //      Esto lo asegura la estructura
         //RE5: no exceder la cantidad de piezas pendientes
-        
+        for(int i=0;i<gPieza.size();i++){
+            if(gPieza.pendientes(i)-piezasColocadas[i]<0) return false;
+        }
         return true;
     }
     public void copiar(Solucion original){
@@ -135,11 +134,11 @@ public class Solucion {
     public Solucion mutarLS(int nMutar,GestorPiezas gPiezas,boolean[][] mDimensiones){
         Solucion nueva=new Solucion();
         nueva.copiar(this);
-        System.out.println("-----------------------------------");
-        nueva.imprimir();
+        //nueva.imprimir();
         return nueva.mutar(nMutar,gPiezas,mDimensiones);
     }
     public void imprimir(){
+        System.out.println("-----------------------------------");
         for(int i=0;i<Vagoneta.nCompartimentos;i++){
             for(int j=0;j<Horno.nVagonetas;j++){
                 System.out.print(getIdPieza(j, i)+"  ");

@@ -102,7 +102,7 @@ public class Grasp {
             if(sol.valida(gPiezas)){
                 //Se descartaran las soluciones no validas
                 pob.add(sol);
-                sol.imprimir();
+                //sol.imprimir();
                 cant++;
             }
         }

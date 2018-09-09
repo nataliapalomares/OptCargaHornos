@@ -172,6 +172,5 @@ public class Algoritmos {
         //ALGORITMO MEMETICO
         Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension);
         algMemetico.ejecutar();
-        System.out.println("Termino de cargar");
     }
 }

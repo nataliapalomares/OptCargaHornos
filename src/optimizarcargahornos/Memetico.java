@@ -82,7 +82,7 @@ public class Memetico {
                 boolean cambio=false;
                 for(int j=0;j<VECINOS_LS;j++){
                     actual=actual.mutarLS(NPIEZAS_MUTAR_LS,this.gPiezas,mDimension);
-                    if(mejor.getFitness()<actual.getFitness()){
+                    if(actual.valida(gPiezas) && (mejor.getFitness()<actual.getFitness())){
                         mejor=actual;
                         cambio=true;
                     }
