@@ -138,27 +138,27 @@ public class Solucion {
         return nueva.mutar(nMutar,gPiezas,mDimensiones);
     }
     public void imprimir(){
-        System.out.println("-----------------------------------");
         for(int i=0;i<Vagoneta.nCompartimentos;i++){
+            System.out.print("["+(i+1)+"]\t");
             for(int j=0;j<Horno.nVagonetas;j++){
                 System.out.print(getIdPieza(j, i)+"  ");
             }
             System.out.print("\n");
         }
         System.out.println("FITNESS: "+fitness);
-        System.out.println("VOLUMEN: ");
+        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.print(String.format( "[%d] %.2f  ", i+1,volV[i] ));
+            System.out.println(String.format( "[%d]\t%.2f\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
         }
-        System.out.println("\nPESO: ");
-        for(int i=0;i<Horno.nVagonetas;i++){
+        //System.out.println("\nPESO: ");
+        /*for(int i=0;i<Horno.nVagonetas;i++){
             System.out.print(String.format( "[%d] %.2f  ", i+1,pesoV[i] ));
         }
         System.out.println("\nPRIORIDAD: ");
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.print(String.format( "[%d] %.2f  ", i+1,prioridadV[i] ));
         }
-        System.out.println("\n");
+        System.out.println("\n");*/
         
     }
 }
