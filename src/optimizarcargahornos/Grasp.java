@@ -66,8 +66,8 @@ public class Grasp {
     public Solucion construirSol(){
         Solucion nuevaSol=new Solucion();
         int k=0,w=0;
-        List<Double> prioridades=new ArrayList();
-        List<Pieza> candidatos=new ArrayList();
+        List<Double> prioridades=new ArrayList<>();
+        List<Pieza> candidatos=new ArrayList<>();
         int[] pendientes=new int[this.gPiezas.size()];
         for(int i=0;i<this.gPiezas.size();i++){
             pendientes[i]=gPiezas.pendientes(i);

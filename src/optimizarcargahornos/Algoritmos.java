@@ -23,7 +23,7 @@ public class Algoritmos {
         gSets=new GestorSets();
         gProd=new GestorProducto();
         gPiezas = new GestorPiezas();
-        lPedidos=new ArrayList();
+        lPedidos=new ArrayList<>();
     }
     public Horno datosHorno() {
         //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoCompartimentos.csv";
@@ -57,7 +57,6 @@ public class Algoritmos {
     public void cargarDatos() {
         //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsProdPiezas.csv";
         String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
-
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             int cant = 0, tipo = 0,i=0;
@@ -132,9 +131,7 @@ public class Algoritmos {
             int minimoDC=Vagoneta.lCompartimentos[j].minimo();
             int medioDC=Vagoneta.lCompartimentos[j].medio();
             for(int i=0;i<cantPiezas;i++){
-                if(this.gPiezas.cabeEnCompartimento(i,maximoDC,minimoDC,medioDC))
-                    mDimension[i][j]=true;
-                else mDimension[i][j]=false;
+                mDimension[i][j] = this.gPiezas.cabeEnCompartimento(i,maximoDC,minimoDC,medioDC);
             }
         }
         //ESTRUCTURAS RESUMEN
@@ -162,7 +159,7 @@ public class Algoritmos {
          
     }
     
-    public void ejecutar() {
+    public void ejecutar(){
         //CARGA DE DATOS: horno, productos, pedidos
         this.oven = datosHorno();
         cargarDatos();

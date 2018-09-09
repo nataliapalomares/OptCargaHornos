@@ -67,7 +67,7 @@ public class Solucion {
         this.agregarElemento(rV, rC, nuevaPieza, gPiezas);
     }
     public Pieza buscarReemplazo(int ind,int rC,boolean[][]mDimensiones,GestorPiezas gPiezas){
-        List<Integer> indicesReemplazo=new ArrayList();
+        List<Integer> indicesReemplazo=new ArrayList<>();
         for(int i=0;i<gPiezas.size();i++){
             if(mDimensiones[i][rC] && i!=ind)
                 indicesReemplazo.add(i);

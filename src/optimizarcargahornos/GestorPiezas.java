@@ -11,16 +11,13 @@ public class GestorPiezas {
     int maxFaltantes;
     
     public GestorPiezas(){
-        //lPiezas=new ArrayList();
         maxFaltantes=0;
     }
     public void add(Pieza piezaAgregar, int ind){
         this.lPiezas[ind]=piezaAgregar;
-        //this.lPiezas.add(piezaAgregar);
     }
     public int size(){
         return lPiezas.length;
-        //return lPiezas.size();
     }
     public void completarIni(int cant){
         this.lPiezas=new Pieza[cant];
@@ -38,7 +35,6 @@ public class GestorPiezas {
     }
     public boolean cabeEnCompartimento(int id,int maximoDC,int minimoDC,int medioDC){
         return this.lPiezas[id].cabeEnCompartimento(maximoDC, medioDC, medioDC);
-        //return this.lPiezas.get(id).cabeEnCompartimento(maximoDC,minimoDC,medioDC);
     }
     public int calcularFaltante(int ind){
         rPiezas[ind][2]=Math.max(rPiezas[ind][0]-rPiezas[ind][1],0);
@@ -62,15 +58,12 @@ public class GestorPiezas {
     }
     public double getVolumen(int ind){
         return this.lPiezas[ind].getVolumen();
-        //return this.lPiezas.get(id).getVolumen();
     }
     public double getPeso(int ind){
         return this.lPiezas[ind].getPeso();
-        //return this.lPiezas.get(id).getPeso();
     }
     public Pieza getPieza(int ind){
         return this.lPiezas[ind];
-        //return this.lPiezas.get(id);
     }
     public int pendientes(int ind){
         return rPiezas[ind][3];

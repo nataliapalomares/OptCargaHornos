@@ -11,7 +11,7 @@ public class Poblacion {
     int tamanio;
     
     public Poblacion(){
-        this.pob=new ArrayList();
+        this.pob=new ArrayList<>();
         this.tamanio=0;
     }
     public Solucion buscarMejor(){
