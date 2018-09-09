@@ -14,7 +14,7 @@ public class Vagoneta {
     }
     public void agregarCompartimento(int i,int id,int w,int h,int l){
         lCompartimentos[i]=new Compartimento(id,w,l,h);
-        volumenTotalComp+=(w*h*l);
+        volumenTotalComp+=(w*h*l/Math.pow(10, 3));
     }
     public double getPesoLimite(int compartimento){
         return lCompartimentos[compartimento].getPesoLimite();

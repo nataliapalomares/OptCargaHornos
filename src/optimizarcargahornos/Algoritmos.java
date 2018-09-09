@@ -26,7 +26,9 @@ public class Algoritmos {
         lPedidos=new ArrayList();
     }
     public Horno datosHorno() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoCompartimentos.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoCompartimentos.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv";
+        
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             line = br.readLine();
@@ -53,7 +55,8 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsProdPiezas.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsProdPiezas.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
 
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -100,7 +103,8 @@ public class Algoritmos {
 
     public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidos.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidos.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -166,7 +170,8 @@ public class Algoritmos {
         //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
         //ALGORITMO MEMETICO
-        
+        Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension);
+        algMemetico.ejecutar();
         System.out.println("Termino de cargar");
     }
 }

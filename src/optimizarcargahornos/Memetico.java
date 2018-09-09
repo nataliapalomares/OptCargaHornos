@@ -11,7 +11,7 @@ public class Memetico {
     Solucion mejorSol;
     //Parametros Grasp (poblacion inicial)
     Grasp graspMemetico;
-    final static int TAM_INICIAL=50;
+    final static int TAM_INICIAL=2;
     final static double ALF_INICIAL=0.5;
     //Parametros para Generar Nueva Poblacion
     final static double PORC_REC=0.6;
@@ -35,15 +35,17 @@ public class Memetico {
     }
     public Solucion[] uniform_crossover(Solucion p1,Solucion p2){
         Solucion[] hijos=new Solucion[2];
+        hijos[0]=new Solucion();
+        hijos[1]=new Solucion();
         for(int v=0;v<Horno.nVagonetas;v++){
             for(int c=0;c<Vagoneta.nCompartimentos;c++){
                 if(Math.random()<PROBABILIDAD_UC){
-                    hijos[0].agregarElemento(v,c,p1.getPieza(v,c),gPiezas);
-                    hijos[1].agregarElemento(v,c,p2.getPieza(v,c),gPiezas);
+                    hijos[0].agregarElemento(v,c,p1.getIndPieza(v,c),gPiezas);
+                    hijos[1].agregarElemento(v,c,p2.getIndPieza(v,c),gPiezas);
                 }
                 else{
-                    hijos[0].agregarElemento(v,c,p2.getPieza(v,c),gPiezas);
-                    hijos[1].agregarElemento(v,c,p1.getPieza(v,c),gPiezas);
+                    hijos[0].agregarElemento(v,c,p2.getIndPieza(v,c),gPiezas);
+                    hijos[1].agregarElemento(v,c,p1.getIndPieza(v,c),gPiezas);
                 }
             }
         }
@@ -88,6 +90,7 @@ public class Memetico {
                 if(cambio){
                     nuevaPob.add(mejor);
                 }
+                i++;
             }
         }
         return nuevaPob;
@@ -137,10 +140,9 @@ public class Memetico {
     public Solucion ejecutar(){
         //FALTA CONSIDERAR EL TEMPORIZADOR
         int sinMejora=0;
-        Poblacion pob=new Poblacion();
         //Generacion de la poblacion inicial
         graspMemetico=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-        pob=graspMemetico.runGrasp();
+        Poblacion pob=graspMemetico.ejecutar();
         mejorSol=pob.buscarMejor();
         graspMemetico.setAlpha(ALF_RESTAURAR);
         for(int generacion=0;generacion<this.maxGeneraciones;generacion++){
@@ -158,6 +160,8 @@ public class Memetico {
                 }
             }
         }
+        System.out.println("IMPRIMIENDO MEJOR");
+        mejorSol.imprimir();
         return mejorSol;
     }
 }

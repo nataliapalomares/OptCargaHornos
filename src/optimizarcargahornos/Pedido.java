@@ -2,7 +2,6 @@ package optimizarcargahornos;
 
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
-import java.util.Date;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -22,7 +21,7 @@ public class Pedido {
         this.pCliente=priorCliente;
     }
     public int calcularPrioridad(){
-        long dias = DAYS.between(fEntrega, LocalDate.now());
+        long dias = DAYS.between(LocalDate.now(),fEntrega);
         int nDias;
         if(dias<0)
             nDias=5;

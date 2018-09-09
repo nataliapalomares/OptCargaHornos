@@ -44,7 +44,7 @@ public class Grasp {
             if(mDimension[i][compartimento] && gPiezas.faltantes(i)>0 && pendientes[i]>0){
                 //Si cabe en el compartimento, se requiere para completar pedidos
                 //y hay piezas pendientes por hornear, es un candidato
-                double fDemanda=(gPiezas.getpPromedio(i)*10*gPiezas.faltantes(i))/Solucion.MAXPRIORIDAD;
+                double fDemanda=(gPiezas.getpPromedio(i)*10*gPiezas.faltantes(i)/gPiezas.maxFaltantes())/Solucion.MAXPRIORIDAD;
                 double fVolumen=gPiezas.getVolumen(i)/wagon.getVolLimite(compartimento);
                 double fPeso=gPiezas.getPeso(i)/wagon.getPesoLimite(compartimento);
                 double valor=100*(fDemanda*Solucion.COEF_DEMANDA+fVolumen*Solucion.COEF_VOLUMEN+fPeso*Solucion.COEF_PESO);
@@ -79,17 +79,22 @@ public class Grasp {
                 Random aleatorio = new Random(System.currentTimeMillis());
                 Pieza pieza=candidatos.get(aleatorio.nextInt(candidatos.size()));
                 pendientes[pieza.id-1]-=1;
-                nuevaSol.agregarElemento(w, k, pieza,gPiezas);
+                nuevaSol.agregarElemento(w, k, pieza,gPiezas);                
                 w++;
             }
-            if(w==Horno.nVagonetas || prioridades.size()<1){
+            if(w==Horno.nVagonetas || prioridades.isEmpty()){
                 k++;
                 w=0;
+                continue;
             }
+            prioridades.clear();
+            candidatos.clear();
         }
+        nuevaSol.actualizarFitness();
         return nuevaSol;
     }
-    public Poblacion runGrasp(){
+    
+    public Poblacion ejecutar(){
         Poblacion pob=new Poblacion();
         int cant=0;
         while(cant!=tamPoblacion){
@@ -97,6 +102,8 @@ public class Grasp {
             if(sol.valida(gPiezas)){
                 //Se descartaran las soluciones no validas
                 pob.add(sol);
+                sol.imprimir();
+                cant++;
             }
         }
         return pob;

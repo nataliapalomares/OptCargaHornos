@@ -8,9 +8,9 @@ public class Horno {
     static int nVagonetas; //numero de vagonetas que entran en el horno
     //int nCompartimentos; //numero de compartimentos que tiene una vagoneta
     
-    public Horno(double volMaximo, double pesoMaximo,int nVagonetas,int nCompartimentos){
-        this.volMaximo=volMaximo*Math.pow(100,3);//cm3
-        this.nVagonetas=nVagonetas;
+    public Horno(double volMax, double pesoMaximo,int nVagones,int nCompartimentos){
+        volMaximo=volMax*Math.pow(100,3);//cm3
+        nVagonetas=nVagones;
         //this.pesoMaximo=pesoMaximo;        
         //this.nCompartimentos=nCompartimentos;
         Vagoneta.pesoMaximo=pesoMaximo;

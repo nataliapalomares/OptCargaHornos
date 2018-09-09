@@ -1,8 +1,5 @@
 package optimizarcargahornos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Natalia Palomares Melgarejo
  */
@@ -30,53 +27,55 @@ public class GestorPiezas {
         this.rPiezas=new int[cant][4];//PEDIDOS, EN ALMACEN, FALTANTES, PENDIENTES POR HORNEAR
         this.prioridadProm=new double[cant];
     }
-    public void addRPiezas(int id,char tipo,int cant){
+    public void addRPiezas(int ind,char tipo,int cant){
         switch(tipo){
-            case'P':rPiezas[id][0]=cant;// PEDIDO
+            case'P':rPiezas[ind][0]=cant;// PEDIDO
                     break;
-            case'A':rPiezas[id][1]=cant;// ALMACEN
+            case'A':rPiezas[ind][1]=cant;// ALMACEN
                     break;
-            case'Q':rPiezas[id][3]=cant;// PENDIENTES POR HORNEAR
+            case'Q':rPiezas[ind][3]=cant;// PENDIENTES POR HORNEAR
         }
     }
     public boolean cabeEnCompartimento(int id,int maximoDC,int minimoDC,int medioDC){
         return this.lPiezas[id].cabeEnCompartimento(maximoDC, medioDC, medioDC);
         //return this.lPiezas.get(id).cabeEnCompartimento(maximoDC,minimoDC,medioDC);
     }
-    public int calcularFaltante(int id){
-        rPiezas[id][2]=Math.max(rPiezas[id][0]-rPiezas[id][1],0);
-        return rPiezas[id][2];
+    public int calcularFaltante(int ind){
+        rPiezas[ind][2]=Math.max(rPiezas[ind][0]-rPiezas[ind][1],0);
+        if(this.maxFaltantes<rPiezas[ind][2])
+            this.maxFaltantes=rPiezas[ind][2];
+        return rPiezas[ind][2];
     }
-    
-    public double getpPromedio(int id){
-        return prioridadProm[id];
+    public int maxFaltantes(){
+        return maxFaltantes;
     }
-    public double setpPromedio(int id,double prioridad){
+    public double getpPromedio(int ind){
+        return prioridadProm[ind];
+    }
+    public double setpPromedio(int ind,double prioridad){
         //Funcion para asignar valor a pPromedio
         //Si no faltan productos para cumplir lo necesitado, entonces prioridad=0
-        if(rPiezas[id][2]>0){
-            prioridadProm[id]=prioridad;
-        }else prioridadProm[id]=0;
-        return prioridadProm[id];
+        if(rPiezas[ind][2]>0){
+            prioridadProm[ind]=prioridad;
+        }else prioridadProm[ind]=0;
+        return prioridadProm[ind];
     }
-    public double getVolumen(int id){
-        return this.lPiezas[id].getVolumen();
+    public double getVolumen(int ind){
+        return this.lPiezas[ind].getVolumen();
         //return this.lPiezas.get(id).getVolumen();
     }
-    public double getPeso(int id){
-        return this.lPiezas[id].getPeso();
+    public double getPeso(int ind){
+        return this.lPiezas[ind].getPeso();
         //return this.lPiezas.get(id).getPeso();
     }
-    public Pieza getPieza(int id){
-        return this.lPiezas[id];
+    public Pieza getPieza(int ind){
+        return this.lPiezas[ind];
         //return this.lPiezas.get(id);
     }
-    public int pendientes(int id){
-        return rPiezas[id][3];
+    public int pendientes(int ind){
+        return rPiezas[ind][3];
     }
-    public int faltantes(int id){
-        if(this.maxFaltantes<rPiezas[id][2])
-            this.maxFaltantes=rPiezas[id][2];
-        return rPiezas[id][2];
+    public int faltantes(int ind){
+        return rPiezas[ind][2];
     }
 }

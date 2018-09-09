@@ -17,10 +17,7 @@ public class Poblacion {
     public Solucion buscarMejor(){
         Solucion mejorActual=null;
         for(Solucion solActual:pob){
-            if(mejorActual==null){
-                solActual=mejorActual;
-            }
-            else if(mejorActual.getFitness()<solActual.getFitness()){
+            if((mejorActual==null) ||(mejorActual.getFitness()<solActual.getFitness())){
                 mejorActual=solActual;
             }
         }
@@ -57,7 +54,10 @@ public class Poblacion {
             if (rangosRuleta[mitad] < r)
                 izq = mitad + 1;    
             else if (rangosRuleta[mitad] > r) {
-                der= mitad-1;
+                if(mitad==izq || rangosRuleta[mitad-1]<r){
+                    return mitad;
+                }
+                else der= mitad-1;
             }
             else return mitad;
             mitad = (izq + der)/2;

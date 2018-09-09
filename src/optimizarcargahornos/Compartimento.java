@@ -25,16 +25,25 @@ public class Compartimento {
     public int medio(){
         return this.ancho+this.largo+this.alto-maximo()-minimo();
     }
+    public int ancho(){
+        return this.ancho;
+    }
+    public int largo(){
+        return this.largo;
+    }
+    public int alto(){
+        return this.alto;
+    }
     public double getPorcentVolumen(){
         return this.porcentVolumen;
     }
     public void setPorcentVolumen(){
-        this.porcentVolumen=(ancho*alto*largo)/(Vagoneta.volumenTotalComp*Math.pow(10,3));
+        this.porcentVolumen=(ancho*alto*largo/Math.pow(10, 3))/(Vagoneta.volumenTotalComp);
     }
     public double getPesoLimite(){
         return this.porcentVolumen*Vagoneta.pesoMaximo;
     }
     public double getVolumenLimite(){
-        return this.porcentVolumen*(Horno.volMaximo/Vagoneta.nCompartimentos);
+        return this.porcentVolumen*(Horno.volMaximo/Horno.nVagonetas);
     }
 }
