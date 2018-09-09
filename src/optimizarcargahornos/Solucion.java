@@ -48,6 +48,7 @@ public class Solucion {
     }
     public void quitarElemento(int rV,int rC,GestorPiezas gPiezas){
         int ind=getIndPieza(rV,rC);
+        if(ind==-1) return;
         Pieza piezaActual=gPiezas.getPieza(ind);
         this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*10*gPiezas.faltantes(ind)/gPiezas.maxFaltantes);
         this.pesoV[rV]-=piezaActual.peso;
@@ -63,6 +64,10 @@ public class Solucion {
         this.arregloPiezas[rV][rC]=nuevaPieza.getId();
     }
     public void agregarElemento(int rV,int rC,int ind,GestorPiezas gPiezas){
+        if(ind==-1){
+            this.arregloPiezas[rV][rC]=0;
+            return;
+        }
         Pieza nuevaPieza=gPiezas.getPieza(ind);
         this.agregarElemento(rV, rC, nuevaPieza, gPiezas);
     }

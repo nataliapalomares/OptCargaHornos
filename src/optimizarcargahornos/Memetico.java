@@ -14,10 +14,11 @@ public class Memetico {
     final static int TAM_INICIAL=2;
     final static double ALF_INICIAL=0.5;
     //Parametros para Generar Nueva Poblacion
-    final static double PORC_REC=0.6;
+    final static double T_RECOMBINACION=0.6;
     final static double T_MUTACION=0.3; //tasa de mutacion
     final static int NPIEZAS_MUTAR_GENERAR=2;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
     final static double PROBABILIDAD_UC=0.5;//probabilidad usada en uniform crossover
+    //Parametros para la búsqueda local
     final static int GEN_INTERVALO_LS=5;//indica cada cuantas generaciones se hará la busqueda local
     final static double PORC_LS=0.2;//proporcion de la poblacion a la que se le aplica busqueda local
     final static int VECINOS_LS=5;//numero de vecino visitados durante la busqueda local
@@ -56,8 +57,8 @@ public class Memetico {
     public Poblacion generarNuevaPoblacion(Poblacion pobPadre,int generacion){
         Poblacion nuevaPob=new Poblacion();
         double[] rangosRuleta=pobPadre.preparacionRuleta();
-        int cant=0;
-        while(cant<pobPadre.size()){
+        int cant=pobPadre.size();
+        while(cant>0){
             Solucion padre1=pobPadre.ruleta(rangosRuleta);
             Solucion padre2=pobPadre.ruleta(rangosRuleta);
             Solucion[] hijos=uniform_crossover(padre1,padre2);
@@ -68,7 +69,7 @@ public class Memetico {
                 if(hijo.valida(this.gPiezas)){
                     //PENDIENTE: ¿se debe reparar las aberraciones?
                     nuevaPob.add(hijo);
-                    cant++;
+                    cant--;
                 }
             }
         }
