@@ -146,7 +146,7 @@ public class Solucion {
         for(int i=0;i<Vagoneta.nCompartimentos;i++){
             System.out.print("["+(i+1)+"]\t");
             for(int j=0;j<Horno.nVagonetas;j++){
-                System.out.print(getIdPieza(j, i)+"  ");
+                System.out.print(String.format("%5d",getIdPieza(j, i)));
             }
             System.out.print("\n");
         }
@@ -155,15 +155,6 @@ public class Solucion {
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.2f\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
         }
-        //System.out.println("\nPESO: ");
-        /*for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.print(String.format( "[%d] %.2f  ", i+1,pesoV[i] ));
-        }
-        System.out.println("\nPRIORIDAD: ");
-        for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.print(String.format( "[%d] %.2f  ", i+1,prioridadV[i] ));
-        }
-        System.out.println("\n");*/
         
     }
 }
