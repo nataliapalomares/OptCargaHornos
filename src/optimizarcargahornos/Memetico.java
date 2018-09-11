@@ -11,7 +11,7 @@ public class Memetico {
     Solucion mejorSol;
     //Parametros Grasp (poblacion inicial)
     Grasp graspMemetico;
-    final static int TAM_INICIAL=2;
+    final static int TAM_INICIAL=2;//tamaño poblacion inicial
     final static double ALF_INICIAL=0.5;
     //Parametros para Generar Nueva Poblacion
     final static double T_RECOMBINACION=0.6;

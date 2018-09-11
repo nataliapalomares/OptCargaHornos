@@ -82,7 +82,7 @@ public class Solucion {
         }
         Random aleatorio = new Random(System.currentTimeMillis());
         int reemplazo=aleatorio.nextInt(indicesReemplazo.size());
-        return gPiezas.getPieza(reemplazo);
+        return gPiezas.getPieza(indicesReemplazo.get(reemplazo));
     }
     public Solucion mutar(int numMutar,GestorPiezas gPiezas,boolean[][] mDimensiones){
         Random aleatorio = new Random(System.currentTimeMillis());
