@@ -19,6 +19,10 @@ public class Algoritmos {
     //ESTRUCTURAS AUXILIARES
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
+    //Parametros del grasp para generar la poblacion inicial
+    final static int TAM_INICIAL=2;//tamaño poblacion inicial
+    final static double ALF_INICIAL=0.5;
+    
     public Algoritmos() {
         gSets=new GestorSets();
         gProd=new GestorProducto();
@@ -165,8 +169,12 @@ public class Algoritmos {
         cargarPedidos();
         //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
+        //GRASP-CREACION DE LA POBLACION INICIAL
+        Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
+        Poblacion pobInicial=graspPobInicial.ejecutar();
         //ALGORITMO MEMETICO
-        Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension);
-        algMemetico.ejecutar();
+        
+        Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
+        algMemetico.ejecutar(pobInicial);
     }
 }

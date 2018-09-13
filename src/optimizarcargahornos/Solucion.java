@@ -16,18 +16,24 @@ public class Solucion {
     final static double COEF_PESO=0;
     //variables de la solucion particular
     int[][] arregloPiezas;
-    double fitness;
+    int[] piezasCol;
     double[] prioridadV;//suma de las prioridades cargadas en la vagoneta
     double[] volV;//volumen cargado a cada vagoneta
     double[] pesoV;//peso cargado a cada vagoneta
+    double fitness;
+    
     public Solucion(){
         prioridadV=new double[Horno.nVagonetas];
         volV=new double[Horno.nVagonetas];
         pesoV=new double[Horno.nVagonetas];
         arregloPiezas=new int[Horno.nVagonetas][Vagoneta.nCompartimentos];
+        piezasCol=new int[GestorPiezas.cantidadPiezas];
     }
     public double getFitness(){
         return fitness;
+    }
+    public int getCantColocada(int ind){
+        return this.piezasCol[ind];
     }
     public int getIdPieza(int v,int c){
         return this.arregloPiezas[v][c];
@@ -50,7 +56,9 @@ public class Solucion {
         int ind=getIndPieza(rV,rC);
         if(ind==-1) return;
         Pieza piezaActual=gPiezas.getPieza(ind);
-        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*10*gPiezas.faltantes(ind)/gPiezas.maxFaltantes);
+        piezasCol[ind]-=1;
+        int faltantesActual=gPiezas.faltantes(ind)-piezasCol[ind];
+        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*10*faltantesActual/gPiezas.maxFaltantes);
         this.pesoV[rV]-=piezaActual.peso;
         this.volV[rV]-=piezaActual.volumen;
         //Se señala que en el compartimento no hay ninguna pieza que no hay ningun elemento
@@ -58,7 +66,9 @@ public class Solucion {
     }
     public void agregarElemento(int rV,int rC,Pieza nuevaPieza,GestorPiezas gPiezas){
         int ind=nuevaPieza.getId()-1;
-        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*10*gPiezas.faltantes(ind)/gPiezas.maxFaltantes);
+        int faltantesActual=gPiezas.faltantes(ind)-piezasCol[ind];
+        piezasCol[ind]+=1;
+        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*10*faltantesActual/gPiezas.maxFaltantes);
         this.pesoV[rV]+=nuevaPieza.peso;
         this.volV[rV]+=nuevaPieza.volumen;
         this.arregloPiezas[rV][rC]=nuevaPieza.getId();
@@ -74,10 +84,15 @@ public class Solucion {
     public Pieza buscarReemplazo(int ind,int rC,boolean[][]mDimensiones,GestorPiezas gPiezas){
         List<Integer> indicesReemplazo=new ArrayList<>();
         for(int i=0;i<gPiezas.size();i++){
-            if(mDimensiones[i][rC] && i!=ind)
-                indicesReemplazo.add(i);
+            if(mDimensiones[i][rC] && (i!=ind)){
+                boolean hayPorHornear= piezasCol[i]<gPiezas.pendientes(i);
+                boolean pedidosPorCompletar=piezasCol[i]<gPiezas.faltantes(i);
+                //Si aun hay piezas que se pueden asignar y si aun no se han completado los pedidos
+                if(hayPorHornear && pedidosPorCompletar) indicesReemplazo.add(i);
+            }
         }
         if(indicesReemplazo.isEmpty()){
+            //Si no hay reemplazos posibles, la mutacion falló
             return gPiezas.getPieza(ind);
         }
         Random aleatorio = new Random(System.currentTimeMillis());
@@ -91,7 +106,7 @@ public class Solucion {
             int rC=aleatorio.nextInt(Vagoneta.nCompartimentos);
             int ind=this.getIndPieza(rV,rC);
             //Quito la pieza junto con la prioridad, peso y volumen cargado de la pieza
-            quitarElemento(rV,rC,gPiezas);
+            if(ind!=-1) quitarElemento(rV,rC,gPiezas);
             Pieza nuevaPieza=buscarReemplazo(ind,rC,mDimensiones,gPiezas);
             agregarElemento(rV,rC,nuevaPieza,gPiezas);
         }
@@ -100,15 +115,10 @@ public class Solucion {
     }
     public boolean valida(GestorPiezas gPieza){
         double volTotal=0;
-        int[]piezasColocadas=new int[gPieza.size()];
         for(int i=0;i<Horno.nVagonetas;i++){
             //RE1: no exceder el peso máximo de la vagoneta
             if(pesoV[i]>Vagoneta.pesoMaximo){
                 return false;
-            }
-            for(int j=0;j<Vagoneta.nCompartimentos;j++){
-                int ind=getIndPieza(i,j);
-                if(ind>=0) piezasColocadas[ind]+=1;
             }
             volTotal+=volV[i];
         }
@@ -120,8 +130,11 @@ public class Solucion {
         //RE4: solo se puede colocar hasta 1 pieza por compartimento
         //      Esto lo asegura la estructura
         //RE5: no exceder la cantidad de piezas pendientes
-        for(int i=0;i<gPieza.size();i++){
-            if(gPieza.pendientes(i)-piezasColocadas[i]<0) return false;
+        for(int i=0;i<GestorPiezas.cantidadPiezas;i++){
+            //Como máximo solo puedo asignar la cantidad de piezass que estan pendientes por hornear
+            if(gPieza.pendientes(i)<piezasCol[i]) return false;
+            //Solo debo colocar suficientes piezas para completar los pedidos
+            if(gPieza.faltantes(i)<piezasCol[i]) return false;
         }
         return true;
     }

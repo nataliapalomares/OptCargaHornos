@@ -9,10 +9,8 @@ public class Memetico {
     GestorPiezas gPiezas;
     boolean[][] mDimension;
     Solucion mejorSol;
-    //Parametros Grasp (poblacion inicial)
-    Grasp graspMemetico;
-    final static int TAM_INICIAL=2;//tamaño poblacion inicial
-    final static double ALF_INICIAL=0.5;
+    Grasp graspRestaurar;
+    
     //Parametros para Generar Nueva Poblacion
     final static double T_RECOMBINACION=0.6;
     final static double T_MUTACION=0.3; //tasa de mutacion
@@ -28,11 +26,13 @@ public class Memetico {
     final static double ALF_RESTAURAR=0.3;//alfa para seleccionar el RCL
     final static int NPIEZAS_RESTAURAR=4;//cantidad de elementos a modificar en la solucion
     
-    public Memetico(int maxG,int maxSM,GestorPiezas gPiezas,boolean[][] mDimension){
+    public Memetico(int maxG,int maxSM,GestorPiezas gPiezas,boolean[][] mDimension, Grasp graspRestaurar){
         this.maxGeneraciones=maxG;
         this.maxSinMejora=maxSM;
         this.gPiezas=gPiezas;
         this.mDimension=mDimension;
+        this.graspRestaurar=graspRestaurar;
+        this.graspRestaurar.setAlpha(ALF_RESTAURAR);
     }
     public Solucion[] uniform_crossover(Solucion p1,Solucion p2){
         Solucion[] hijos=new Solucion[2];
@@ -131,21 +131,17 @@ public class Memetico {
             i++;
         }
         while(i<tamanioPob){
-            Solucion sol=graspMemetico.construirSol();
+            Solucion sol=graspRestaurar.construirSol();
             sol.mutar(NPIEZAS_RESTAURAR,this.gPiezas,mDimension);
             nuevaPob.add(sol);
             i++;
         }
         return nuevaPob;
     }
-    public Solucion ejecutar(){
+    public Solucion ejecutar(Poblacion pob){
         //FALTA CONSIDERAR EL TEMPORIZADOR
         int sinMejora=0;
-        //Generacion de la poblacion inicial
-        graspMemetico=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-        Poblacion pob=graspMemetico.ejecutar();
         mejorSol=pob.buscarMejor();
-        graspMemetico.setAlpha(ALF_RESTAURAR);
         for(int generacion=0;generacion<this.maxGeneraciones;generacion++){
             Poblacion nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);

@@ -9,6 +9,7 @@ public class GestorPiezas {
     int[][] rPiezas;
     double[] prioridadProm;
     int maxFaltantes;
+    static int cantidadPiezas;
     
     public GestorPiezas(){
         maxFaltantes=0;
@@ -23,6 +24,7 @@ public class GestorPiezas {
         this.lPiezas=new Pieza[cant];
         this.rPiezas=new int[cant][4];//PEDIDOS, EN ALMACEN, FALTANTES, PENDIENTES POR HORNEAR
         this.prioridadProm=new double[cant];
+        cantidadPiezas=cant;
     }
     public void addRPiezas(int ind,char tipo,int cant){
         switch(tipo){
