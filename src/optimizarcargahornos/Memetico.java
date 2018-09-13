@@ -67,7 +67,6 @@ public class Memetico {
                     hijo.mutar(NPIEZAS_MUTAR_GENERAR,gPiezas,mDimension);
                 }
                 if(hijo.valida(this.gPiezas)){
-                    //PENDIENTE: ¿se debe reparar las aberraciones?
                     nuevaPob.add(hijo);
                     cant--;
                 }
@@ -99,21 +98,29 @@ public class Memetico {
     public Poblacion actualizarPoblacion(Poblacion pobHijos,Poblacion pobPadre){
         //Funcion que reune las mejores soluciones de las dos poblaciones para formar una nueva poblacion
         int cantInd=pobPadre.size();
-        Solucion mejorHijoPob=pobHijos.buscarMejor();
-        Solucion mejorPadrePob=pobPadre.buscarMejor();
+        //ORrdenando poblacion padre e hijo
+        pobHijos.ordenar();
+        pobPadre.ordenar();
+        Solucion mejorHijoPob=pobHijos.getMejor();
+        Solucion mejorPadrePob=pobPadre.getMejor();
+        //Solucion mejorHijoPob=pobHijos.buscarMejor();
+        //Solucion mejorPadrePob=pobPadre.buscarMejor();
         Poblacion poblacion=new Poblacion();
         for(int i=0;i<cantInd;i++){
             if(mejorHijoPob.getFitness()>=mejorPadrePob.getFitness()){
                 poblacion.add(mejorHijoPob);
                 pobHijos.remove(mejorHijoPob);
-                mejorHijoPob=pobHijos.buscarMejor();
+                if(pobHijos.size()>0) mejorHijoPob=pobHijos.getInd(0);
+                //mejorHijoPob=pobHijos.buscarMejor();
             }
             else{
                 poblacion.add(mejorPadrePob);
                 pobPadre.remove(mejorPadrePob);
-                mejorPadrePob=pobPadre.buscarMejor();
+                if(pobPadre.size()>0)mejorPadrePob=pobPadre.getInd(0);
+                //mejorPadrePob=pobPadre.buscarMejor();
             }
         }
+        //retorna poblacion ordenada
         return poblacion;
     }
     public Poblacion restaurarPoblacion(Poblacion poblacion){
@@ -125,7 +132,8 @@ public class Memetico {
         int cPreservar=(int)Math.round(tamanioPob*PORC_PRESERVAR);
         int i=0;
         while(i<cPreservar){
-            Solucion mejor=poblacion.buscarMejor();
+            Solucion mejor=poblacion.getInd(0);
+            //Solucion mejor=poblacion.buscarMejor();
             nuevaPob.add(mejor);
             poblacion.remove(mejor);
             i++;
@@ -133,19 +141,23 @@ public class Memetico {
         while(i<tamanioPob){
             Solucion sol=graspRestaurar.construirSol();
             sol.mutar(NPIEZAS_RESTAURAR,this.gPiezas,mDimension);
-            nuevaPob.add(sol);
-            i++;
+            if(sol.valida(gPiezas)){
+                nuevaPob.add(sol);
+                i++;
+            }
         }
         return nuevaPob;
     }
     public Solucion ejecutar(Poblacion pob){
         //FALTA CONSIDERAR EL TEMPORIZADOR
         int sinMejora=0;
-        mejorSol=pob.buscarMejor();
+        //mejorSol=pob.buscarMejor();
+        mejorSol=pob.getMejor();
         for(int generacion=0;generacion<this.maxGeneraciones;generacion++){
             Poblacion nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);
-            Solucion mejorActual=pob.buscarMejor();
+            //Solucion mejorActual=pob.buscarMejor();
+            Solucion mejorActual=pob.getMejor();
             if(mejorSol.getFitness()<mejorActual.getFitness()){
                 mejorSol=mejorActual;
                 sinMejora=0;
@@ -157,7 +169,7 @@ public class Memetico {
                 }
             }
         }
-        System.out.println("IMPRIMIENDO MEJOR");
+        System.out.println("MEJOR");
         mejorSol.imprimir();
         return mejorSol;
     }

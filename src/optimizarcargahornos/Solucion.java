@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * @author Natalia Palomares Melgarejo
  */
-public class Solucion {
+public class Solucion implements Comparable<Solucion>{
     final static int N_DEMANDA=10;//rango en el que se calificara la demanda de una pieza
     final static int MAXPRIORIDAD=150;//5(F. de entrega)*3(Importancia del cliente)*10(Rango demanda)
     //Coeficientes de importancia de los factores de la solucion
@@ -22,12 +22,14 @@ public class Solucion {
     double[] pesoV;//peso cargado a cada vagoneta
     double fitness;
     
+    
     public Solucion(){
         prioridadV=new double[Horno.nVagonetas];
         volV=new double[Horno.nVagonetas];
         pesoV=new double[Horno.nVagonetas];
         arregloPiezas=new int[Horno.nVagonetas][Vagoneta.nCompartimentos];
         piezasCol=new int[GestorPiezas.cantidadPiezas];
+        
     }
     public double getFitness(){
         return fitness;
@@ -93,6 +95,7 @@ public class Solucion {
         }
         if(indicesReemplazo.isEmpty()){
             //Si no hay reemplazos posibles, la mutacion falló
+            if(ind==-1) return null;
             return gPiezas.getPieza(ind);
         }
         Random aleatorio = new Random(System.currentTimeMillis());
@@ -101,14 +104,19 @@ public class Solucion {
     }
     public Solucion mutar(int numMutar,GestorPiezas gPiezas,boolean[][] mDimensiones){
         Random aleatorio = new Random(System.currentTimeMillis());
-        for(int i=0;i<numMutar;i++){
+        int i=0;
+        while(i<numMutar){
             int rV=aleatorio.nextInt(Horno.nVagonetas);
             int rC=aleatorio.nextInt(Vagoneta.nCompartimentos);
             int ind=this.getIndPieza(rV,rC);
             //Quito la pieza junto con la prioridad, peso y volumen cargado de la pieza
-            if(ind!=-1) quitarElemento(rV,rC,gPiezas);
+            if(ind!=-1){
+                quitarElemento(rV,rC,gPiezas);
+            }
             Pieza nuevaPieza=buscarReemplazo(ind,rC,mDimensiones,gPiezas);
+            if(nuevaPieza==null) continue;
             agregarElemento(rV,rC,nuevaPieza,gPiezas);
+            i++;
         }
         actualizarFitness();
         return this;
@@ -147,6 +155,7 @@ public class Solucion {
             for(int c=0;c<Vagoneta.nCompartimentos;c++){
                 this.arregloPiezas[v][c]=original.arregloPiezas[v][c];
             }
+            System.arraycopy(original.piezasCol, 0, this.piezasCol, 0, this.piezasCol.length);
         }
     }
     public Solucion mutarLS(int nMutar,GestorPiezas gPiezas,boolean[][] mDimensiones){
@@ -169,5 +178,11 @@ public class Solucion {
             System.out.println(String.format( "[%d]\t%.2f\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
         }
         
+    }
+    @Override
+    public int compareTo(Solucion solComparar) {
+       //  int compareage=((Student)comparestu).getStudentage();
+       double fitnessComparar=solComparar.getFitness();
+       return Double.compare(fitnessComparar, this.fitness);
     }
 }

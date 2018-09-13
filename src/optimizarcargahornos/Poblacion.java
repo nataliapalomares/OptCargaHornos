@@ -1,6 +1,7 @@
 package optimizarcargahornos;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,10 +10,21 @@ import java.util.List;
 public class Poblacion {
     List<Solucion> pob;
     int tamanio;
+    Solucion mejor;
     
     public Poblacion(){
         this.pob=new ArrayList<>();
         this.tamanio=0;
+        this.mejor=null;
+    }
+    public Solucion getMejor(){
+        return this.mejor;
+    }
+    public Solucion getInd(int ind){
+        return this.pob.get(ind);
+    }
+    private void setMejor(Solucion mejor){
+        this.mejor=mejor;
     }
     public Solucion buscarMejor(){
         Solucion mejorActual=null;
@@ -21,6 +33,7 @@ public class Poblacion {
                 mejorActual=solActual;
             }
         }
+        setMejor(mejorActual);
         return mejorActual;
     }
     public int size(){
@@ -29,10 +42,14 @@ public class Poblacion {
     public void add(Solucion sol){
         this.pob.add(sol);
         this.tamanio++;
+        if(tamanio==1 || this.mejor.getFitness()<sol.getFitness()) this.setMejor(sol);
     }
     public void remove(Solucion sol){
         this.pob.remove(sol);
         this.tamanio--;
+    }
+    public void remove(int ind){
+        remove(this.pob.get(ind));
     }
     public double[] preparacionRuleta(){
         double[] rangosRuleta=new double[this.tamanio];
@@ -70,5 +87,8 @@ public class Poblacion {
         int der=rangosRuleta.length-1;
         int indice=ruleta(rangosRuleta,izq,der,r);
         return this.pob.get(indice);
+    }
+    public void ordenar(){
+        Collections.sort(pob);
     }
 }

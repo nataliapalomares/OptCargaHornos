@@ -15,7 +15,7 @@ public class Algoritmos {
     GestorSets gSets;
     GestorProducto gProd; //conjunto de productos
     GestorPiezas gPiezas; //conjunto de piezas
-    List<Pedido> lPedidos;
+    //List<Pedido> lPedidos;
     //ESTRUCTURAS AUXILIARES
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
@@ -27,7 +27,7 @@ public class Algoritmos {
         gSets=new GestorSets();
         gProd=new GestorProducto();
         gPiezas = new GestorPiezas();
-        lPedidos=new ArrayList<>();
+        //lPedidos=new ArrayList<>();
     }
     public Horno datosHorno() {
         String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv";
@@ -58,8 +58,8 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             int cant = 0, tipo = 0,i=0;
@@ -105,8 +105,8 @@ public class Algoritmos {
 
     public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -120,7 +120,7 @@ public class Algoritmos {
                 Pedido pActual=new Pedido(idP,idS,cant,entrega,priorCliente);
                 gSets.addRSet(idS-1, 'P', cant);
                 gSets.addRSet(idS-1, 'R', pActual.calcularPrioridad());
-                lPedidos.add(pActual);
+                //lPedidos.add(pActual);
             }
         } catch (IOException e) {
         }
