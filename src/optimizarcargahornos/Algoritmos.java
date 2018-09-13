@@ -4,8 +4,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -15,7 +13,6 @@ public class Algoritmos {
     GestorSets gSets;
     GestorProducto gProd; //conjunto de productos
     GestorPiezas gPiezas; //conjunto de piezas
-    //List<Pedido> lPedidos;
     //ESTRUCTURAS AUXILIARES
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
