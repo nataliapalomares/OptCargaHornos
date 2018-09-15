@@ -6,26 +6,26 @@ package optimizarcargahornos;
 public class Pieza {
     int id;
     String descripcion;
-    int ancho;//ancho de la pieza en mm
-    int alto;//alto de la pieza en mm
-    int largo;//largo de la pieza en mm
-    double volumen;//volumen de la pieza en cm3
+    double ancho;//ancho de la pieza en m
+    double alto;//alto de la pieza en m
+    double largo;//largo de la pieza en m
+    double volumen;//volumen de la pieza en m3
     double peso; //peso de la pieza en Kg
     
-    public Pieza(int id,String descripcion,int h,int w,int l,double peso){
+    public Pieza(int id,String descripcion,double h,double w,double l,double peso){
         this.id=id;
         this.descripcion=descripcion;
         this.ancho=w;
         this.alto=h;
         this.largo=l;
-        this.volumen=h*w*l/Math.pow(10,3);
+        this.volumen=h*w*l;
         this.peso=peso;
     }
-    public boolean cabeEnCompartimento(int maxDC,int minDC,int medDC){
+    public boolean cabeEnCompartimento(double maxDC,double minDC,double medDC){
         //Hallando que lado es el más grande, más pequeño y mediano de la pieza
-        int maximo=Math.max(this.ancho,Math.max(this.largo,this.alto));
-        int minimo=Math.min(this.ancho,Math.min(this.largo,this.alto));
-        int medio= this.ancho+this.largo+this.alto-maximo-minimo;
+        double maximo=Math.max(this.ancho,Math.max(this.largo,this.alto));
+        double minimo=Math.min(this.ancho,Math.min(this.largo,this.alto));
+        double medio= this.ancho+this.largo+this.alto-maximo-minimo;
         //Comparando cada lado con el compartimento
         return (maximo<=maxDC && minimo<=minDC && medio<=medDC);
     }

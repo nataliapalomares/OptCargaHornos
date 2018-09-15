@@ -35,7 +35,7 @@ public class GestorPiezas {
             case'Q':rPiezas[ind][3]=cant;// PENDIENTES POR HORNEAR
         }
     }
-    public boolean cabeEnCompartimento(int id,int maximoDC,int minimoDC,int medioDC){
+    public boolean cabeEnCompartimento(int id,double maximoDC,double minimoDC,double medioDC){
         return this.lPiezas[id].cabeEnCompartimento(maximoDC, medioDC, medioDC);
     }
     public int calcularFaltante(int ind){

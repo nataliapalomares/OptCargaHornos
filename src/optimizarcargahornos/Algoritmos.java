@@ -43,9 +43,9 @@ public class Algoritmos {
                 //COMPARTIMENTOS
                 linea = line.split(",");
                 int id = Integer.parseInt(linea[0]);
-                int alto = Integer.parseInt(linea[1]);
-                int ancho = Integer.parseInt(linea[2]);
-                int largo = Integer.parseInt(linea[3]);
+                double alto = Double.parseDouble(linea[1]);
+                double ancho = Double.parseDouble(linea[2]);
+                double largo = Double.parseDouble(linea[3]);
                 wagon.agregarCompartimento(id-1, id, ancho, largo, alto);
             }
             wagon.setPorcentVolumen();
@@ -55,8 +55,8 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             int cant = 0, tipo = 0,i=0;
@@ -85,9 +85,9 @@ public class Algoritmos {
                     gProd.add(prodActual,i++);
                 } else {//PIEZA
                     String descripcion = linea[1] + " " + linea[2] + " " + linea[3];
-                    int alto = Integer.parseInt(linea[4]);
-                    int ancho = Integer.parseInt(linea[5]);
-                    int largo = Integer.parseInt(linea[6]);
+                    double alto = Double.parseDouble(linea[4]);
+                    double ancho = Double.parseDouble(linea[5]);
+                    double largo = Double.parseDouble(linea[6]);
                     Double peso = Double.parseDouble(linea[7]);
                     Pieza pActual = new Pieza(Integer.parseInt(linea[0]), descripcion, alto, ancho, largo, peso);
                     gPiezas.addRPiezas(i,'A',Integer.parseInt(linea[8]));//cantidad de piezas terminadas en el almacen
@@ -102,8 +102,8 @@ public class Algoritmos {
 
     public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -127,9 +127,9 @@ public class Algoritmos {
         int cantPiezas=this.gPiezas.size();
         mDimension=new boolean[cantPiezas][Vagoneta.nCompartimentos];
         for(int j=0;j<Vagoneta.nCompartimentos;j++){
-            int maximoDC=Vagoneta.lCompartimentos[j].maximo();
-            int minimoDC=Vagoneta.lCompartimentos[j].minimo();
-            int medioDC=Vagoneta.lCompartimentos[j].medio();
+            double maximoDC=Vagoneta.lCompartimentos[j].maximo();
+            double minimoDC=Vagoneta.lCompartimentos[j].minimo();
+            double medioDC=Vagoneta.lCompartimentos[j].medio();
             for(int i=0;i<cantPiezas;i++){
                 mDimension[i][j] = this.gPiezas.cabeEnCompartimento(i,maximoDC,minimoDC,medioDC);
             }

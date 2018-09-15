@@ -12,7 +12,7 @@ public class Memetico {
     Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
-    final static double T_RECOMBINACION=0.6;
+    final static double T_RECOMBINACION=1;
     final static double T_MUTACION=0.3; //tasa de mutacion
     final static int NPIEZAS_MUTAR_GENERAR=2;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
     final static double PROBABILIDAD_UC=0.5;//probabilidad usada en uniform crossover
@@ -57,7 +57,7 @@ public class Memetico {
     public Poblacion generarNuevaPoblacion(Poblacion pobPadre,int generacion){
         Poblacion nuevaPob=new Poblacion();
         double[] rangosRuleta=pobPadre.preparacionRuleta();
-        int cant=pobPadre.size();
+        int cant=(int)Math.round(pobPadre.size()*T_RECOMBINACION);
         while(cant>0){
             Solucion padre1=pobPadre.ruleta(rangosRuleta);
             Solucion padre2=pobPadre.ruleta(rangosRuleta);
