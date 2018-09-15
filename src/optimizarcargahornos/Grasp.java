@@ -55,12 +55,11 @@ public class Grasp {
                 if (hayPorHornear && pedidosPorCompletar>0) {
                     //Si cabe en el compartimento, se requiere para completar pedidos
                     //y hay piezas pendientes por hornear, es un candidato
-                    double fDemanda = (gPiezas.getpPromedio(i) * 10 * pedidosPorCompletar/ gPiezas.maxFaltantes()) / Solucion.MAXPRIORIDAD;
-                    double fVolumen = gPiezas.getVolumen(i) / wagon.getVolLimite(compartimento);
-                    double fPeso = gPiezas.getPeso(i) / wagon.getPesoLimite(compartimento);
+                    double fDemanda = (gPiezas.getpPromedio(i) * Math.ceil((double)(10 * pedidosPorCompletar)/ gPiezas.maxFaltantes())) / Solucion.MAXPRIORIDAD;
+                    double fVolumen = Math.min(gPiezas.getVolumen(i) / wagon.getVolLimite(compartimento),1);
+                    double fPeso = Math.min(gPiezas.getPeso(i) / wagon.getPesoLimite(compartimento),1);
                     double valor = 100 * (fDemanda * Solucion.COEF_DEMANDA + fVolumen * Solucion.COEF_VOLUMEN + fPeso * Solucion.COEF_PESO);
-                    if (fVolumen < 1 && fPeso < 1) {
-                        //Para asegurarnos de que la solucion no excede el volumen o el peso
+                    //if (fVolumen < 1 && fPeso < 1) {
                         prioridades.add(valor);
                         candidatos.add(gPiezas.getPieza(i));
                         if (valor > maximo) {
@@ -69,7 +68,7 @@ public class Grasp {
                         if (valor < minimo) {
                             minimo = valor;
                         }
-                    }
+                    //}
                 }
             }
         }
@@ -83,6 +82,7 @@ public class Grasp {
         List<Pieza> candidatos = new ArrayList<>();
         while (k < Vagoneta.nCompartimentos) {
             //obtiene piezas que caben en el compartimento
+            
             double limiteInf = actualizarPrioridad(k, prioridades, candidatos, nuevaSol);
             if (!prioridades.isEmpty()) {
                 obtenerRCL(prioridades, candidatos, limiteInf);

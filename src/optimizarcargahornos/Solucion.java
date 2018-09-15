@@ -11,9 +11,9 @@ public class Solucion implements Comparable<Solucion>{
     final static int N_DEMANDA=10;//rango en el que se calificara la demanda de una pieza
     final static int MAXPRIORIDAD=150;//5(F. de entrega)*3(Importancia del cliente)*10(Rango demanda)
     //Coeficientes de importancia de los factores de la solucion
-    final static double COEF_DEMANDA=1;
-    final static double COEF_VOLUMEN=0;
-    final static double COEF_PESO=0;
+    static double COEF_DEMANDA;
+    static double COEF_VOLUMEN;
+    static double COEF_PESO;
     //variables de la solucion particular
     int[][] arregloPiezas;
     int[] piezasCol;
@@ -60,7 +60,7 @@ public class Solucion implements Comparable<Solucion>{
         Pieza piezaActual=gPiezas.getPieza(ind);
         piezasCol[ind]-=1;
         int faltantesActual=gPiezas.faltantes(ind)-piezasCol[ind];
-        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*10*faltantesActual/gPiezas.maxFaltantes);
+        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
         this.pesoV[rV]-=piezaActual.peso;
         this.volV[rV]-=piezaActual.volumen;
         //Se señala que en el compartimento no hay ninguna pieza que no hay ningun elemento
@@ -70,7 +70,7 @@ public class Solucion implements Comparable<Solucion>{
         int ind=nuevaPieza.getId()-1;
         int faltantesActual=gPiezas.faltantes(ind)-piezasCol[ind];
         piezasCol[ind]+=1;
-        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*10*faltantesActual/gPiezas.maxFaltantes);
+        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
         this.pesoV[rV]+=nuevaPieza.peso;
         this.volV[rV]+=nuevaPieza.volumen;
         this.arregloPiezas[rV][rC]=nuevaPieza.getId();
@@ -165,6 +165,11 @@ public class Solucion implements Comparable<Solucion>{
         return nueva.mutar(nMutar,gPiezas,mDimensiones);
     }
     public void imprimir(){
+        for(int j=0;j<Horno.nVagonetas;j++){
+            if(j==0) System.out.print("\t");
+            System.out.print(String.format("[%3d]",j+1));
+        }
+        System.out.print("\n");
         for(int i=0;i<Vagoneta.nCompartimentos;i++){
             System.out.print("["+(i+1)+"]\t");
             for(int j=0;j<Horno.nVagonetas;j++){
@@ -175,7 +180,7 @@ public class Solucion implements Comparable<Solucion>{
         System.out.println("FITNESS: "+fitness);
         System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.println(String.format( "[%d]\t%.2f\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
+            System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
         }
         
     }

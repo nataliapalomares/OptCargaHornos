@@ -20,7 +20,7 @@ public class Compartimento {
         return Math.max(ancho,Math.max(largo,alto));
     }
     public double minimo(){
-        return Math.min(ancho,Math.min(largo,ancho));
+        return Math.min(ancho,Math.min(largo,alto));
     }
     public double medio(){
         return this.ancho+this.largo+this.alto-maximo()-minimo();

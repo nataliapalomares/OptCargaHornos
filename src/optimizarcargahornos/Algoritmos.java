@@ -157,7 +157,10 @@ public class Algoritmos {
                 }
             }
         }
-         
+        double valorCoef=1.0/3;
+        Solucion.COEF_DEMANDA=valorCoef;
+        Solucion.COEF_PESO=valorCoef;
+        Solucion.COEF_VOLUMEN=valorCoef;
     }
     
     public void ejecutar(){
@@ -170,10 +173,10 @@ public class Algoritmos {
         //GRASP-CREACION DE LA POBLACION INICIAL
         Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
         Poblacion pobInicial=graspPobInicial.ejecutar();
-        //pobInicial.getMejor().imprimir();
+        pobInicial.getMejor().imprimir();
         //ALGORITMO MEMETICO
         
-        Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
-        algMemetico.ejecutar(pobInicial);
+        //Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
+        //algMemetico.ejecutar(pobInicial);
     }
 }

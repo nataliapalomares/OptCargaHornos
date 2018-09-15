@@ -36,7 +36,7 @@ public class GestorPiezas {
         }
     }
     public boolean cabeEnCompartimento(int id,double maximoDC,double minimoDC,double medioDC){
-        return this.lPiezas[id].cabeEnCompartimento(maximoDC, medioDC, medioDC);
+        return this.lPiezas[id].cabeEnCompartimento(maximoDC, minimoDC, medioDC);
     }
     public int calcularFaltante(int ind){
         rPiezas[ind][2]=Math.max(rPiezas[ind][0]-rPiezas[ind][1],0);

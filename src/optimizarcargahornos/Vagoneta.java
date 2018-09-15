@@ -12,7 +12,7 @@ public class Vagoneta {
     public Vagoneta(){
         //this.lCompartimentos=new Compartimento[nCompartimentos];
     }
-    public void agregarCompartimento(int i,int id,double w,double h,double l){
+    public void agregarCompartimento(int i,int id,double w,double l,double h){
         lCompartimentos[i]=new Compartimento(id,w,l,h);
         volumenTotalComp+=(w*h*l);//en m3
     }
