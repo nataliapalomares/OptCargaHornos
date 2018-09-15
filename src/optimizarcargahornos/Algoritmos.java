@@ -27,7 +27,8 @@ public class Algoritmos {
         //lPedidos=new ArrayList<>();
     }
     public Horno datosHorno() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\nuevoHorno.csv";
         
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -55,8 +56,8 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             int cant = 0, tipo = 0,i=0;
@@ -102,8 +103,8 @@ public class Algoritmos {
 
     public void cargarPedidos(){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -169,6 +170,7 @@ public class Algoritmos {
         //GRASP-CREACION DE LA POBLACION INICIAL
         Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
         Poblacion pobInicial=graspPobInicial.ejecutar();
+        //pobInicial.getMejor().imprimir();
         //ALGORITMO MEMETICO
         
         Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);

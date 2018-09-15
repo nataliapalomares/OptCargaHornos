@@ -44,6 +44,8 @@ public class Grasp {
     public double actualizarPrioridad(int compartimento, List<Double> prioridades, List<Pieza> candidatos,
             Solucion nuevaSol) {
         Vagoneta wagon = new Vagoneta();
+            prioridades.clear();
+            candidatos.clear();
         double maximo = 0;//MAX
         double minimo = Double.MAX_VALUE;//MIN
         for (int i = 0; i < this.gPiezas.size(); i++) {
@@ -92,10 +94,7 @@ public class Grasp {
             if (w == Horno.nVagonetas || prioridades.isEmpty()) {
                 k++;
                 w = 0;
-                continue;
             }
-            prioridades.clear();
-            candidatos.clear();
         }
         nuevaSol.actualizarFitness();
         return nuevaSol;
