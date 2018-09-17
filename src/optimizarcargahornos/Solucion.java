@@ -1,8 +1,14 @@
 package optimizarcargahornos;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -165,7 +171,7 @@ public class Solucion implements Comparable<Solucion>{
         return nueva.mutar(nMutar,gPiezas,mDimensiones);
     }
     public void imprimir(){
-        for(int j=0;j<Horno.nVagonetas;j++){
+        /*for(int j=0;j<Horno.nVagonetas;j++){
             if(j==0) System.out.print("\t");
             System.out.print(String.format("[%3d]",j+1));
         }
@@ -176,13 +182,20 @@ public class Solucion implements Comparable<Solucion>{
                 System.out.print(String.format("%5d",getIdPieza(j, i)));
             }
             System.out.print("\n");
-        }
-        System.out.println("FITNESS: "+fitness);
-        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
+        }*/
+        System.out.println(fitness);
+        /*System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
+        }*/
+        try(FileWriter fw = new FileWriter("myfile.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println(fitness);
+        } catch (IOException ex) {
+            Logger.getLogger(Solucion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     @Override
     public int compareTo(Solucion solComparar) {

@@ -72,7 +72,8 @@ public class Grasp {
                 }
             }
         }
-        return maximo - this.alpha * (maximo - minimo);
+        return minimo + this.alpha*(maximo-minimo);
+        //return maximo - this.alpha * (maximo - minimo);
     }
 
     public Solucion construirSol() {

@@ -17,8 +17,8 @@ public class Algoritmos {
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
     //Parametros del grasp para generar la poblacion inicial
-    final static int TAM_INICIAL=2;//tamaño poblacion inicial
-    final static double ALF_INICIAL=0.5;
+    final static int TAM_INICIAL=1000;//tamaño poblacion inicial
+    final static double ALF_INICIAL=0.6;
     
     public Algoritmos() {
         gSets=new GestorSets();
@@ -56,7 +56,7 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\800sets_piezas.csv";
         //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
