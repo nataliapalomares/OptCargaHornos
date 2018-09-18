@@ -183,7 +183,7 @@ public class Solucion implements Comparable<Solucion>{
             }
             System.out.print("\n");
         }*/
-        System.out.println(fitness);
+       // System.out.println(fitness);
         /*System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
