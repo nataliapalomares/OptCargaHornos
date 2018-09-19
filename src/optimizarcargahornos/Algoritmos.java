@@ -18,7 +18,7 @@ public class Algoritmos {
     
     //Parametros del grasp para generar la poblacion inicial
     final static int TAM_INICIAL=1000;//tamaño poblacion inicial
-    final static double ALF_INICIAL=0.75;
+    final static double ALF_INICIAL=0.4;
     
     public Algoritmos() {
         gSets=new GestorSets();
@@ -176,7 +176,7 @@ public class Algoritmos {
         pobInicial.getMejor().imprimir();
         //ALGORITMO MEMETICO
         
-        //Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
-        //algMemetico.ejecutar(pobInicial);
+        Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
+        algMemetico.ejecutar(pobInicial);
     }
 }

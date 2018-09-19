@@ -65,7 +65,7 @@ public class Solucion implements Comparable<Solucion>{
         if(ind==-1) return;
         Pieza piezaActual=gPiezas.getPieza(ind);
         piezasCol[ind]-=1;
-        int faltantesActual=gPiezas.faltantes(ind)-piezasCol[ind];
+        int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
         this.pesoV[rV]-=piezaActual.peso;
         this.volV[rV]-=piezaActual.volumen;
@@ -74,7 +74,7 @@ public class Solucion implements Comparable<Solucion>{
     }
     public void agregarElemento(int rV,int rC,Pieza nuevaPieza,GestorPiezas gPiezas){
         int ind=nuevaPieza.getId()-1;
-        int faltantesActual=gPiezas.faltantes(ind)-piezasCol[ind];
+        int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         piezasCol[ind]+=1;
         this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
         this.pesoV[rV]+=nuevaPieza.peso;
@@ -94,9 +94,9 @@ public class Solucion implements Comparable<Solucion>{
         for(int i=0;i<gPiezas.size();i++){
             if(mDimensiones[i][rC] && (i!=ind)){
                 boolean hayPorHornear= piezasCol[i]<gPiezas.pendientes(i);
-                boolean pedidosPorCompletar=piezasCol[i]<gPiezas.faltantes(i);
-                //Si aun hay piezas que se pueden asignar y si aun no se han completado los pedidos
-                if(hayPorHornear && pedidosPorCompletar) indicesReemplazo.add(i);
+                //boolean pedidosPorCompletar=piezasCol[i]<gPiezas.faltantes(i);
+                //Si aun hay piezas que se pueden asignar
+                if(hayPorHornear) indicesReemplazo.add(i);
             }
         }
         if(indicesReemplazo.isEmpty()){
@@ -148,7 +148,7 @@ public class Solucion implements Comparable<Solucion>{
             //Como máximo solo puedo asignar la cantidad de piezass que estan pendientes por hornear
             if(gPieza.pendientes(i)<piezasCol[i]) return false;
             //Solo debo colocar suficientes piezas para completar los pedidos
-            if(gPieza.faltantes(i)<piezasCol[i]) return false;
+            //if(gPieza.faltantes(i)<piezasCol[i]) return false;
         }
         return true;
     }
@@ -171,7 +171,7 @@ public class Solucion implements Comparable<Solucion>{
         return nueva.mutar(nMutar,gPiezas,mDimensiones);
     }
     public void imprimir(){
-        /*for(int j=0;j<Horno.nVagonetas;j++){
+        for(int j=0;j<Horno.nVagonetas;j++){
             if(j==0) System.out.print("\t");
             System.out.print(String.format("[%3d]",j+1));
         }
@@ -182,20 +182,20 @@ public class Solucion implements Comparable<Solucion>{
                 System.out.print(String.format("%5d",getIdPieza(j, i)));
             }
             System.out.print("\n");
-        }*/
-       // System.out.println(fitness);
-        /*System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
+        }
+        System.out.println("FITNESS: "+fitness);
+        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
-        }*/
-        try(FileWriter fw = new FileWriter("myfile.txt", true);
+        }
+        /*try(FileWriter fw = new FileWriter("myfile.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
             out.println(fitness);
         } catch (IOException ex) {
             Logger.getLogger(Solucion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     @Override
     public int compareTo(Solucion solComparar) {

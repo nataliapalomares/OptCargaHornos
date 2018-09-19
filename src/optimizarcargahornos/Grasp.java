@@ -49,25 +49,26 @@ public class Grasp {
         double maximo = 0;//MAX
         double minimo = Double.MAX_VALUE;//MIN
         for (int i = 0; i < this.gPiezas.size(); i++) {
-            if (mDimension[i][compartimento]) {
+            if (mDimension[i][compartimento] && gPiezas.pendientes(i)>0) {
                 boolean hayPorHornear = nuevaSol.getCantColocada(i) < gPiezas.pendientes(i);
-                int pedidosPorCompletar=gPiezas.faltantes(i)-nuevaSol.getCantColocada(i);
-                if (hayPorHornear && pedidosPorCompletar>0) {
-                    //Si cabe en el compartimento, se requiere para completar pedidos
-                    //y hay piezas pendientes por hornear, es un candidato
+                int pedidosPorCompletar=Math.max(gPiezas.faltantes(i)-nuevaSol.getCantColocada(i),0);
+                if (hayPorHornear) {
+                    //Si cabe en el compartimento y hay piezas pendientes por hornear, es un candidato
                     double fDemanda = (gPiezas.getpPromedio(i) * Math.ceil((double)(10 * pedidosPorCompletar)/ gPiezas.maxFaltantes())) / Solucion.MAXPRIORIDAD;
-                    double fVolumen = Math.min(gPiezas.getVolumen(i) / wagon.getVolLimite(compartimento),1);
-                    double fPeso = Math.min(gPiezas.getPeso(i) / wagon.getPesoLimite(compartimento),1);
+                    double fVolumen = Math.min(gPiezas.getVolumen(i) / wagon.getVolLimite(compartimento),1.0);
+                    double fPeso = Math.min(gPiezas.getPeso(i) / wagon.getPesoLimite(compartimento),1.0);
                     double valor = 100 * (fDemanda * Solucion.COEF_DEMANDA + fVolumen * Solucion.COEF_VOLUMEN + fPeso * Solucion.COEF_PESO);
-                    //if (fVolumen < 1 && fPeso < 1) {
-                        prioridades.add(valor);
-                        candidatos.add(gPiezas.getPieza(i));
-                        if (valor > maximo) {
-                            maximo = valor;
-                        }
-                        if (valor < minimo) {
-                            minimo = valor;
-                        }
+                    if (pedidosPorCompletar<1) {
+                        valor=valor/100;
+                    }
+                    prioridades.add(valor);
+                    candidatos.add(gPiezas.getPieza(i));
+                    if (valor > maximo) {
+                        maximo = valor;
+                    }
+                    if (valor < minimo) {
+                        minimo = valor;
+                    }
                     //}
                 }
             }

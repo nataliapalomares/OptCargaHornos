@@ -12,7 +12,7 @@ public class Memetico {
     Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
-    final static double T_RECOMBINACION=1;
+    final static double T_RECOMBINACION=0.4;
     final static double T_MUTACION=0.3; //tasa de mutacion
     final static int NPIEZAS_MUTAR_GENERAR=2;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
     final static double PROBABILIDAD_UC=0.5;//probabilidad usada en uniform crossover
@@ -58,7 +58,7 @@ public class Memetico {
         Poblacion nuevaPob=new Poblacion();
         double[] rangosRuleta=pobPadre.preparacionRuleta();
         int cant=(int)Math.round(pobPadre.size()*T_RECOMBINACION);
-        while(cant>0){
+        for(int i=0;i<cant;i++){
             Solucion padre1=pobPadre.ruleta(rangosRuleta);
             Solucion padre2=pobPadre.ruleta(rangosRuleta);
             Solucion[] hijos=uniform_crossover(padre1,padre2);
@@ -68,15 +68,13 @@ public class Memetico {
                 }
                 if(hijo.valida(this.gPiezas)){
                     nuevaPob.add(hijo);
-                    cant--;
                 }
             }
         }
         //BUSQUEDA LOCAL
         if(generacion%GEN_INTERVALO_LS==0){
-            int i=0;
             double[] rangosRuletaNuevaPob=nuevaPob.preparacionRuleta();
-            while(i<PORC_LS*pobPadre.size()){
+            for(int i=0;i<PORC_LS*pobPadre.size();i++){
                 Solucion actual=nuevaPob.ruleta(rangosRuletaNuevaPob);
                 Solucion mejor=actual;
                 boolean cambio=false;
@@ -90,7 +88,6 @@ public class Memetico {
                 if(cambio){
                     nuevaPob.add(mejor);
                 }
-                i++;
             }
         }
         return nuevaPob;
@@ -107,10 +104,11 @@ public class Memetico {
         //Solucion mejorPadrePob=pobPadre.buscarMejor();
         Poblacion poblacion=new Poblacion();
         for(int i=0;i<cantInd;i++){
-            if(mejorHijoPob.getFitness()>=mejorPadrePob.getFitness()){
+            if(mejorHijoPob!=null && (mejorHijoPob.getFitness()>mejorPadrePob.getFitness())){
                 poblacion.add(mejorHijoPob);
                 pobHijos.remove(mejorHijoPob);
                 if(pobHijos.size()>0) mejorHijoPob=pobHijos.getInd(0);
+                else mejorHijoPob=null;
                 //mejorHijoPob=pobHijos.buscarMejor();
             }
             else{
