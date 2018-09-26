@@ -2,6 +2,8 @@ package optimizarcargahornos;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,8 +19,8 @@ public class Algoritmos {
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
     //Parametros del grasp para generar la poblacion inicial
-    final static int TAM_INICIAL=1000;//tamaño poblacion inicial
-    final static double ALF_INICIAL=0.4;
+    final static int TAM_INICIAL=9500;//tamaño poblacion inicial
+    final static double ALF_INICIAL=0.40;
     
     public Algoritmos() {
         gSets=new GestorSets();
@@ -56,7 +58,7 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\1000sets_piezas.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\700sets_piezas.csv";
         //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -74,7 +76,7 @@ public class Algoritmos {
                                 break;
                         case 3: this.gPiezas.completarIni(cant);
                                 break;
-                    }
+        }
                     continue;
                 } else if (tipo == 1) {//SETS
                     Set setActual = new Set(Integer.parseInt(linea[0]), linea[1], linea[2], Integer.parseInt(linea[3]), linea[4]);
@@ -94,7 +96,7 @@ public class Algoritmos {
                     gPiezas.addRPiezas(i,'A',Integer.parseInt(linea[8]));//cantidad de piezas terminadas en el almacen
                     gPiezas.addRPiezas(i, 'Q',Integer.parseInt(linea[9]));//cantidad pendiente a hornear 
                     gPiezas.add(pActual,i++);
-                }
+    }
                 cant--;
             }
         } catch (IOException e) {
@@ -158,9 +160,9 @@ public class Algoritmos {
             }
         }
         double valorCoef=1.0/3;
-        Solucion.COEF_DEMANDA=valorCoef;
-        Solucion.COEF_PESO=valorCoef;
-        Solucion.COEF_VOLUMEN=valorCoef;
+        SolucionMeme.COEF_DEMANDA=valorCoef;
+        SolucionMeme.COEF_PESO=valorCoef;
+        SolucionMeme.COEF_VOLUMEN=valorCoef;
     }
     
     public void ejecutar(){
@@ -171,12 +173,16 @@ public class Algoritmos {
         //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
         //GRASP-CREACION DE LA POBLACION INICIAL
-        Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-        Poblacion pobInicial=graspPobInicial.ejecutar();
-        pobInicial.getMejor().imprimir();
-        //ALGORITMO MEMETICO
+        for(int i=0;i<5;i++){
+            Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
+            Instant first = Instant.now();
+            PoblacionMeme pobInicial=graspPobInicial.ejecutar();
+            Instant second= Instant.now();
+            Duration duration = Duration.between(first, second);
+            pobInicial.getMejor().imprimir(duration);
+        }//ALGORITMO MEMETICO
         
-        Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
-        algMemetico.ejecutar(pobInicial);
+        //Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
+        //algMemetico.ejecutar(pobInicial);
     }
 }

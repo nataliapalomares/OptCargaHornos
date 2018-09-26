@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,40 +15,67 @@ import java.util.logging.Logger;
  * @author Natalia Palomares Melgarejo
  */
 public class Solucion implements Comparable<Solucion>{
+    //Constantes
     final static int N_DEMANDA=10;//rango en el que se calificara la demanda de una pieza
     final static int MAXPRIORIDAD=150;//5(F. de entrega)*3(Importancia del cliente)*10(Rango demanda)
     //Coeficientes de importancia de los factores de la solucion
     static double COEF_DEMANDA;
     static double COEF_VOLUMEN;
     static double COEF_PESO;
-    //variables de la solucion particular
-    int[][] arregloPiezas;
-    int[] piezasCol;
-    double[] prioridadV;//suma de las prioridades cargadas en la vagoneta
-    double[] volV;//volumen cargado a cada vagoneta
-    double[] pesoV;//peso cargado a cada vagoneta
+    
     double fitness;
     
+    //Estructuras auxiliares
+    int[] piezasCol;
+    double[] prioridadV;
+    double[] pesoV;
+    double[] volV;
     
     public Solucion(){
-        prioridadV=new double[Horno.nVagonetas];
-        volV=new double[Horno.nVagonetas];
-        pesoV=new double[Horno.nVagonetas];
-        arregloPiezas=new int[Horno.nVagonetas][Vagoneta.nCompartimentos];
-        piezasCol=new int[GestorPiezas.cantidadPiezas];
-        
+        this.fitness=0.0;
+        this.prioridadV=new double[Horno.nVagonetas];
+        this.volV=new double[Horno.nVagonetas];
+        this.pesoV=new double[Horno.nVagonetas];
+        this.piezasCol=new int[GestorPiezas.cantidadPiezas];
+    }
+    public double getPrioridadV(int w){
+        return this.prioridadV[w];
+    }
+    public double getPesoV(int w){
+        return this.pesoV[w];
+    }
+    public double getVolV(int w){
+        return this.volV[w];
     }
     public double getFitness(){
-        return fitness;
+        return this.fitness;
     }
-    public int getCantColocada(int ind){
-        return this.piezasCol[ind];
+    public void setPrioridadV(int w,double prioridad){
+        this.prioridadV[w]=prioridad;
     }
-    public int getIdPieza(int v,int c){
-        return this.arregloPiezas[v][c];
+    public void setPesoV(int w, double peso){
+        this.pesoV[w]=peso;
     }
-    public int getIndPieza(int rV,int rC){
-        return this.arregloPiezas[rV][rC]-1;
+    public void setVolV(int w, double volumen){
+        this.volV[w]=volumen;
+    }
+    public void setFitness(double fitness){
+        this.fitness=fitness;
+    }
+    public void agregarElemento(int rV,Pieza nuevaPieza,GestorPiezas gPiezas){
+        int ind=nuevaPieza.getId()-1;
+        int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
+        piezasCol[ind]+=1;
+        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
+        this.pesoV[rV]+=nuevaPieza.peso;
+        this.volV[rV]+=nuevaPieza.volumen;
+    }
+    public void quitarElemento(int rV,int ind,Pieza piezaPorQuitar,GestorPiezas gPiezas){
+        piezasCol[ind]-=1;
+        int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
+        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
+        this.pesoV[rV]-=piezaPorQuitar.peso;
+        this.volV[rV]-=piezaPorQuitar.volumen;
     }
     public void actualizarFitness(){
         //Maxima prioridad que se puede cargar en una vagoneta
@@ -60,41 +88,11 @@ public class Solucion implements Comparable<Solucion>{
         }
         this.fitness=fitnessActual;
     }
-    public void quitarElemento(int rV,int rC,GestorPiezas gPiezas){
-        int ind=getIndPieza(rV,rC);
-        if(ind==-1) return;
-        Pieza piezaActual=gPiezas.getPieza(ind);
-        piezasCol[ind]-=1;
-        int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
-        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        this.pesoV[rV]-=piezaActual.peso;
-        this.volV[rV]-=piezaActual.volumen;
-        //Se señala que en el compartimento no hay ninguna pieza que no hay ningun elemento
-        this.arregloPiezas[rV][rC]=0;//PENDIENTE: -1 o 0 (Determinar)
-    }
-    public void agregarElemento(int rV,int rC,Pieza nuevaPieza,GestorPiezas gPiezas){
-        int ind=nuevaPieza.getId()-1;
-        int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
-        piezasCol[ind]+=1;
-        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        this.pesoV[rV]+=nuevaPieza.peso;
-        this.volV[rV]+=nuevaPieza.volumen;
-        this.arregloPiezas[rV][rC]=nuevaPieza.getId();
-    }
-    public void agregarElemento(int rV,int rC,int ind,GestorPiezas gPiezas){
-        if(ind==-1){
-            this.arregloPiezas[rV][rC]=0;
-            return;
-        }
-        Pieza nuevaPieza=gPiezas.getPieza(ind);
-        this.agregarElemento(rV, rC, nuevaPieza, gPiezas);
-    }
     public Pieza buscarReemplazo(int ind,int rC,boolean[][]mDimensiones,GestorPiezas gPiezas){
         List<Integer> indicesReemplazo=new ArrayList<>();
         for(int i=0;i<gPiezas.size();i++){
             if(mDimensiones[i][rC] && (i!=ind)){
                 boolean hayPorHornear= piezasCol[i]<gPiezas.pendientes(i);
-                //boolean pedidosPorCompletar=piezasCol[i]<gPiezas.faltantes(i);
                 //Si aun hay piezas que se pueden asignar
                 if(hayPorHornear) indicesReemplazo.add(i);
             }
@@ -107,25 +105,6 @@ public class Solucion implements Comparable<Solucion>{
         Random aleatorio = new Random(System.currentTimeMillis());
         int reemplazo=aleatorio.nextInt(indicesReemplazo.size());
         return gPiezas.getPieza(indicesReemplazo.get(reemplazo));
-    }
-    public Solucion mutar(int numMutar,GestorPiezas gPiezas,boolean[][] mDimensiones){
-        Random aleatorio = new Random(System.currentTimeMillis());
-        int i=0;
-        while(i<numMutar){
-            int rV=aleatorio.nextInt(Horno.nVagonetas);
-            int rC=aleatorio.nextInt(Vagoneta.nCompartimentos);
-            int ind=this.getIndPieza(rV,rC);
-            //Quito la pieza junto con la prioridad, peso y volumen cargado de la pieza
-            if(ind!=-1){
-                quitarElemento(rV,rC,gPiezas);
-            }
-            Pieza nuevaPieza=buscarReemplazo(ind,rC,mDimensiones,gPiezas);
-            if(nuevaPieza==null) continue;
-            agregarElemento(rV,rC,nuevaPieza,gPiezas);
-            i++;
-        }
-        actualizarFitness();
-        return this;
     }
     public boolean valida(GestorPiezas gPieza){
         double volTotal=0;
@@ -147,56 +126,10 @@ public class Solucion implements Comparable<Solucion>{
         for(int i=0;i<GestorPiezas.cantidadPiezas;i++){
             //Como máximo solo puedo asignar la cantidad de piezass que estan pendientes por hornear
             if(gPieza.pendientes(i)<piezasCol[i]) return false;
-            //Solo debo colocar suficientes piezas para completar los pedidos
-            //if(gPieza.faltantes(i)<piezasCol[i]) return false;
         }
         return true;
     }
-    public void copiar(Solucion original){
-        this.fitness=original.fitness;
-        for(int v=0;v<Horno.nVagonetas;v++){
-            this.prioridadV[v]=original.prioridadV[v];
-            this.pesoV[v]=original.pesoV[v];
-            this.volV[v]=original.volV[v];
-            for(int c=0;c<Vagoneta.nCompartimentos;c++){
-                this.arregloPiezas[v][c]=original.arregloPiezas[v][c];
-            }
-            System.arraycopy(original.piezasCol, 0, this.piezasCol, 0, this.piezasCol.length);
-        }
-    }
-    public Solucion mutarLS(int nMutar,GestorPiezas gPiezas,boolean[][] mDimensiones){
-        Solucion nueva=new Solucion();
-        nueva.copiar(this);
-        //nueva.imprimir();
-        return nueva.mutar(nMutar,gPiezas,mDimensiones);
-    }
-    public void imprimir(){
-        for(int j=0;j<Horno.nVagonetas;j++){
-            if(j==0) System.out.print("\t");
-            System.out.print(String.format("[%3d]",j+1));
-        }
-        System.out.print("\n");
-        for(int i=0;i<Vagoneta.nCompartimentos;i++){
-            System.out.print("["+(i+1)+"]\t");
-            for(int j=0;j<Horno.nVagonetas;j++){
-                System.out.print(String.format("%5d",getIdPieza(j, i)));
-            }
-            System.out.print("\n");
-        }
-        System.out.println("FITNESS: "+fitness);
-        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
-        for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
-        }
-        /*try(FileWriter fw = new FileWriter("myfile.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw))
-        {
-            out.println(fitness);
-        } catch (IOException ex) {
-            Logger.getLogger(Solucion.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }
+    
     @Override
     public int compareTo(Solucion solComparar) {
        //  int compareage=((Student)comparestu).getStudentage();

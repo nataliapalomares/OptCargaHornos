@@ -8,13 +8,13 @@ public class Memetico {
     int maxSinMejora;
     GestorPiezas gPiezas;
     boolean[][] mDimension;
-    Solucion mejorSol;
+    SolucionMeme mejorSol;
     Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
     final static double T_RECOMBINACION=0.4;
     final static double T_MUTACION=0.3; //tasa de mutacion
-    final static int NPIEZAS_MUTAR_GENERAR=2;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
+    final static int NPIEZAS_MUTAR_GENERAR=1;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
     final static double PROBABILIDAD_UC=0.5;//probabilidad usada en uniform crossover
     //Parametros para la búsqueda local
     final static int GEN_INTERVALO_LS=5;//indica cada cuantas generaciones se hará la busqueda local
@@ -34,10 +34,10 @@ public class Memetico {
         this.graspRestaurar=graspRestaurar;
         this.graspRestaurar.setAlpha(ALF_RESTAURAR);
     }
-    public Solucion[] uniform_crossover(Solucion p1,Solucion p2){
-        Solucion[] hijos=new Solucion[2];
-        hijos[0]=new Solucion();
-        hijos[1]=new Solucion();
+    public SolucionMeme[] uniform_crossover(SolucionMeme p1,SolucionMeme p2){
+        SolucionMeme[] hijos=new SolucionMeme[2];
+        hijos[0]=new SolucionMeme();
+        hijos[1]=new SolucionMeme();
         for(int v=0;v<Horno.nVagonetas;v++){
             for(int c=0;c<Vagoneta.nCompartimentos;c++){
                 if(Math.random()<PROBABILIDAD_UC){
@@ -54,15 +54,15 @@ public class Memetico {
         hijos[1].actualizarFitness();
         return hijos;
     }
-    public Poblacion generarNuevaPoblacion(Poblacion pobPadre,int generacion){
-        Poblacion nuevaPob=new Poblacion();
+    public PoblacionMeme generarNuevaPoblacion(PoblacionMeme pobPadre,int generacion){
+        PoblacionMeme nuevaPob=new PoblacionMeme();
         double[] rangosRuleta=pobPadre.preparacionRuleta();
         int cant=(int)Math.round(pobPadre.size()*T_RECOMBINACION);
         for(int i=0;i<cant;i++){
-            Solucion padre1=pobPadre.ruleta(rangosRuleta);
-            Solucion padre2=pobPadre.ruleta(rangosRuleta);
-            Solucion[] hijos=uniform_crossover(padre1,padre2);
-            for (Solucion hijo : hijos) {
+            SolucionMeme padre1=pobPadre.ruleta(rangosRuleta);
+            SolucionMeme padre2=pobPadre.ruleta(rangosRuleta);
+            SolucionMeme[] hijos=uniform_crossover(padre1,padre2);
+            for (SolucionMeme hijo : hijos) {
                 if(Math.random()<T_MUTACION){
                     hijo.mutar(NPIEZAS_MUTAR_GENERAR,gPiezas,mDimension);
                 }
@@ -75,8 +75,8 @@ public class Memetico {
         if(generacion%GEN_INTERVALO_LS==0){
             double[] rangosRuletaNuevaPob=nuevaPob.preparacionRuleta();
             for(int i=0;i<PORC_LS*pobPadre.size();i++){
-                Solucion actual=nuevaPob.ruleta(rangosRuletaNuevaPob);
-                Solucion mejor=actual;
+                SolucionMeme actual=nuevaPob.ruleta(rangosRuletaNuevaPob);
+                SolucionMeme mejor=actual;
                 boolean cambio=false;
                 for(int j=0;j<VECINOS_LS;j++){
                     actual=actual.mutarLS(NPIEZAS_MUTAR_LS,this.gPiezas,mDimension);
@@ -92,17 +92,15 @@ public class Memetico {
         }
         return nuevaPob;
     }
-    public Poblacion actualizarPoblacion(Poblacion pobHijos,Poblacion pobPadre){
+    public PoblacionMeme actualizarPoblacion(PoblacionMeme pobHijos,PoblacionMeme pobPadre){
         //Funcion que reune las mejores soluciones de las dos poblaciones para formar una nueva poblacion
         int cantInd=pobPadre.size();
         //ORrdenando poblacion padre e hijo
         pobHijos.ordenar();
         pobPadre.ordenar();
-        Solucion mejorHijoPob=pobHijos.getMejor();
-        Solucion mejorPadrePob=pobPadre.getMejor();
-        //Solucion mejorHijoPob=pobHijos.buscarMejor();
-        //Solucion mejorPadrePob=pobPadre.buscarMejor();
-        Poblacion poblacion=new Poblacion();
+        SolucionMeme mejorHijoPob=pobHijos.getMejor();
+        SolucionMeme mejorPadrePob=pobPadre.getMejor();
+        PoblacionMeme poblacion=new PoblacionMeme();
         for(int i=0;i<cantInd;i++){
             if(mejorHijoPob!=null && (mejorHijoPob.getFitness()>mejorPadrePob.getFitness())){
                 poblacion.add(mejorHijoPob);
@@ -121,23 +119,23 @@ public class Memetico {
         //retorna poblacion ordenada
         return poblacion;
     }
-    public Poblacion restaurarPoblacion(Poblacion poblacion){
+    public PoblacionMeme restaurarPoblacion(PoblacionMeme poblacion){
         //Cuando se concluye que la poblacion se ha degenerado se
         //conservaran solo las mejores soluciones y el resto se desechará
         //Luego, para completar la poblacion se generaran soluciones al azar.
-        Poblacion nuevaPob=new Poblacion();
+        PoblacionMeme nuevaPob=new PoblacionMeme();
         int tamanioPob=poblacion.size();
         int cPreservar=(int)Math.round(tamanioPob*PORC_PRESERVAR);
         int i=0;
         while(i<cPreservar){
-            Solucion mejor=poblacion.getInd(0);
+            SolucionMeme mejor=poblacion.getInd(0);
             //Solucion mejor=poblacion.buscarMejor();
             nuevaPob.add(mejor);
             poblacion.remove(mejor);
             i++;
         }
         while(i<tamanioPob){
-            Solucion sol=graspRestaurar.construirSol();
+            SolucionMeme sol=graspRestaurar.construirSol();
             sol.mutar(NPIEZAS_RESTAURAR,this.gPiezas,mDimension);
             if(sol.valida(gPiezas)){
                 nuevaPob.add(sol);
@@ -146,16 +144,16 @@ public class Memetico {
         }
         return nuevaPob;
     }
-    public Solucion ejecutar(Poblacion pob){
+    public SolucionMeme ejecutar(PoblacionMeme pob){
         //FALTA CONSIDERAR EL TEMPORIZADOR
         int sinMejora=0;
         //mejorSol=pob.buscarMejor();
         mejorSol=pob.getMejor();
         for(int generacion=0;generacion<this.maxGeneraciones;generacion++){
-            Poblacion nuevaPop=generarNuevaPoblacion(pob,generacion);
+            PoblacionMeme nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);
             //Solucion mejorActual=pob.buscarMejor();
-            Solucion mejorActual=pob.getMejor();
+            SolucionMeme mejorActual=pob.getMejor();
             if(mejorSol.getFitness()<mejorActual.getFitness()){
                 mejorSol=mejorActual;
                 sinMejora=0;
@@ -168,7 +166,7 @@ public class Memetico {
             }
         }
         System.out.println("MEJOR");
-        mejorSol.imprimir();
+        //mejorSol.imprimir();
         return mejorSol;
     }
 }

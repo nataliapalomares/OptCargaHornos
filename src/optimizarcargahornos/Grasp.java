@@ -42,10 +42,10 @@ public class Grasp {
     }
 
     public double actualizarPrioridad(int compartimento, List<Double> prioridades, List<Pieza> candidatos,
-            Solucion nuevaSol) {
+        SolucionMeme nuevaSol) {
         Vagoneta wagon = new Vagoneta();
-            prioridades.clear();
-            candidatos.clear();
+        prioridades.clear();
+        candidatos.clear();
         double maximo = 0;//MAX
         double minimo = Double.MAX_VALUE;//MIN
         for (int i = 0; i < this.gPiezas.size(); i++) {
@@ -54,10 +54,10 @@ public class Grasp {
                 int pedidosPorCompletar=Math.max(gPiezas.faltantes(i)-nuevaSol.getCantColocada(i),0);
                 if (hayPorHornear) {
                     //Si cabe en el compartimento y hay piezas pendientes por hornear, es un candidato
-                    double fDemanda = (gPiezas.getpPromedio(i) * Math.ceil((double)(10 * pedidosPorCompletar)/ gPiezas.maxFaltantes())) / Solucion.MAXPRIORIDAD;
+                    double fDemanda = (gPiezas.getpPromedio(i) * Math.ceil((double)(10 * pedidosPorCompletar)/ gPiezas.maxFaltantes())) / SolucionMeme.MAXPRIORIDAD;
                     double fVolumen = Math.min(gPiezas.getVolumen(i) / wagon.getVolLimite(compartimento),1.0);
                     double fPeso = Math.min(gPiezas.getPeso(i) / wagon.getPesoLimite(compartimento),1.0);
-                    double valor = 100 * (fDemanda * Solucion.COEF_DEMANDA + fVolumen * Solucion.COEF_VOLUMEN + fPeso * Solucion.COEF_PESO);
+                    double valor = 100 * (fDemanda * SolucionMeme.COEF_DEMANDA + fVolumen * SolucionMeme.COEF_VOLUMEN + fPeso * SolucionMeme.COEF_PESO);
                     if (pedidosPorCompletar<1) {
                         valor=valor/100;
                     }
@@ -76,8 +76,8 @@ public class Grasp {
         return maximo - this.alpha * (maximo - minimo);
     }
 
-    public Solucion construirSol() {
-        Solucion nuevaSol = new Solucion();
+    public SolucionMeme construirSol() {
+        SolucionMeme nuevaSol = new SolucionMeme();
         int k = 0, w = 0;
         List<Double> prioridades = new ArrayList<>();
         List<Pieza> candidatos = new ArrayList<>();
@@ -101,11 +101,11 @@ public class Grasp {
         return nuevaSol;
     }
 
-    public Poblacion ejecutar() {
-        Poblacion pob = new Poblacion();
+    public PoblacionMeme ejecutar() {
+        PoblacionMeme pob = new PoblacionMeme();
         int cant = 0;
         while (cant != tamPoblacion) {
-            Solucion sol = construirSol();
+            SolucionMeme sol = construirSol();
             if (sol.valida(gPiezas)) {
                 //Se descartaran las soluciones no validas
                 pob.add(sol);
