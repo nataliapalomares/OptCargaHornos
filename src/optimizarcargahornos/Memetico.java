@@ -74,7 +74,8 @@ public class Memetico {
         //BUSQUEDA LOCAL
         if(generacion%GEN_INTERVALO_LS==0){
             double[] rangosRuletaNuevaPob=nuevaPob.preparacionRuleta();
-            for(int i=0;i<PORC_LS*pobPadre.size();i++){
+            int aplicacionestLS=(int)Math.round(pobPadre.size()*PORC_LS);
+            for(int i=0;i<aplicacionestLS;i++){
                 SolucionMeme actual=nuevaPob.ruleta(rangosRuletaNuevaPob);
                 SolucionMeme mejor=actual;
                 boolean cambio=false;
@@ -166,7 +167,7 @@ public class Memetico {
             }
         }
         System.out.println("MEJOR");
-        //mejorSol.imprimir();
+        mejorSol.imprimir();
         return mejorSol;
     }
 }

@@ -3,7 +3,6 @@ package optimizarcargahornos;
 import java.util.Random;
 
 /**
- *
  * @author Natalia Palomares Melgarejo
  */
 public class Genetico {
@@ -85,17 +84,16 @@ public class Genetico {
     }
     public PoblacionGen depurarPobGen(PoblacionGen pobGen,int nIndividuos){
         PoblacionGen nuevaPob=new PoblacionGen();
-        int cantConservar=(int)Math.round(pobGen.size()*PORC_PRESERVAR);
+        int cantConservar=(int)Math.round(nIndividuos*PORC_PRESERVAR);
         pobGen.ordenar();
         for(int i=0;i<cantConservar;i++){
             SolucionG mejorPob=pobGen.getInd(0);
             nuevaPob.add(mejorPob);
             pobGen.remove(mejorPob);
         }
-        Random aleatorio = new Random(System.currentTimeMillis());
         for(int i=cantConservar;i<nIndividuos;i++){
             //Se selecciona una solucion de manera aleatoria
-            SolucionG escogido=pobGen.getInd(aleatorio.nextInt(pobGen.tamanio));
+            SolucionG escogido=pobGen.ruleta();
             nuevaPob.add(escogido);
             pobGen.remove(escogido);
         }
@@ -117,6 +115,7 @@ public class Genetico {
             }
             else sinMejora++;
         }
+        this.mejor.imprimir();
         return this.mejor;
     }
 }

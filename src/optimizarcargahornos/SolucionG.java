@@ -39,10 +39,10 @@ public class SolucionG extends Solucion{
             return;
         }
         Pieza nuevaPieza=gPiezas.getPieza(ind);
-        this.agregarElemento(rV, rC, nuevaPieza, gPiezas);
+        agregarElemento(rV, rC, nuevaPieza, gPiezas);
     }
     public void agregarElemento(int rV,int rC,Pieza nuevaPieza,GestorPiezas gPiezas){
-        super.agregarElemento(rV, nuevaPieza, gPiezas);
+        agregarElemento(rV, nuevaPieza, gPiezas);
         this.arregloPiezas[rV*Vagoneta.nCompartimentos+rC]=nuevaPieza.getId();
     }
     public int getIndPieza(int rV,int rC){

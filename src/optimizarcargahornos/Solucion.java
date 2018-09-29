@@ -19,9 +19,9 @@ public class Solucion implements Comparable<Solucion>{
     final static int N_DEMANDA=10;//rango en el que se calificara la demanda de una pieza
     final static int MAXPRIORIDAD=150;//5(F. de entrega)*3(Importancia del cliente)*10(Rango demanda)
     //Coeficientes de importancia de los factores de la solucion
-    static double COEF_DEMANDA;
-    static double COEF_VOLUMEN;
-    static double COEF_PESO;
+    static double COEF_DEMANDA=1.0/3;
+    static double COEF_VOLUMEN=1.0/3;
+    static double COEF_PESO=1.0/3;
     
     double fitness;
     
@@ -66,27 +66,27 @@ public class Solucion implements Comparable<Solucion>{
         int ind=nuevaPieza.getId()-1;
         int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         piezasCol[ind]+=1;
-        this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        this.pesoV[rV]+=nuevaPieza.peso;
-        this.volV[rV]+=nuevaPieza.volumen;
+        prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
+        pesoV[rV]+=nuevaPieza.peso;
+        volV[rV]+=nuevaPieza.volumen;
     }
     public void quitarElemento(int rV,int ind,Pieza piezaPorQuitar,GestorPiezas gPiezas){
         piezasCol[ind]-=1;
         int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
-        this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        this.pesoV[rV]-=piezaPorQuitar.peso;
-        this.volV[rV]-=piezaPorQuitar.volumen;
+        prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
+        pesoV[rV]-=piezaPorQuitar.peso;
+        volV[rV]-=piezaPorQuitar.volumen;
     }
     public void actualizarFitness(){
         //Maxima prioridad que se puede cargar en una vagoneta
         int maxPrioridadW=MAXPRIORIDAD*Vagoneta.nCompartimentos;
         double fitnessActual=0;
         for(int w=0;w<Horno.nVagonetas;w++){
-            fitnessActual+=(COEF_DEMANDA*this.prioridadV[w]/maxPrioridadW);
-            fitnessActual+=(COEF_VOLUMEN*Horno.nVagonetas*this.volV[w]/Horno.volMaximo);
-            fitnessActual+=(COEF_PESO*this.pesoV[w]/Vagoneta.pesoMaximo);
+            fitnessActual+=(COEF_DEMANDA*prioridadV[w]/maxPrioridadW);
+            fitnessActual+=(COEF_VOLUMEN*Horno.nVagonetas*volV[w]/Horno.volMaximo);
+            fitnessActual+=(COEF_PESO*pesoV[w]/Vagoneta.pesoMaximo);
         }
-        this.fitness=fitnessActual;
+        fitness=fitnessActual;
     }
     public Pieza buscarReemplazo(int ind,int rC,boolean[][]mDimensiones,GestorPiezas gPiezas){
         List<Integer> indicesReemplazo=new ArrayList<>();

@@ -19,7 +19,7 @@ public class Algoritmos {
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
     //Parametros del grasp para generar la poblacion inicial
-    final static int TAM_INICIAL=9500;//tamaño poblacion inicial
+    final static int TAM_INICIAL=7500;//tamaño poblacion inicial
     final static double ALF_INICIAL=0.40;
     
     public Algoritmos() {
@@ -58,7 +58,7 @@ public class Algoritmos {
         return null;
     }
     public void cargarDatos() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\700sets_piezas.csv";
+        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
         //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -173,16 +173,20 @@ public class Algoritmos {
         //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
         //GRASP-CREACION DE LA POBLACION INICIAL
-        for(int i=0;i<5;i++){
-            Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-            Instant first = Instant.now();
-            PoblacionMeme pobInicial=graspPobInicial.ejecutar();
-            Instant second= Instant.now();
-            Duration duration = Duration.between(first, second);
-            pobInicial.getMejor().imprimir(duration);
-        }//ALGORITMO MEMETICO
+        Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
+        Instant first = Instant.now();
+        PoblacionMeme pobInicial=graspPobInicial.ejecutar();
+        Instant second= Instant.now();
+        Duration duration = Duration.between(first, second);
+        pobInicial.getMejor().imprimir(duration);
+        //ALGORITMO GENÉTICO
+        Genetico algGenetico=new Genetico(0.5,0.5,1,1,gPiezas,mDimension);
+        algGenetico.ejecutar(pobInicial);
+        //ALGORITMO MEMETICO
         
         //Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
         //algMemetico.ejecutar(pobInicial);
+        
+        
     }
 }

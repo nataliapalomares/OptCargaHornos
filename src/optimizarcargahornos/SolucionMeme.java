@@ -171,7 +171,7 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
         return nueva.mutar(nMutar,gPiezas,mDimensiones);
     }
     public void imprimir(Duration tiempo){
-        /*for(int j=0;j<Horno.nVagonetas;j++){
+        for(int j=0;j<Horno.nVagonetas;j++){
             if(j==0) System.out.print("\t");
             System.out.print(String.format("[%3d]",j+1));
         }
@@ -182,12 +182,12 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
                 System.out.print(String.format("%5d",getIdPieza(j, i)));
             }
             System.out.print("\n");
-        }*/
-        //System.out.println("FITNESS: "+fitness+" \tDURACIÓN: "+tiempo.toMillis());
-        /*System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
+        }
+        System.out.println("FITNESS: "+fitness+" \tDURACIÓN: "+tiempo.toMillis());
+        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
-        }*/
+        }
         try(FileWriter fw = new FileWriter("myfile.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
@@ -195,6 +195,25 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
             out.println(fitness+","+tiempo.toMillis());
         } catch (IOException ex) {
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void imprimir(){
+        for(int j=0;j<Horno.nVagonetas;j++){
+            if(j==0) System.out.print("\t");
+            System.out.print(String.format("[%3d]",j+1));
+        }
+        System.out.print("\n");
+        for(int i=0;i<Vagoneta.nCompartimentos;i++){
+            System.out.print("["+(i+1)+"]\t");
+            for(int j=0;j<Horno.nVagonetas;j++){
+                System.out.print(String.format("%5d",getIdPieza(j, i)));
+            }
+            System.out.print("\n");
+        }
+        System.out.println("FITNESS: "+fitness+" \tDURACIÓN: ");
+        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
+        for(int i=0;i<Horno.nVagonetas;i++){
+            System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
         }
     }
     public double getPrioridadV(int w){
