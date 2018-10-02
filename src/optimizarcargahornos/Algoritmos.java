@@ -174,18 +174,18 @@ public class Algoritmos {
         crearEstructuraAuxiliares();
         //GRASP-CREACION DE LA POBLACION INICIAL
         Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-        Instant first = Instant.now();
+        //Instant first = Instant.now();
         PoblacionMeme pobInicial=graspPobInicial.ejecutar();
-        Instant second= Instant.now();
-        Duration duration = Duration.between(first, second);
-        pobInicial.getMejor().imprimir(duration);
+        //Instant second= Instant.now();
+        //Duration duration = Duration.between(first, second);
+        System.out.println("fin grasp");
         //ALGORITMO GENÉTICO
-        Genetico algGenetico=new Genetico(0.5,0.5,1,1,gPiezas,mDimension);
-        algGenetico.ejecutar(pobInicial);
+        //Genetico algGenetico=new Genetico(0.5,0.5,1,1,gPiezas,mDimension);
+        //algGenetico.ejecutar(pobInicial);
         //ALGORITMO MEMETICO
         
-        //Memetico algMemetico=new Memetico(1,1,gPiezas,mDimension,graspPobInicial);
-        //algMemetico.ejecutar(pobInicial);
+        Memetico algMemetico=new Memetico(1000,100,gPiezas,mDimension,graspPobInicial);
+        algMemetico.ejecutar(pobInicial);
         
         
     }

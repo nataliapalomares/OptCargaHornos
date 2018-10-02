@@ -12,19 +12,19 @@ public class Memetico {
     Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
-    final static double T_RECOMBINACION=0.4;
-    final static double T_MUTACION=0.3; //tasa de mutacion
+    final static double T_RECOMBINACION=0.25;
+    final static double T_MUTACION=0.04; //tasa de mutacion
     final static int NPIEZAS_MUTAR_GENERAR=1;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
     final static double PROBABILIDAD_UC=0.5;//probabilidad usada en uniform crossover
     //Parametros para la búsqueda local
-    final static int GEN_INTERVALO_LS=5;//indica cada cuantas generaciones se hará la busqueda local
-    final static double PORC_LS=0.2;//proporcion de la poblacion a la que se le aplica busqueda local
-    final static int VECINOS_LS=5;//numero de vecino visitados durante la busqueda local
-    final static int NPIEZAS_MUTAR_LS=4;//cantidad de elementos afectados por la mutacion en la bus. local
+    final static int GEN_INTERVALO_LS=1;//indica cada cuantas generaciones se hará la busqueda local
+    final static double PORC_LS=0.05;//proporcion de la poblacion a la que se le aplica busqueda local
+    final static int VECINOS_LS=100;//numero de vecino visitados durante la busqueda local
+    final static int NPIEZAS_MUTAR_LS=1;//cantidad de elementos afectados por la mutacion en la bus. local
     //Parametros Restaurar Poblacion
-    final static double PORC_PRESERVAR=0.2; //porcentaje de la poblacion a preservar
-    final static double ALF_RESTAURAR=0.3;//alfa para seleccionar el RCL
-    final static int NPIEZAS_RESTAURAR=4;//cantidad de elementos a modificar en la solucion
+    final static double PORC_PRESERVAR=0.05; //porcentaje de la poblacion a preservar
+    final static double ALF_RESTAURAR=0.4;//alfa para seleccionar el RCL
+    final static int NPIEZAS_RESTAURAR=1;//cantidad de elementos a modificar en la solucion
     
     public Memetico(int maxG,int maxSM,GestorPiezas gPiezas,boolean[][] mDimension, Grasp graspRestaurar){
         this.maxGeneraciones=maxG;
@@ -135,6 +135,7 @@ public class Memetico {
             poblacion.remove(mejor);
             i++;
         }
+        
         while(i<tamanioPob){
             SolucionMeme sol=graspRestaurar.construirSol();
             sol.mutar(NPIEZAS_RESTAURAR,this.gPiezas,mDimension);
@@ -150,6 +151,7 @@ public class Memetico {
         int sinMejora=0;
         //mejorSol=pob.buscarMejor();
         mejorSol=pob.getMejor();
+        double fitnessGRASP=mejorSol.getFitness();
         for(int generacion=0;generacion<this.maxGeneraciones;generacion++){
             PoblacionMeme nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);
@@ -163,11 +165,12 @@ public class Memetico {
                 sinMejora++;
                 if(sinMejora==this.maxSinMejora){
                     pob=restaurarPoblacion(pob);
+                    sinMejora=0;
                 }
             }
+            if(generacion%100==0) System.out.println(generacion);
         }
-        System.out.println("MEJOR");
-        mejorSol.imprimir();
+        mejorSol.imprimir(fitnessGRASP);
         return mejorSol;
     }
 }
