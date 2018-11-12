@@ -23,26 +23,29 @@ public class GestorSets {
         this.rSets=new int[cant][3];
         this.prioridadProm=new double[cant];
     }
-    public void addRSet(int id,char tipo,int cant){
+    public void addRSet(int ind,char tipo,int cant){
         switch(tipo){
-            case'P':rSets[id][0]+=cant;// PEDIDO
+            case'P':rSets[ind][0]+=cant;// PEDIDO
                 break;
-            case'A':rSets[id][1]=cant;// ALMACEN
+            case'A':rSets[ind][1]=cant;// ALMACEN
                     break;
-            case'R':prioridadProm[id]+=cant;// PRIORIDAD PROMEDIO INICIAL
+            case'R':prioridadProm[ind]+=cant;// PRIORIDAD PROMEDIO INICIAL
         }
     }
-    public double pPromedio(int id){
-        if(rSets[id][0]>0){
-            prioridadProm[id]=prioridadProm[id]/rSets[id][0];
-        }else prioridadProm[id]=0;
-        return prioridadProm[id];
+    public double pPromedio(int ind){
+        if(rSets[ind][0]>0){
+            prioridadProm[ind]=prioridadProm[ind]/rSets[ind][0];
+        }else prioridadProm[ind]=0;
+        return prioridadProm[ind];
     }
-    public int calcularFaltante(int id){
-        rSets[id][2]=Math.max(rSets[id][0]-rSets[id][1],0);
-        return rSets[id][2];
+    public int calcularFaltante(int ind){
+        rSets[ind][2]=Math.max(rSets[ind][0]-rSets[ind][1],0);
+        return rSets[ind][2];
     }
-    public int[] productos(int id){
-        return this.lSets[id].listaProd();
+    public int[] productos(int ind){
+        return this.lSets[ind].listaProd();
+    }
+    public int stock(int ind){
+        return rSets[ind][1];
     }
 }

@@ -12,17 +12,17 @@ public class Memetico {
     Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
-    final static double T_RECOMBINACION=0.25;
-    final static double T_MUTACION=0.04; //tasa de mutacion
+    final static double T_RECOMBINACION=0.65;
+    final static double T_MUTACION=0.06; //tasa de mutacion
     final static int NPIEZAS_MUTAR_GENERAR=1;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
-    final static double PROBABILIDAD_UC=0.5;//probabilidad usada en uniform crossover
+    final static double PROBABILIDAD_UC=0.70;//probabilidad usada en uniform crossover
     //Parametros para la búsqueda local
     final static int GEN_INTERVALO_LS=1;//indica cada cuantas generaciones se hará la busqueda local
     final static double PORC_LS=0.05;//proporcion de la poblacion a la que se le aplica busqueda local
     final static int VECINOS_LS=100;//numero de vecino visitados durante la busqueda local
     final static int NPIEZAS_MUTAR_LS=1;//cantidad de elementos afectados por la mutacion en la bus. local
     //Parametros Restaurar Poblacion
-    final static double PORC_PRESERVAR=0.05; //porcentaje de la poblacion a preservar
+    final static double PORC_PRESERVAR=0.07; //porcentaje de la poblacion a preservar
     final static double ALF_RESTAURAR=0.4;//alfa para seleccionar el RCL
     final static int NPIEZAS_RESTAURAR=1;//cantidad de elementos a modificar en la solucion
     
@@ -152,7 +152,10 @@ public class Memetico {
         //mejorSol=pob.buscarMejor();
         mejorSol=pob.getMejor();
         double fitnessGRASP=mejorSol.getFitness();
-        for(int generacion=0;generacion<this.maxGeneraciones;generacion++){
+        long end=20*60*1000;
+        long start=System.currentTimeMillis();
+        long startCont=start;
+        for(int generacion=0;(System.currentTimeMillis()-start)<end && generacion<this.maxGeneraciones;generacion++){
             PoblacionMeme nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);
             //Solucion mejorActual=pob.buscarMejor();
@@ -168,9 +171,12 @@ public class Memetico {
                     sinMejora=0;
                 }
             }
-            if(generacion%100==0) System.out.println(generacion);
+            if((System.currentTimeMillis()-startCont)-30000>0){
+                mejorSol.imprimir(System.currentTimeMillis()-start,fitnessGRASP);
+                startCont=System.currentTimeMillis();
+            }
         }
-        mejorSol.imprimir(fitnessGRASP);
+        //mejorSol.imprimir(fitnessGRASP);
         return mejorSol;
     }
 }

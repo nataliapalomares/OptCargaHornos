@@ -197,7 +197,7 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void imprimir(double fitnessGRASP){
+    public void imprimir(long startCont,double fitnessGRASP){
         /*for(int j=0;j<Horno.nVagonetas;j++){
             if(j==0) System.out.print("\t");
             System.out.print(String.format("[%3d]",j+1));
@@ -215,11 +215,11 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
         }*/
-        try(FileWriter fw = new FileWriter("recombinacion.txt", true);
+        try(FileWriter fw = new FileWriter("memeticoThread.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
-            out.println(fitnessGRASP+","+fitness);
+            out.println("T: "+startCont+", "+fitnessGRASP+","+fitness);
         } catch (IOException ex) {
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,7 +1,9 @@
 package optimizarcargahornos;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.Date;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -33,5 +35,21 @@ public class Pedido {
             nDias=2;
         else nDias=1;
         return cantidad*pCliente*nDias;
+    }
+    public int idPedido(){
+        return idPedido;
+    }
+    public int idSetPedido(){
+        return idSet;
+    }
+    public int cantidad(){
+        return cantidad;
+    }
+    public int priorCliente(){
+        return pCliente;
+    }
+    public String fechaEntrega(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return fEntrega.format(formatter);
     }
 }

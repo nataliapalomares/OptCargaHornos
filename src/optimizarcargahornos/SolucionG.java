@@ -93,8 +93,8 @@ public class SolucionG extends Solucion{
     public int getIdPieza(int vagon,int comp){
         return this.arregloPiezas[vagon*Vagoneta.nCompartimentos+comp];
     }
-    public void imprimir(){
-        for(int j=0;j<Horno.nVagonetas;j++){
+    public void imprimir(long startCont){
+        /*for(int j=0;j<Horno.nVagonetas;j++){
             if(j==0) System.out.print("\t");
             System.out.print(String.format("[%3d]",j+1));
         }
@@ -110,12 +110,13 @@ public class SolucionG extends Solucion{
         System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
         for(int i=0;i<Horno.nVagonetas;i++){
             System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
-        }
-        try(FileWriter fw = new FileWriter("myfile.txt", true);
+        }*/
+        try(FileWriter fw = new FileWriter("GeneticoThread.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
-            out.println(fitness+",");
+            
+            out.println("T:"+startCont+", "+fitness);
         } catch (IOException ex) {
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
         }

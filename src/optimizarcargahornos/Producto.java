@@ -21,4 +21,16 @@ public class Producto {
     public int[] listaPiezas(){
         return this.lPiezas;
     }
+    public String cadenaPiezas(){
+        String cadena="";
+        for(int i=0;i<nPiezas;i++){
+            if(i>0)cadena=cadena+", ";
+            cadena=cadena+lPiezas[i];
+        }
+        return cadena;
+    }
+    public String[] getDescripcion(){
+        String[] datosDescrip=descripcion.split("/");
+        return datosDescrip;
+    }
 }

@@ -73,4 +73,7 @@ public class GestorPiezas {
     public int faltantes(int ind){
         return rPiezas[ind][2];
     }
+    public int stock(int ind){
+        return rPiezas[ind][1];
+    }
 }

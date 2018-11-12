@@ -38,4 +38,17 @@ public class Pieza {
     public int getId(){
         return this.id;
     }
+    public String[] getDescripcion(){
+        String[] datosDescrip=descripcion.split("/");
+        return datosDescrip;
+    }
+    public double getAlto(){
+        return alto;
+    }
+    public double getAncho(){
+        return ancho;
+    }
+    public double getLargo(){
+        return largo;
+    }
 }

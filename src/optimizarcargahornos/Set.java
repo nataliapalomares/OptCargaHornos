@@ -24,4 +24,12 @@ public class Set {
    public int[] listaProd(){
        return this.lProductos;
    }
+   public String cadenaListaProd(){
+       String cadena="";
+       for(int i=0;i<nProductos;i++){
+           if(i>0) cadena=cadena+", ";
+           cadena=cadena+lProductos[i];
+       }
+       return cadena;
+   }
 }

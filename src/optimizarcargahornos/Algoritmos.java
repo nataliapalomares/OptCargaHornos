@@ -6,6 +6,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -15,6 +17,7 @@ public class Algoritmos {
     GestorSets gSets;
     GestorProducto gProd; //conjunto de productos
     GestorPiezas gPiezas; //conjunto de piezas
+    List<Pedido> lPedidos;
     //ESTRUCTURAS AUXILIARES
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
@@ -23,14 +26,17 @@ public class Algoritmos {
     final static double ALF_INICIAL=0.40;
     
     public Algoritmos() {
+        //inicializarGestoresProd();
+        //lPedidos=new ArrayList<>();
+    }
+    private void inicializarGestoresProd(){
         gSets=new GestorSets();
         gProd=new GestorProducto();
         gPiezas = new GestorPiezas();
-        //lPedidos=new ArrayList<>();
     }
-    public Horno datosHorno() {
+    public int datosHorno(String csvFile) {
         //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv";
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\nuevoHorno.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\nuevoHorno.csv";
         
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -40,7 +46,7 @@ public class Algoritmos {
             double pMaximo = Double.parseDouble(linea[1]);
             int nVagonetas = Integer.parseInt(linea[2]);
             int cantC = Integer.parseInt(linea[3]); //cantidad de compartimentos
-            Horno oven = new Horno(volMaximo, pMaximo, nVagonetas, cantC);
+            oven = new Horno(volMaximo, pMaximo, nVagonetas, cantC);
             Vagoneta wagon = new Vagoneta();
             while ((line = br.readLine()) != null) {
                 //COMPARTIMENTOS
@@ -52,16 +58,19 @@ public class Algoritmos {
                 wagon.agregarCompartimento(id-1, id, ancho, largo, alto);
             }
             wagon.setPorcentVolumen();
-            return oven;
+            return 1;
         } catch (IOException e) {
+            return -1;
+        } catch(Exception e){
+            return -2;
         }
-        return null;
     }
-    public void cargarDatos() {
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\setsPequenio.csv";
+    public int cargarDatos(String csvFile) {
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\150sets_piezas.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            inicializarGestoresProd();
             int cant = 0, tipo = 0,i=0;
             while ((line = br.readLine()) != null) {
                 String[] linea = line.split(",");
@@ -87,7 +96,7 @@ public class Algoritmos {
                     gProd.addRProd(i,'A',Integer.parseInt(linea[4]));
                     gProd.add(prodActual,i++);
                 } else {//PIEZA
-                    String descripcion = linea[1] + " " + linea[2] + " " + linea[3];
+                    String descripcion = linea[1] + "/" + linea[2] + "/" + linea[3];
                     double alto = Double.parseDouble(linea[4]);
                     double ancho = Double.parseDouble(linea[5]);
                     double largo = Double.parseDouble(linea[6]);
@@ -99,16 +108,21 @@ public class Algoritmos {
     }
                 cant--;
             }
-        } catch (IOException e) {
+            return 1; //CARGA EXITOSA
+        }  catch (IOException e) {
+            return -1; //ERROR AL ABRIR EL ARCHIVO
+        } catch(Exception e){
+            return -2; //ERROR: EL ARCHIVO NO TIENE FORMATO ADECUADO
         }
     }
 
-    public void cargarPedidos(){
+    public int cargarPedidos(String csvFile){
         //int idP, int idS, int cant, Date entrega,int priorCliente)
-        String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\pedidosPequenio.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
+        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\pedidos"+j+".csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            lPedidos=new ArrayList<>();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             while ((line = br.readLine()) != null) {
                 String[] linea = line.split(",");
@@ -120,10 +134,15 @@ public class Algoritmos {
                 Pedido pActual=new Pedido(idP,idS,cant,entrega,priorCliente);
                 gSets.addRSet(idS-1, 'P', cant);
                 gSets.addRSet(idS-1, 'R', pActual.calcularPrioridad());
-                //lPedidos.add(pActual);
+                lPedidos.add(pActual);
             }
-        } catch (IOException e) {
+            return 1;
+        }  catch (IOException e) {
+            return -1;
+        } catch(Exception e){
+            return -2;
         }
+        
     }
     public void crearEstructuraAuxiliares(){
         //MATRIZ DE DIMENSIONES
@@ -166,26 +185,38 @@ public class Algoritmos {
     }
     
     public void ejecutar(){
-        //CARGA DE DATOS: horno, productos, pedidos
-        this.oven = datosHorno();
-        cargarDatos();
-        cargarPedidos();
+        //CARGA DE DATOS: horno, productos, pedidos------------------------------
+        datosHorno("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv");
+        cargarDatos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\150sets_piezas.csv");
+        cargarPedidos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv");
         //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
-        //GRASP-CREACION DE LA POBLACION INICIAL
+       
+        //GRASP-CREACION DE LA POBLACION INICIAL----------------------------------
         Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
         //Instant first = Instant.now();
         PoblacionMeme pobInicial=graspPobInicial.ejecutar();
         //Instant second= Instant.now();
         //Duration duration = Duration.between(first, second);
-        System.out.println("fin grasp");
-        //ALGORITMO GENÉTICO
-        //Genetico algGenetico=new Genetico(0.5,0.5,1,1,gPiezas,mDimension);
-        //algGenetico.ejecutar(pobInicial);
-        //ALGORITMO MEMETICO
+
+        //ALGORITMO GENÉTICO----------------------------------------------------
+        Genetico algGenetico=new Genetico(0.65,0.07,5000,500,gPiezas,mDimension);
+        /*Thread threadGen = new Thread(){
+            public void run(){*/
+                algGenetico.ejecutar(pobInicial);
+        /*    }
+        };
+        threadGen.start();
         
-        Memetico algMemetico=new Memetico(1000,100,gPiezas,mDimension,graspPobInicial);
-        algMemetico.ejecutar(pobInicial);
+        //ALGORITMO MEMETICO------------------------------------------------------
+        
+        /*Thread threadMem = new Thread(){
+            public void run(){*/
+                Memetico algMemetico=new Memetico(5000,500,gPiezas,mDimension,graspPobInicial);
+                algMemetico.ejecutar(pobInicial);
+        /*    }
+        };
+        threadMem.start();  */      
         
         
     }

@@ -46,4 +46,7 @@ public class Compartimento {
     public double getVolumenLimite(){
         return this.porcentVolumen*(Horno.volMaximo/Horno.nVagonetas);
     }
+    public int getId(){
+        return this.id;
+    }
 }

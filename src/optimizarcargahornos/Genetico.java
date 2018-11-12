@@ -11,9 +11,9 @@ public class Genetico {
     double tasaMutacion;
     int maxIteraciones;
     int maxSinMejora;
-    final static double PROBABILIDAD_UC=0.5;
+    final static double PROBABILIDAD_UC=0.7;
     final static int NPIEZAS_MUTAR=1;
-    final static double PORC_PRESERVAR=0.5;
+    final static double PORC_PRESERVAR=0.10;
     //Estructuras auxiliares
     GestorPiezas gPiezas;
     boolean[][] mDimension;
@@ -100,11 +100,14 @@ public class Genetico {
         return nuevaPob;
     }
     public SolucionG ejecutar(PoblacionMeme pob){
+        long endG=20*60*1000;
+        long startG=System.currentTimeMillis();
+        long startCont=startG;
         PoblacionGen pobGen=convertirPoblacion(pob);
         this.mejor=pobGen.getMejor();
         int tOriginal=pobGen.size();
         int sinMejora=0;
-        for(int i=0;i<maxIteraciones && sinMejora<maxSinMejora;i++){
+        for(int i=0;(System.currentTimeMillis()-startG)<endG && (i<maxIteraciones) && sinMejora<maxSinMejora;i++){
             casamiento(pobGen);
             mutacion(pobGen);
             pobGen= depurarPobGen(pobGen,tOriginal);
@@ -114,8 +117,12 @@ public class Genetico {
                 sinMejora=0;
             }
             else sinMejora++;
+            if((System.currentTimeMillis()-startCont)-30000>0){
+                startCont=System.currentTimeMillis();
+                mejor.imprimir(System.currentTimeMillis()-startG);
+            }
         }
-        this.mejor.imprimir();
+        //this.mejor.imprimir();
         return this.mejor;
     }
 }

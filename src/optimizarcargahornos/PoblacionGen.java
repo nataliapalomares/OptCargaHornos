@@ -32,10 +32,10 @@ public class PoblacionGen extends Poblacion{
     }
     public double[] preparacionRuleta(){
         double[] rangosRuleta=new double[this.tamanio];
-        double sumaFitness=0;
+        /*double sumaFitness=0;
         for(int i=0;i<this.tamanio;i++){
             sumaFitness+=this.pob.get(i).getFitness();
-        }
+        }*/
         double anterior=0;
         for(int i=0;i<this.tamanio;i++){
             rangosRuleta[i]=anterior+(this.pob.get(i).getFitness()/sumaFitness);
