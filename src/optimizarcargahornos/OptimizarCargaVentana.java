@@ -115,19 +115,19 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         demandLabel = new javax.swing.JLabel();
         weightLabel = new javax.swing.JLabel();
         volumeLabel = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        sliderDemand = new javax.swing.JSlider();
-        sliderWeight = new javax.swing.JSlider();
-        sliderVolume = new javax.swing.JSlider();
         jLabel32 = new javax.swing.JLabel();
-        jSpinner6 = new javax.swing.JSpinner();
+        maxTimeSpinner = new javax.swing.JSpinner();
+        weightSpinner = new javax.swing.JSpinner();
+        volumeSpinner = new javax.swing.JSpinner();
+        jLabel45 = new javax.swing.JLabel();
+        demandSpinner = new javax.swing.JSpinner();
+        equalFactorsCheckBox = new javax.swing.JCheckBox();
+        jSeparator2 = new javax.swing.JSeparator();
         graspVariables = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        pobSizeGraspSpinner = new javax.swing.JSpinner();
         jLabel24 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
+        alphaGraspSpinner = new javax.swing.JSpinner();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -140,11 +140,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jSpinner3 = new javax.swing.JSpinner();
+        intervalGenSpinner = new javax.swing.JSpinner();
         jLabel28 = new javax.swing.JLabel();
-        jSpinner4 = new javax.swing.JSpinner();
+        porcAplicationSpinner = new javax.swing.JSpinner();
         jLabel29 = new javax.swing.JLabel();
-        jSpinner5 = new javax.swing.JSpinner();
+        neighboursVisitSpinner = new javax.swing.JSpinner();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
@@ -155,8 +155,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jSpinner7 = new javax.swing.JSpinner();
-        jButton3 = new javax.swing.JButton();
+        maxIterationSpinner = new javax.swing.JSpinner();
+        restoreButton = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
@@ -167,16 +167,16 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jSpinner8 = new javax.swing.JSpinner();
+        tMutacionGSpinner = new javax.swing.JSpinner();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jSpinner9 = new javax.swing.JSpinner();
+        porcConservarGSpinner = new javax.swing.JSpinner();
         jPanel14 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        jSpinner10 = new javax.swing.JSpinner();
+        maxIterationsGSpinner = new javax.swing.JSpinner();
         jLabel41 = new javax.swing.JLabel();
-        jSpinner11 = new javax.swing.JSpinner();
+        maxIteratNoChangeSpinner = new javax.swing.JSpinner();
         executeButton = new javax.swing.JButton();
         backParametersButton = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -969,44 +969,33 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         clientFactorsPanel.setBackground(new java.awt.Color(255, 255, 255));
         clientFactorsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FACTORES CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        demandLabel.setLabelFor(sliderDemand);
         demandLabel.setText("Demanda");
 
-        weightLabel.setLabelFor(sliderWeight);
         weightLabel.setText("Peso");
 
-        volumeLabel.setLabelFor(sliderVolume);
         volumeLabel.setText("Volumen");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("0.40");
-        jTextField1.setToolTipText("");
-
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField2.setText("0.50");
-        jTextField2.setToolTipText("");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField3.setText("0.20");
-
-        sliderDemand.setBackground(new java.awt.Color(255, 255, 255));
-        sliderDemand.setMinorTickSpacing(10);
-        sliderDemand.setValue(40);
-
-        sliderWeight.setBackground(new java.awt.Color(255, 255, 255));
-        sliderWeight.setValue(30);
-
-        sliderVolume.setBackground(new java.awt.Color(255, 255, 255));
-        sliderVolume.setValue(30);
-
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel32.setText("Tiempo máximo de ejecución (min)");
 
-        jSpinner6.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+        maxTimeSpinner.setModel(new javax.swing.SpinnerNumberModel(5, 1, 20, 1));
+
+        weightSpinner.setModel(new javax.swing.SpinnerNumberModel(0.3d, 0.0d, 1.0d, 0.01d));
+
+        volumeSpinner.setModel(new javax.swing.SpinnerNumberModel(0.03d, 0.0d, 2.0d, 0.01d));
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel45.setText("Factores de priorización");
+
+        demandSpinner.setModel(new javax.swing.SpinnerNumberModel(0.4d, 0.0d, 1.0d, 0.01d));
+
+        equalFactorsCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        equalFactorsCheckBox.setText("Igualar todos los factores de priorización");
+        equalFactorsCheckBox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                equalFactorsCheckBoxStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout clientFactorsPanelLayout = new javax.swing.GroupLayout(clientFactorsPanel);
         clientFactorsPanel.setLayout(clientFactorsPanelLayout);
@@ -1015,53 +1004,50 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             .addGroup(clientFactorsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(clientFactorsPanelLayout.createSequentialGroup()
-                        .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(demandLabel)
-                            .addComponent(weightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(volumeLabel))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(clientFactorsPanelLayout.createSequentialGroup()
-                                .addComponent(sliderVolume, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clientFactorsPanelLayout.createSequentialGroup()
-                                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(sliderWeight, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                    .addComponent(sliderDemand, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1)))))
+                    .addComponent(jSeparator2)
                     .addGroup(clientFactorsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel32)
+                        .addGap(18, 28, Short.MAX_VALUE)
+                        .addComponent(maxTimeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel45)
+                    .addGroup(clientFactorsPanelLayout.createSequentialGroup()
+                        .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(demandSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(demandLabel))
+                        .addGap(41, 41, 41)
+                        .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(weightSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(weightLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(volumeLabel)
+                            .addComponent(volumeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(equalFactorsCheckBox))
                 .addContainerGap())
         );
         clientFactorsPanelLayout.setVerticalGroup(
             clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(clientFactorsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(sliderDemand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(demandLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(weightLabel)
+                    .addComponent(volumeLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(demandSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(volumeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(weightLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sliderWeight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
+                .addComponent(equalFactorsCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(sliderVolume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(volumeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(clientFactorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
-                    .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxTimeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1070,11 +1056,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel23.setText("Tamaño de población");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(7500, 500, 7500, 500));
+        pobSizeGraspSpinner.setModel(new javax.swing.SpinnerNumberModel(7500, 500, 7500, 500));
 
         jLabel24.setText("Alfa");
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0.4d, 0.0d, 1.0d, 0.01d));
+        alphaGraspSpinner.setModel(new javax.swing.SpinnerNumberModel(0.4d, 0.0d, 1.0d, 0.01d));
 
         javax.swing.GroupLayout graspVariablesLayout = new javax.swing.GroupLayout(graspVariables);
         graspVariables.setLayout(graspVariablesLayout);
@@ -1087,8 +1073,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(graspVariablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                    .addComponent(jSpinner2))
+                    .addComponent(pobSizeGraspSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                    .addComponent(alphaGraspSpinner))
                 .addContainerGap())
         );
         graspVariablesLayout.setVerticalGroup(
@@ -1097,10 +1083,10 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(graspVariablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pobSizeGraspSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(graspVariablesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(alphaGraspSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
@@ -1182,15 +1168,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel27.setText("Intervalo de generaciones");
 
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+        intervalGenSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
         jLabel28.setText("% aplicación");
 
-        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(0.05d, 0.0d, 0.13d, 0.01d));
+        porcAplicationSpinner.setModel(new javax.swing.SpinnerNumberModel(0.05d, 0.0d, 0.13d, 0.01d));
 
         jLabel29.setText("Vecinos visitados por búsqueda");
 
-        jSpinner5.setModel(new javax.swing.SpinnerNumberModel(100, 0, 200, 1));
+        neighboursVisitSpinner.setModel(new javax.swing.SpinnerNumberModel(100, 0, 200, 1));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1206,11 +1192,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                             .addComponent(jLabel27)
                             .addComponent(jLabel28)
                             .addComponent(jLabel29))
-                        .addGap(45, 45, 45)
+                        .addGap(67, 67, 67)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner3)
-                            .addComponent(jSpinner4, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                            .addComponent(jSpinner5))))
+                            .addComponent(intervalGenSpinner)
+                            .addComponent(porcAplicationSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                            .addComponent(neighboursVisitSpinner))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -1221,15 +1207,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(intervalGenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(porcAplicationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(neighboursVisitSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1292,7 +1278,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel33.setText("Máx. de iteraciones");
 
-        jSpinner7.setModel(new javax.swing.SpinnerNumberModel(1000, 10, 10000, 10));
+        maxIterationSpinner.setModel(new javax.swing.SpinnerNumberModel(1000, 10, 10000, 10));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1306,7 +1292,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSpinner7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(maxIterationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -1317,7 +1303,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
-                    .addComponent(jSpinner7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxIterationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1333,13 +1319,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1358,7 +1343,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton3.setText("Restaurar valores");
+        restoreButton.setText("Restaurar valores");
+        restoreButton.setToolTipText("Regresar a valores predeterminados");
+        restoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                restoreButtonMouseClicked(evt);
+            }
+        });
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GENÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -1420,14 +1411,14 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel36.setText("Tasa de mutación");
 
-        jSpinner8.setModel(new javax.swing.SpinnerNumberModel(0.07d, 0.01d, 0.13d, 0.01d));
+        tMutacionGSpinner.setModel(new javax.swing.SpinnerNumberModel(0.07d, 0.01d, 0.13d, 0.01d));
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel37.setText("Depuración de la población");
 
         jLabel38.setText("% a conservar");
 
-        jSpinner9.setModel(new javax.swing.SpinnerNumberModel(0.1d, 0.01d, 0.1d, 0.01d));
+        porcConservarGSpinner.setModel(new javax.swing.SpinnerNumberModel(0.1d, 0.01d, 0.1d, 0.01d));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1448,8 +1439,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                             .addComponent(jLabel38))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner9)
-                            .addComponent(jSpinner8, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))
+                            .addComponent(porcConservarGSpinner)
+                            .addComponent(tMutacionGSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -1460,13 +1451,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
-                    .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tMutacionGSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
-                    .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(porcConservarGSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1477,11 +1468,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel40.setText("Máx. de iteraciones");
 
-        jSpinner10.setModel(new javax.swing.SpinnerNumberModel(1000, 10, 10000, 10));
+        maxIterationsGSpinner.setModel(new javax.swing.SpinnerNumberModel(1000, 10, 10000, 10));
 
         jLabel41.setText("Máx. iteraciones sin mejoras");
 
-        jSpinner11.setModel(new javax.swing.SpinnerNumberModel(500, 10, 1000, 10));
+        maxIteratNoChangeSpinner.setModel(new javax.swing.SpinnerNumberModel(500, 10, 1000, 10));
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1500,8 +1491,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                             .addComponent(jLabel41))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner11)
-                            .addComponent(jSpinner10, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))
+                            .addComponent(maxIteratNoChangeSpinner)
+                            .addComponent(maxIterationsGSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -1512,11 +1503,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
-                    .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxIterationsGSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
-                    .addComponent(jSpinner11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxIteratNoChangeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1570,20 +1561,21 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(confParametrosLayout.createSequentialGroup()
-                            .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(clientFactorsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(graspVariables, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                            .addGap(483, 483, 483)
+                            .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(confParametrosLayout.createSequentialGroup()
                             .addComponent(backParametersButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(executeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(executeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, confParametrosLayout.createSequentialGroup()
+                            .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(clientFactorsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(graspVariables, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         confParametrosLayout.setVerticalGroup(
             confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1591,13 +1583,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(restoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(confParametrosLayout.createSequentialGroup()
                         .addComponent(clientFactorsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(graspVariables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2214,11 +2206,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         card.show(ventanaContenedora, "inicio");
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void nextCargaButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextCargaButtonMouseClicked
         // TODO add your handling code here:
         if(datosHorno && datosSets && datosPedidos){
@@ -2235,8 +2222,16 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
     private void executeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_executeButtonMouseClicked
         // TODO add your handling code here:
-        CardLayout card = (CardLayout)ventanaContenedora.getLayout();
-        card.show(ventanaContenedora, "resultadosPiezas");
+        double peso=(double)weightSpinner.getValue();
+        double volumen=(double)volumeSpinner.getValue();
+        double demanda=(double)demandSpinner.getValue();
+        if(equalFactorsCheckBox.isSelected() || ((peso+volumen+demanda)==1)){
+            CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+            card.show(ventanaContenedora, "resultadosPiezas");
+        }
+        else{
+            mostrarMensaje(-3);
+        }
     }//GEN-LAST:event_executeButtonMouseClicked
 
     private void setsAtendidosRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_setsAtendidosRadioButtonStateChanged
@@ -2356,6 +2351,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         switch (resultado) {
             case 1:
                 mensaje="Se cargo el archivo exitosamente.";
+                titulo="Carga exitosa";
                 if(!datosHorno || !datosSets || !datosPedidos){
                     mensaje=mensaje+"\nPendiente por cargar: ";
                     String pendientes="";
@@ -2368,15 +2364,17 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                         if(pendientes.length()>0) pendientes=pendientes+", ";
                         pendientes=pendientes+"Pedidos";
                     }
-                    mensaje=mensaje+pendientes;
-                    titulo="Carga exitosa";
+                    mensaje=mensaje+pendientes;                    
                 }
                 break;
             case -1:
                 mensaje="No se pudo abrir el archivo";
                 break;
-            default:
+            case -2:
                 mensaje="El archivo no tiene el formato correcto";
+                break;
+            default:
+                mensaje="Los factores de priorización deben sumar 1";
                 break;
         }
         JOptionPane.showMessageDialog(rootPane, mensaje,                        
@@ -2422,6 +2420,74 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadFileDataButtonMouseClicked
 
+    private void restoreButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restoreButtonMouseClicked
+        
+        //Boton que regresa todos los campos a su valor predeterminado
+        
+        //Factores cliente
+        equalFactorsCheckBox.setSelected(true);
+        /*double factor=1.0/3.0;
+        demandSpinner.setValue(factor);
+        weightSpinner.setValue(factor);
+        volumeSpinner.setValue(factor);*/
+        maxTimeSpinner.setValue(5); //                  Tiempo maximo de ejecucion
+        
+        //Parametros del GRASP--------------------------------------------------
+        pobSizeGraspSpinner.setValue(7500); //          Tamaño de la poblacion
+        alphaGraspSpinner.setValue(0.4); //             Alfa
+        
+        //Parametros del Memetico-----------------------------------------------
+        //-*Generacion de una nueva poblacion
+        tasaRecombSpinner.setValue(0.65); //            Tasa de recombinacion
+        probRecombSpinner.setValue(0.7); //             Probabilidad usada en la recombinacion uniforme
+        tasaMutSpinner.setValue(0.06); //               Tasa de mutacion        
+        //-*Busqueda local
+        intervalGenSpinner.setValue(1); //              Intervalo de generaciones
+        porcAplicationSpinner.setValue(0.05);//         Porcentaje de aplicacion
+        neighboursVisitSpinner.setValue(100);//         Vecinos visitados x busqueda        
+        //-*Restauracion de la poblacion
+        maxSinMejoraSpinner.setValue(500);//            Maximo de iteraciones sin mejora
+        porcConservarSpinner.setValue(0.07);//          Porcentaje de soluciones a conservar        
+        //-*Condiciones de parada
+        maxIterationSpinner.setValue(1000);//           Maximo numero de iteraciones
+        
+        //Parametros del Genetico-----------------------------------------------
+        //-*Casamiento
+        tCasamientoSpinner.setValue(0.65);//            Tasa de casamiento
+        pRecombGSpinner.setValue(0.7);//                Probabilidad usada en la recombinacion uniforme
+        //-*Mutacion
+        tMutacionGSpinner.setValue(0.07);//             Tasa de mutacion
+        //-*Depuracion de la poblacion
+        porcConservarGSpinner.setValue(0.1);//          Porcentaje de soluciones a conservar
+        //-*Condiciones de parada
+        maxIterationsGSpinner.setValue(1000);//         Maximo numero de iteraciones
+        maxIteratNoChangeSpinner.setValue(500);//       Maximo de iteraciones sin mejora
+    }//GEN-LAST:event_restoreButtonMouseClicked
+
+    private void equalFactorsCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_equalFactorsCheckBoxStateChanged
+        // TODO add your handling code here:
+        if(equalFactorsCheckBox.isSelected()){
+            double factor=1.0/3.0;
+            //Colocar el valor en los spinners
+            demandSpinner.setValue(factor);
+            weightSpinner.setValue(factor);
+            volumeSpinner.setValue(factor);
+            //Bloquear los spinners
+            demandSpinner.setEnabled(false);
+            weightSpinner.setEnabled(false);
+            volumeSpinner.setEnabled(false);
+        }
+        else{
+            demandSpinner.setValue(0.4);
+            weightSpinner.setValue(0.3);
+            volumeSpinner.setValue(0.3);
+            //Desbloquear los spinners
+            demandSpinner.setEnabled(true);
+            weightSpinner.setEnabled(true);
+            volumeSpinner.setEnabled(true);
+        }
+    }//GEN-LAST:event_equalFactorsCheckBoxStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2460,19 +2526,22 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Pasos;
     private javax.swing.JPanel TituloInicio;
+    private javax.swing.JSpinner alphaGraspSpinner;
     private javax.swing.JButton backParametersButton;
     private javax.swing.JPanel cargarDatos;
     private javax.swing.JPanel clientFactorsPanel;
     private javax.swing.JTable compartmentsTable;
     private javax.swing.JPanel confParametros;
     private javax.swing.JLabel demandLabel;
+    private javax.swing.JSpinner demandSpinner;
+    private javax.swing.JCheckBox equalFactorsCheckBox;
     private javax.swing.JButton examinateFile;
     private javax.swing.JButton executeButton;
     private javax.swing.JTextField fileName;
     private javax.swing.JPanel graspVariables;
     private javax.swing.JPanel inicio;
+    private javax.swing.JSpinner intervalGenSpinner;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2512,6 +2581,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
@@ -2558,29 +2628,17 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner10;
-    private javax.swing.JSpinner jSpinner11;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JSpinner jSpinner4;
-    private javax.swing.JSpinner jSpinner5;
-    private javax.swing.JSpinner jSpinner6;
-    private javax.swing.JSpinner jSpinner7;
-    private javax.swing.JSpinner jSpinner8;
-    private javax.swing.JSpinner jSpinner9;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable11;
     private javax.swing.JTable jTable12;
     private javax.swing.JTable jTable9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
@@ -2589,12 +2647,16 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField26;
     private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JButton loadFileDataButton;
+    private javax.swing.JSpinner maxIteratNoChangeSpinner;
+    private javax.swing.JSpinner maxIterationSpinner;
+    private javax.swing.JSpinner maxIterationsGSpinner;
     private javax.swing.JLabel maxSinMejoraLabel;
     private javax.swing.JSpinner maxSinMejoraSpinner;
+    private javax.swing.JSpinner maxTimeSpinner;
     private javax.swing.JTextField maxVolume;
     private javax.swing.JTextField maxWeight;
+    private javax.swing.JSpinner neighboursVisitSpinner;
     private javax.swing.JButton nextCargaButton;
     private javax.swing.JTextField numberCompartments;
     private javax.swing.JTextField numberWagons;
@@ -2607,23 +2669,25 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel panelTablas;
     private javax.swing.JTable piecesTable;
     private javax.swing.JRadioButton piezasRadioButton;
+    private javax.swing.JSpinner pobSizeGraspSpinner;
+    private javax.swing.JSpinner porcAplicationSpinner;
+    private javax.swing.JSpinner porcConservarGSpinner;
     private javax.swing.JLabel porcConservarLabel;
     private javax.swing.JSpinner porcConservarSpinner;
     private javax.swing.JLabel probRecombLabel;
     private javax.swing.JSpinner probRecombSpinner;
     private javax.swing.JTable productosTable;
+    private javax.swing.JButton restoreButton;
     private javax.swing.JPanel resultPiezasAtendPanel;
     private javax.swing.JPanel resultSetAtendidosPanel;
     private javax.swing.JToggleButton resultadosBackButton;
     private javax.swing.JPanel resultadosPiezas;
     private javax.swing.JRadioButton setsAtendidosRadioButton;
     private javax.swing.JTable setsTable;
-    private javax.swing.JSlider sliderDemand;
-    private javax.swing.JSlider sliderVolume;
-    private javax.swing.JSlider sliderWeight;
     private javax.swing.JButton startButton;
     private javax.swing.JLabel tCasamientoLabel;
     private javax.swing.JSpinner tCasamientoSpinner;
+    private javax.swing.JSpinner tMutacionGSpinner;
     private javax.swing.JScrollPane tableCompartments;
     private javax.swing.JTable tablePedidos;
     private javax.swing.JScrollPane tablePiezas;
@@ -2641,6 +2705,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.ButtonGroup vistaResultados;
     private javax.swing.ButtonGroup vistaSets;
     private javax.swing.JLabel volumeLabel;
+    private javax.swing.JSpinner volumeSpinner;
     private javax.swing.JLabel weightLabel;
+    private javax.swing.JSpinner weightSpinner;
     // End of variables declaration//GEN-END:variables
 }

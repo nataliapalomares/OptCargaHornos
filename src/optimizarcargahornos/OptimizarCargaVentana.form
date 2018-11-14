@@ -1384,26 +1384,27 @@
                               <Component id="jProgressBar1" alignment="1" max="32767" attributes="0"/>
                               <Component id="jPanel11" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel22" max="32767" attributes="0"/>
-                                      <Component id="clientFactorsPanel" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="graspVariables" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton3" min="-2" pref="147" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel22" pref="370" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="483" max="-2" attributes="0"/>
+                                  <Component id="restoreButton" min="-2" pref="147" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="backParametersButton" min="-2" pref="123" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="executeButton" min="-2" pref="123" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="clientFactorsPanel" max="32767" attributes="0"/>
+                                      <Component id="graspVariables" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jPanel6" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="jLabel42" min="-2" pref="155" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1413,14 +1414,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="restoreButton" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Component id="clientFactorsPanel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="graspVariables" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1469,40 +1470,33 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="demandLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="weightLabel" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <Component id="volumeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="sliderVolume" pref="165" max="32767" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jTextField3" min="-2" pref="59" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="sliderWeight" pref="165" max="32767" attributes="0"/>
-                                              <Component id="sliderDemand" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTextField2" min="-2" pref="59" max="-2" attributes="0"/>
-                                              <Component id="jTextField1" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
+                              <Component id="jSeparator2" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jSpinner6" min="-2" pref="59" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" pref="28" max="32767" attributes="0"/>
+                                  <Component id="maxTimeSpinner" min="-2" pref="73" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jLabel45" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="demandSpinner" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="demandLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="weightSpinner" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="weightLabel" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="volumeLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="volumeSpinner" min="-2" pref="73" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="equalFactorsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1511,28 +1505,28 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="sliderDemand" max="32767" attributes="0"/>
-                              <Component id="demandLabel" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="demandLabel" alignment="3" max="32767" attributes="0"/>
+                              <Component id="weightLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="volumeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="weightLabel" max="32767" attributes="0"/>
-                              <Component id="sliderWeight" max="32767" attributes="0"/>
-                              <Component id="jTextField2" alignment="1" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="demandSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="weightSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="volumeSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="sliderVolume" max="32767" attributes="0"/>
-                              <Component id="volumeLabel" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jTextField3" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <Component id="equalFactorsCheckBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="maxTimeSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1543,7 +1537,7 @@
                 <Component class="javax.swing.JLabel" name="demandLabel">
                   <Properties>
                     <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="sliderDemand"/>
+                      <ComponentRef name="default"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Demanda"/>
                   </Properties>
@@ -1551,7 +1545,7 @@
                 <Component class="javax.swing.JLabel" name="weightLabel">
                   <Properties>
                     <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="sliderWeight"/>
+                      <ComponentRef name="default"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Peso"/>
                   </Properties>
@@ -1559,70 +1553,67 @@
                 <Component class="javax.swing.JLabel" name="volumeLabel">
                   <Properties>
                     <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="sliderVolume"/>
+                      <ComponentRef name="default"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Volumen"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.40"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.50"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextField3">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.20"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSlider" name="sliderDemand">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="minorTickSpacing" type="int" value="10"/>
-                    <Property name="value" type="int" value="40"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSlider" name="sliderWeight">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="value" type="int" value="30"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JSlider" name="sliderVolume">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="value" type="int" value="30"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel32">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Tiempo m&#xe1;ximo de ejecuci&#xf3;n (min)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner6">
+                <Component class="javax.swing.JSpinner" name="maxTimeSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="1" maximum="20" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="5" maximum="20" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="weightSpinner">
+                  <Properties>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="0.3" maximum="1.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="volumeSpinner">
+                  <Properties>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="0.03" maximum="2.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel45">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Factores de priorizaci&#xf3;n"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="demandSpinner">
+                  <Properties>
+                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                      <SpinnerModel initial="0.4" maximum="1.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="equalFactorsCheckBox">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Igualar todos los factores de priorizaci&#xf3;n"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="equalFactorsCheckBoxStateChanged"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JSeparator" name="jSeparator2">
                 </Component>
               </SubComponents>
             </Container>
@@ -1651,8 +1642,8 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jSpinner1" pref="72" max="32767" attributes="0"/>
-                              <Component id="jSpinner2" max="32767" attributes="0"/>
+                              <Component id="pobSizeGraspSpinner" pref="72" max="32767" attributes="0"/>
+                              <Component id="alphaGraspSpinner" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1664,11 +1655,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pobSizeGraspSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jSpinner2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="alphaGraspSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
@@ -1682,7 +1673,7 @@
                     <Property name="text" type="java.lang.String" value="Tama&#xf1;o de poblaci&#xf3;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner1">
+                <Component class="javax.swing.JSpinner" name="pobSizeGraspSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="7500" maximum="7500" minimum="500" numberType="java.lang.Integer" stepSize="500" type="number"/>
@@ -1694,7 +1685,7 @@
                     <Property name="text" type="java.lang.String" value="Alfa"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner2">
+                <Component class="javax.swing.JSpinner" name="alphaGraspSpinner">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="0.4" maximum="1.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
@@ -1729,14 +1720,13 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jPanel8" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jPanel10" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1909,11 +1899,11 @@
                                           <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSpinner3" max="32767" attributes="0"/>
-                                          <Component id="jSpinner4" pref="72" max="32767" attributes="0"/>
-                                          <Component id="jSpinner5" max="32767" attributes="0"/>
+                                          <Component id="intervalGenSpinner" max="32767" attributes="0"/>
+                                          <Component id="porcAplicationSpinner" pref="72" max="32767" attributes="0"/>
+                                          <Component id="neighboursVisitSpinner" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1929,17 +1919,17 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="intervalGenSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="porcAplicationSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="neighboursVisitSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -1960,7 +1950,7 @@
                         <Property name="text" type="java.lang.String" value="Intervalo de generaciones"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner3">
+                    <Component class="javax.swing.JSpinner" name="intervalGenSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="1" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
@@ -1972,7 +1962,7 @@
                         <Property name="text" type="java.lang.String" value="% aplicaci&#xf3;n"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner4">
+                    <Component class="javax.swing.JSpinner" name="porcAplicationSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0.05" maximum="0.13" minimum="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
@@ -1984,7 +1974,7 @@
                         <Property name="text" type="java.lang.String" value="Vecinos visitados por b&#xfa;squeda"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner5">
+                    <Component class="javax.swing.JSpinner" name="neighboursVisitSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="100" maximum="200" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
@@ -2108,7 +2098,7 @@
                                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                       <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jSpinner7" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="maxIterationSpinner" min="-2" pref="73" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2123,7 +2113,7 @@
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="maxIterationSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -2144,7 +2134,7 @@
                         <Property name="text" type="java.lang.String" value="M&#xe1;x. de iteraciones"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner7">
+                    <Component class="javax.swing.JSpinner" name="maxIterationSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="1000" maximum="10000" minimum="10" numberType="java.lang.Integer" stepSize="10" type="number"/>
@@ -2155,10 +2145,14 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="restoreButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Restaurar valores"/>
+                <Property name="toolTipText" type="java.lang.String" value="Regresar a valores predeterminados"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="restoreButtonMouseClicked"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel11">
               <Properties>
@@ -2322,8 +2316,8 @@
                                       </Group>
                                       <EmptySpace pref="99" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSpinner9" max="32767" attributes="0"/>
-                                          <Component id="jSpinner8" pref="72" max="32767" attributes="0"/>
+                                          <Component id="porcConservarGSpinner" max="32767" attributes="0"/>
+                                          <Component id="tMutacionGSpinner" pref="72" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -2339,14 +2333,14 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tMutacionGSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="porcConservarGSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -2367,7 +2361,7 @@
                         <Property name="text" type="java.lang.String" value="Tasa de mutaci&#xf3;n"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner8">
+                    <Component class="javax.swing.JSpinner" name="tMutacionGSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0.07" maximum="0.13" minimum="0.01" numberType="java.lang.Double" stepSize="0.01" type="number"/>
@@ -2387,7 +2381,7 @@
                         <Property name="text" type="java.lang.String" value="% a conservar"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner9">
+                    <Component class="javax.swing.JSpinner" name="porcConservarGSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="0.1" maximum="0.1" minimum="0.01" numberType="java.lang.Double" stepSize="0.01" type="number"/>
@@ -2421,8 +2415,8 @@
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSpinner11" max="32767" attributes="0"/>
-                                          <Component id="jSpinner10" pref="72" max="32767" attributes="0"/>
+                                          <Component id="maxIteratNoChangeSpinner" max="32767" attributes="0"/>
+                                          <Component id="maxIterationsGSpinner" pref="72" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -2438,12 +2432,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="maxIterationsGSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="maxIteratNoChangeSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -2464,7 +2458,7 @@
                         <Property name="text" type="java.lang.String" value="M&#xe1;x. de iteraciones"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner10">
+                    <Component class="javax.swing.JSpinner" name="maxIterationsGSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="1000" maximum="10000" minimum="10" numberType="java.lang.Integer" stepSize="10" type="number"/>
@@ -2476,7 +2470,7 @@
                         <Property name="text" type="java.lang.String" value="M&#xe1;x. iteraciones sin mejoras"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JSpinner" name="jSpinner11">
+                    <Component class="javax.swing.JSpinner" name="maxIteratNoChangeSpinner">
                       <Properties>
                         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                           <SpinnerModel initial="500" maximum="1000" minimum="10" numberType="java.lang.Integer" stepSize="10" type="number"/>
