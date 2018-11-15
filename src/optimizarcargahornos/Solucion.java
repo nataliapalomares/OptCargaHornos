@@ -19,9 +19,9 @@ public class Solucion implements Comparable<Solucion>{
     final static int N_DEMANDA=10;//rango en el que se calificara la demanda de una pieza
     final static int MAXPRIORIDAD=150;//5(F. de entrega)*3(Importancia del cliente)*10(Rango demanda)
     //Coeficientes de importancia de los factores de la solucion
-    static double COEF_DEMANDA=1.0/3;
-    static double COEF_VOLUMEN=1.0/3;
-    static double COEF_PESO=1.0/3;
+    static double COEF_DEMANDA;
+    static double COEF_VOLUMEN;
+    static double COEF_PESO;
     
     double fitness;
     

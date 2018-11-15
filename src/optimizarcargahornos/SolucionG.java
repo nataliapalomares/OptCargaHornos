@@ -121,4 +121,11 @@ public class SolucionG extends Solucion{
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public Integer[] getPiezasVagon(int indVagon){
+        Integer[] piezasVagon=new Integer[Vagoneta.nCompartimentos];
+        for(int i=0;i<Vagoneta.nCompartimentos;i++){
+            piezasVagon[i]=this.getIdPieza(indVagon, i);
+        }
+        return piezasVagon;
+    }
 }

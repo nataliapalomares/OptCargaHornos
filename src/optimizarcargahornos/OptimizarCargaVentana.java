@@ -8,6 +8,7 @@ package optimizarcargahornos;
 import java.awt.CardLayout;
 import java.io.File;
 import java.util.List;
+import java.util.stream.IntStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -191,45 +192,45 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         resultPiezasAtendPanel = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        solucionMemeTable = new javax.swing.JTable();
         jPanel24 = new javax.swing.JPanel();
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
+        fitMemePiezasField = new javax.swing.JTextField();
+        volumeMemePiezas = new javax.swing.JTextField();
+        weightMemePiezas = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable10 = new javax.swing.JTable();
+        solucionGenTable = new javax.swing.JTable();
         jPanel26 = new javax.swing.JPanel();
         jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
         jLabel64 = new javax.swing.JLabel();
-        jTextField19 = new javax.swing.JTextField();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
+        fitGenPiezasText = new javax.swing.JTextField();
+        volumeGenPiezas = new javax.swing.JTextField();
+        weightGenPiezas = new javax.swing.JTextField();
         resultSetAtendidosPanel = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable11 = new javax.swing.JTable();
+        memeSetsTable = new javax.swing.JTable();
         jPanel28 = new javax.swing.JPanel();
         jLabel65 = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
         jLabel67 = new javax.swing.JLabel();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
+        fitMemeSetsAtend = new javax.swing.JTextField();
+        volumeMemeSetsAtend = new javax.swing.JTextField();
+        weightMemeSetsAtend = new javax.swing.JTextField();
         jPanel29 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable12 = new javax.swing.JTable();
+        genSetsTable = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
-        jTextField25 = new javax.swing.JTextField();
-        jTextField26 = new javax.swing.JTextField();
-        jTextField27 = new javax.swing.JTextField();
+        fitGenSetsAtend = new javax.swing.JTextField();
+        volumeGenSetsAtend = new javax.swing.JTextField();
+        weightGenSetsAtend = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Optimizacion de carga de hornos");
@@ -523,11 +524,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         maxVolume.setEditable(false);
         maxVolume.setBackground(new java.awt.Color(255, 255, 255));
+        maxVolume.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         maxVolume.setDisabledTextColor(new java.awt.Color(0, 51, 51));
         maxVolume.setEnabled(false);
 
         numberWagons.setEditable(false);
         numberWagons.setBackground(new java.awt.Color(255, 255, 255));
+        numberWagons.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         numberWagons.setDisabledTextColor(new java.awt.Color(0, 51, 51));
         numberWagons.setEnabled(false);
 
@@ -580,11 +583,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         maxWeight.setEditable(false);
         maxWeight.setBackground(new java.awt.Color(255, 255, 255));
+        maxWeight.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         maxWeight.setDisabledTextColor(new java.awt.Color(0, 51, 51));
         maxWeight.setEnabled(false);
 
         numberCompartments.setEditable(false);
         numberCompartments.setBackground(new java.awt.Color(255, 255, 255));
+        numberCompartments.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         numberCompartments.setDisabledTextColor(new java.awt.Color(0, 51, 51));
         numberCompartments.setEnabled(false);
 
@@ -690,7 +695,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelDatHornosLayout.setVerticalGroup(
@@ -752,7 +757,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addGroup(panelDatSetsLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(tableSets, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE))
+                    .addComponent(tableSets, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelDatSetsLayout.setVerticalGroup(
@@ -810,7 +815,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addGroup(panelDatProdsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDatProdsLayout.createSequentialGroup()
                         .addComponent(jLabel19)
-                        .addGap(0, 659, Short.MAX_VALUE))
+                        .addGap(0, 634, Short.MAX_VALUE))
                     .addComponent(tableProductos))
                 .addContainerGap())
         );
@@ -869,7 +874,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addGroup(panelDatPiezasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDatPiezasLayout.createSequentialGroup()
                         .addComponent(jLabel20)
-                        .addGap(0, 690, Short.MAX_VALUE))
+                        .addGap(0, 665, Short.MAX_VALUE))
                     .addComponent(tablePiezas))
                 .addContainerGap())
         );
@@ -928,7 +933,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel21)
-                        .addGap(0, 679, Short.MAX_VALUE))
+                        .addGap(0, 654, Short.MAX_VALUE))
                     .addComponent(jScrollPane5))
                 .addContainerGap())
         );
@@ -982,7 +987,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         weightSpinner.setModel(new javax.swing.SpinnerNumberModel(0.3d, 0.0d, 1.0d, 0.01d));
 
-        volumeSpinner.setModel(new javax.swing.SpinnerNumberModel(0.03d, 0.0d, 2.0d, 0.01d));
+        volumeSpinner.setModel(new javax.swing.SpinnerNumberModel(0.3d, 0.0d, 1.0d, 0.01d));
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel45.setText("Factores de priorización");
@@ -1650,34 +1655,18 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MEMÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        solucionMemeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Id Comp.", "Vagon 1", "Vagon 2", "Vagon 3"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable9.getTableHeader().setReorderingAllowed(false);
-        jScrollPane6.setViewportView(jTable9);
+        ));
+        solucionMemeTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        solucionMemeTable.setEnabled(false);
+        solucionMemeTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane6.setViewportView(solucionMemeTable);
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1687,14 +1676,23 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel61.setText("Peso cargado (kg)");
 
-        jTextField16.setEditable(false);
-        jTextField16.setBackground(new java.awt.Color(255, 255, 255));
+        fitMemePiezasField.setEditable(false);
+        fitMemePiezasField.setBackground(new java.awt.Color(255, 255, 255));
+        fitMemePiezasField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        fitMemePiezasField.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        fitMemePiezasField.setEnabled(false);
 
-        jTextField17.setEditable(false);
-        jTextField17.setBackground(new java.awt.Color(255, 255, 255));
+        volumeMemePiezas.setEditable(false);
+        volumeMemePiezas.setBackground(new java.awt.Color(255, 255, 255));
+        volumeMemePiezas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        volumeMemePiezas.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        volumeMemePiezas.setEnabled(false);
 
-        jTextField18.setEditable(false);
-        jTextField18.setBackground(new java.awt.Color(255, 255, 255));
+        weightMemePiezas.setEditable(false);
+        weightMemePiezas.setBackground(new java.awt.Color(255, 255, 255));
+        weightMemePiezas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        weightMemePiezas.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        weightMemePiezas.setEnabled(false);
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -1706,15 +1704,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addComponent(jLabel59)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fitMemePiezasField, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel60)
                             .addComponent(jLabel61))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(jTextField17))))
+                            .addComponent(weightMemePiezas, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(volumeMemePiezas))))
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
@@ -1723,15 +1721,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel59)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fitMemePiezasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel60)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(volumeMemePiezas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel61)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightMemePiezas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1761,34 +1759,18 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel25.setBackground(new java.awt.Color(255, 255, 255));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GENÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTable10.setModel(new javax.swing.table.DefaultTableModel(
+        solucionGenTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Id Comp.", "Vagon 1", "Vagon 2", "Vagon 3"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable10.getTableHeader().setReorderingAllowed(false);
-        jScrollPane7.setViewportView(jTable10);
+        ));
+        solucionGenTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        solucionGenTable.setEnabled(false);
+        solucionGenTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(solucionGenTable);
 
         jPanel26.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1798,14 +1780,23 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel64.setText("Peso cargado (kg)");
 
-        jTextField19.setEditable(false);
-        jTextField19.setBackground(new java.awt.Color(255, 255, 255));
+        fitGenPiezasText.setEditable(false);
+        fitGenPiezasText.setBackground(new java.awt.Color(255, 255, 255));
+        fitGenPiezasText.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        fitGenPiezasText.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        fitGenPiezasText.setEnabled(false);
 
-        jTextField20.setEditable(false);
-        jTextField20.setBackground(new java.awt.Color(255, 255, 255));
+        volumeGenPiezas.setEditable(false);
+        volumeGenPiezas.setBackground(new java.awt.Color(255, 255, 255));
+        volumeGenPiezas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        volumeGenPiezas.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        volumeGenPiezas.setEnabled(false);
 
-        jTextField21.setEditable(false);
-        jTextField21.setBackground(new java.awt.Color(255, 255, 255));
+        weightGenPiezas.setEditable(false);
+        weightGenPiezas.setBackground(new java.awt.Color(255, 255, 255));
+        weightGenPiezas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        weightGenPiezas.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        weightGenPiezas.setEnabled(false);
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
@@ -1817,15 +1808,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addComponent(jLabel62)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fitGenPiezasText, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel63)
                             .addComponent(jLabel64))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField21, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(jTextField20))))
+                            .addComponent(weightGenPiezas, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(volumeGenPiezas))))
                 .addContainerGap())
         );
         jPanel26Layout.setVerticalGroup(
@@ -1834,15 +1825,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel62)
-                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fitGenPiezasText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel63)
-                    .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(volumeGenPiezas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel64)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightGenPiezas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1895,7 +1886,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
         jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MEMÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTable11.setModel(new javax.swing.table.DefaultTableModel(
+        memeSetsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1921,8 +1912,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable11.getTableHeader().setReorderingAllowed(false);
-        jScrollPane8.setViewportView(jTable11);
+        memeSetsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane8.setViewportView(memeSetsTable);
 
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1932,14 +1923,23 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel67.setText("Peso cargado (kg)");
 
-        jTextField22.setEditable(false);
-        jTextField22.setBackground(new java.awt.Color(255, 255, 255));
+        fitMemeSetsAtend.setEditable(false);
+        fitMemeSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
+        fitMemeSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        fitMemeSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        fitMemeSetsAtend.setEnabled(false);
 
-        jTextField23.setEditable(false);
-        jTextField23.setBackground(new java.awt.Color(255, 255, 255));
+        volumeMemeSetsAtend.setEditable(false);
+        volumeMemeSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
+        volumeMemeSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        volumeMemeSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        volumeMemeSetsAtend.setEnabled(false);
 
-        jTextField24.setEditable(false);
-        jTextField24.setBackground(new java.awt.Color(255, 255, 255));
+        weightMemeSetsAtend.setEditable(false);
+        weightMemeSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
+        weightMemeSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        weightMemeSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        weightMemeSetsAtend.setEnabled(false);
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -1951,15 +1951,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addComponent(jLabel65)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fitMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel66)
                             .addComponent(jLabel67))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField24, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(jTextField23))))
+                            .addComponent(weightMemeSetsAtend, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(volumeMemeSetsAtend))))
                 .addContainerGap())
         );
         jPanel28Layout.setVerticalGroup(
@@ -1968,15 +1968,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel65)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fitMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel66)
-                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(volumeMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel67)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2006,7 +2006,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel29.setBackground(new java.awt.Color(255, 255, 255));
         jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GENÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTable12.setModel(new javax.swing.table.DefaultTableModel(
+        genSetsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -2032,8 +2032,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable12.getTableHeader().setReorderingAllowed(false);
-        jScrollPane9.setViewportView(jTable12);
+        genSetsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane9.setViewportView(genSetsTable);
 
         jPanel30.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2043,14 +2043,23 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
         jLabel70.setText("Peso cargado (kg)");
 
-        jTextField25.setEditable(false);
-        jTextField25.setBackground(new java.awt.Color(255, 255, 255));
+        fitGenSetsAtend.setEditable(false);
+        fitGenSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
+        fitGenSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        fitGenSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        fitGenSetsAtend.setEnabled(false);
 
-        jTextField26.setEditable(false);
-        jTextField26.setBackground(new java.awt.Color(255, 255, 255));
+        volumeGenSetsAtend.setEditable(false);
+        volumeGenSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
+        volumeGenSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        volumeGenSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        volumeGenSetsAtend.setEnabled(false);
 
-        jTextField27.setEditable(false);
-        jTextField27.setBackground(new java.awt.Color(255, 255, 255));
+        weightGenSetsAtend.setEditable(false);
+        weightGenSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
+        weightGenSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        weightGenSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
+        weightGenSetsAtend.setEnabled(false);
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
@@ -2062,15 +2071,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addGroup(jPanel30Layout.createSequentialGroup()
                         .addComponent(jLabel68)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fitGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel69)
                             .addComponent(jLabel70))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField27, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(jTextField26))))
+                            .addComponent(weightGenSetsAtend, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(volumeGenSetsAtend))))
                 .addContainerGap())
         );
         jPanel30Layout.setVerticalGroup(
@@ -2079,15 +2088,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
-                    .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fitGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel69)
-                    .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(volumeGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel70)
-                    .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(weightGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2219,13 +2228,130 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         CardLayout card = (CardLayout)ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "cargarDatos");
     }//GEN-LAST:event_backParametersButtonMouseClicked
-
+    private void colocarValoresParametros(){
+        //Se asigna los valores especificados a los parametros
+        //FACTORES CLIENTE
+        Algoritmos.TIEMPO_MAXIMO=(int)maxTimeSpinner.getValue();
+        if(equalFactorsCheckBox.isSelected()){
+            double valor=1.0/3.0;
+            Solucion.COEF_DEMANDA=valor;
+            Solucion.COEF_PESO=valor;
+            Solucion.COEF_VOLUMEN=valor;
+            
+            //-------------------------------------------------------------PENDIENTE
+            SolucionMeme.COEF_DEMANDA=valor;
+            SolucionMeme.COEF_PESO=valor;
+            SolucionMeme.COEF_VOLUMEN=valor;
+        }
+        else{
+            Solucion.COEF_DEMANDA=(double)demandSpinner.getValue();
+            Solucion.COEF_PESO=(double)weightSpinner.getValue();
+            Solucion.COEF_VOLUMEN=(double)volumeSpinner.getValue();
+            
+            //-------------------------------------------------------------PENDIENTE
+            SolucionMeme.COEF_DEMANDA=(double)demandSpinner.getValue();
+            SolucionMeme.COEF_PESO=(double)weightSpinner.getValue();
+            SolucionMeme.COEF_VOLUMEN=(double)volumeSpinner.getValue();
+        }
+        //GRASP-----------------------------------------------------------------
+        Algoritmos.ALF_INICIAL=(double)alphaGraspSpinner.getValue();
+        Algoritmos.TAM_INICIAL=(int)pobSizeGraspSpinner.getValue();
+        
+        //MEMETICO--------------------------------------------------------------
+        //Generacion de una nueva poblacion
+        Memetico.T_RECOMBINACION=(double)tasaRecombSpinner.getValue();
+        Memetico.PROBABILIDAD_UC=(double)probRecombSpinner.getValue();
+        Memetico.T_MUTACION=(double)tasaMutSpinner.getValue();
+        
+        //Busqueda local
+        Memetico.GEN_INTERVALO_LS=(int)intervalGenSpinner.getValue();
+        Memetico.PORC_LS=(double)porcAplicationSpinner.getValue();
+        Memetico.VECINOS_LS=(int)neighboursVisitSpinner.getValue();
+        
+        //Restauracion de la poblacion
+        Memetico.MAX_SIN_MEJORA=(int)maxSinMejoraSpinner.getValue();
+        Memetico.PORC_PRESERVAR=(double)porcConservarSpinner.getValue();
+        
+        //Condiciones de parada
+        Memetico.MAX_GENERACIONES=(int)maxIterationSpinner.getValue();
+        
+        //GENETICO--------------------------------------------------------------
+        //Casamiento
+        Genetico.TASA_CASAMIENTO=(double)tCasamientoSpinner.getValue();
+        Genetico.PROBABILIDAD_UC =(double)pRecombGSpinner.getValue();
+        
+        //Mutacion
+        Genetico.TASA_MUTACION=(double)tMutacionGSpinner.getValue();
+        
+        //Depuracion de la poblacion
+        Genetico.PORC_PRESERVAR=(double)porcConservarGSpinner.getValue();
+        
+        //Condiciones de parada
+        Genetico.MAX_ITERACIONES=(int)maxIterationsGSpinner.getValue();
+        Genetico.MAX_SIN_MEJORA=(int)maxIteratNoChangeSpinner.getValue();
+        
+    }
+    
+    private void mostrarSoluciones(){
+        fitMemePiezasField.setText(String.format("%.4f",alg.mejorMeme.getFitness()));
+        fitMemeSetsAtend.setText(String.format("%.4f",alg.mejorMeme.getFitness()));
+        
+        fitGenPiezasText.setText(String.format("%.4f",alg.mejorGen.getFitness()));
+        fitGenSetsAtend.setText(String.format("%.4f",alg.mejorGen.getFitness()));
+                                
+        double volumenM=0;
+        double pesoM=0;
+        double volumenG=0;
+        double pesoG=0;
+        
+        //Limpiando las tablas
+        DefaultTableModel modelMemePieza = (DefaultTableModel) solucionMemeTable.getModel();
+        modelMemePieza.setRowCount(0);
+        modelMemePieza.setColumnCount(0);
+        
+        DefaultTableModel modelGenPieza=(DefaultTableModel)solucionGenTable.getModel();
+        modelGenPieza.setRowCount(0);
+        modelGenPieza.setColumnCount(0);
+        
+        SolucionMeme mejorMeme=alg.mejorMeme;
+        int[][] arregloPiezasMeme=mejorMeme.arregloPiezas;
+        SolucionG mejorGen=alg.mejorGen;
+                
+        for(int i=0;i<(Horno.nVagonetas);i++){
+            //Calculando el peso y volumen cargado
+            volumenM+=mejorMeme.getVolV(i);
+            pesoM+=mejorMeme.getPesoV(i);
+            volumenG+=mejorGen.getVolV(i);
+            pesoG+=mejorGen.getPesoV(i);
+            
+            //Llenando la tabla con la solucion Memetico
+            Integer[] datosVagonM= IntStream.of(arregloPiezasMeme[i]).boxed().toArray(Integer[]::new);
+            modelMemePieza.addColumn("Vagon "+(i+1),datosVagonM);
+            
+            //Llenando la tabla con la solucion Genetico
+            Integer[] datosVagonG=mejorGen.getPiezasVagon(i);
+            modelGenPieza.addColumn("Vagon "+(i+1),datosVagonG);
+        }
+        volumeMemePiezas.setText(String.format("%.4f",volumenM));
+        weightMemePiezas.setText(String.format("%.4f",pesoM));
+        volumeMemeSetsAtend.setText(String.format("%.4f",volumenM));
+        weightMemeSetsAtend.setText(String.format("%.4f",pesoM));
+        
+        volumeGenPiezas.setText(String.format("%.4f",volumenG));
+        weightGenPiezas.setText(String.format("%.4f",pesoG));
+        volumeGenSetsAtend.setText(String.format("%.4f",volumenG));
+        weightGenSetsAtend.setText(String.format("%.4f",pesoG));
+    }
+    
     private void executeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_executeButtonMouseClicked
         // TODO add your handling code here:
         double peso=(double)weightSpinner.getValue();
         double volumen=(double)volumeSpinner.getValue();
         double demanda=(double)demandSpinner.getValue();
         if(equalFactorsCheckBox.isSelected() || ((peso+volumen+demanda)==1)){
+            colocarValoresParametros();
+            alg.ejecutar();//ejecutar ambos algoritmos
+            mostrarSoluciones();//PENDIENTE
             CardLayout card = (CardLayout)ventanaContenedora.getLayout();
             card.show(ventanaContenedora, "resultadosPiezas");
         }
@@ -2538,6 +2664,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JButton examinateFile;
     private javax.swing.JButton executeButton;
     private javax.swing.JTextField fileName;
+    private javax.swing.JTextField fitGenPiezasText;
+    private javax.swing.JTextField fitGenSetsAtend;
+    private javax.swing.JTextField fitMemePiezasField;
+    private javax.swing.JTextField fitMemeSetsAtend;
+    private javax.swing.JTable genSetsTable;
     private javax.swing.JPanel graspVariables;
     private javax.swing.JPanel inicio;
     private javax.swing.JSpinner intervalGenSpinner;
@@ -2631,22 +2762,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable11;
-    private javax.swing.JTable jTable12;
-    private javax.swing.JTable jTable9;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
     private javax.swing.JButton loadFileDataButton;
     private javax.swing.JSpinner maxIteratNoChangeSpinner;
     private javax.swing.JSpinner maxIterationSpinner;
@@ -2656,6 +2771,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JSpinner maxTimeSpinner;
     private javax.swing.JTextField maxVolume;
     private javax.swing.JTextField maxWeight;
+    private javax.swing.JTable memeSetsTable;
     private javax.swing.JSpinner neighboursVisitSpinner;
     private javax.swing.JButton nextCargaButton;
     private javax.swing.JTextField numberCompartments;
@@ -2684,6 +2800,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel resultadosPiezas;
     private javax.swing.JRadioButton setsAtendidosRadioButton;
     private javax.swing.JTable setsTable;
+    private javax.swing.JTable solucionGenTable;
+    private javax.swing.JTable solucionMemeTable;
     private javax.swing.JButton startButton;
     private javax.swing.JLabel tCasamientoLabel;
     private javax.swing.JSpinner tCasamientoSpinner;
@@ -2704,9 +2822,17 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel ventanaContenedora;
     private javax.swing.ButtonGroup vistaResultados;
     private javax.swing.ButtonGroup vistaSets;
+    private javax.swing.JTextField volumeGenPiezas;
+    private javax.swing.JTextField volumeGenSetsAtend;
     private javax.swing.JLabel volumeLabel;
+    private javax.swing.JTextField volumeMemePiezas;
+    private javax.swing.JTextField volumeMemeSetsAtend;
     private javax.swing.JSpinner volumeSpinner;
+    private javax.swing.JTextField weightGenPiezas;
+    private javax.swing.JTextField weightGenSetsAtend;
     private javax.swing.JLabel weightLabel;
+    private javax.swing.JTextField weightMemePiezas;
+    private javax.swing.JTextField weightMemeSetsAtend;
     private javax.swing.JSpinner weightSpinner;
     // End of variables declaration//GEN-END:variables
 }

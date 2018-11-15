@@ -18,12 +18,18 @@ public class Algoritmos {
     GestorProducto gProd; //conjunto de productos
     GestorPiezas gPiezas; //conjunto de piezas
     List<Pedido> lPedidos;
+    
+    SolucionMeme mejorMeme;
+    SolucionG mejorGen;
     //ESTRUCTURAS AUXILIARES
     boolean[][] mDimension; //indica las piezas que caben en cada compartimento
     
     //Parametros del grasp para generar la poblacion inicial
-    final static int TAM_INICIAL=7500;//tamaño poblacion inicial
-    final static double ALF_INICIAL=0.40;
+    static int TAM_INICIAL;//tamaño poblacion inicial
+    static double ALF_INICIAL;
+    
+    //Condicion de parada
+    static int TIEMPO_MAXIMO;//cantidad de minutos de ejecucion del algoritmo
     
     public Algoritmos() {
         //inicializarGestoresProd();
@@ -144,7 +150,7 @@ public class Algoritmos {
         }
         
     }
-    public void crearEstructuraAuxiliares(){
+    private void crearEstructuraAuxiliares(){
         //MATRIZ DE DIMENSIONES
         int cantPiezas=this.gPiezas.size();
         mDimension=new boolean[cantPiezas][Vagoneta.nCompartimentos];
@@ -178,17 +184,17 @@ public class Algoritmos {
                 }
             }
         }
-        double valorCoef=1.0/3;
-        SolucionMeme.COEF_DEMANDA=valorCoef;
-        SolucionMeme.COEF_PESO=valorCoef;
-        SolucionMeme.COEF_VOLUMEN=valorCoef;
     }
     
     public void ejecutar(){
-        //CARGA DE DATOS: horno, productos, pedidos------------------------------
+        
+        long inicioContador=System.currentTimeMillis();
+        long finalContador=(TIEMPO_MAXIMO*60*1000)+inicioContador;
+        /*CARGA DE DATOS: horno, productos, pedidos------------------------------
         datosHorno("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv");
         cargarDatos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\150sets_piezas.csv");
-        cargarPedidos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv");
+        cargarPedidos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv");*/
+        
         //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
         crearEstructuraAuxiliares();
        
@@ -199,25 +205,24 @@ public class Algoritmos {
         //Instant second= Instant.now();
         //Duration duration = Duration.between(first, second);
 
-        //ALGORITMO GENÉTICO----------------------------------------------------
-        Genetico algGenetico=new Genetico(0.65,0.07,5000,500,gPiezas,mDimension);
+        //ALGORITMO GENÉTICO----------------------------------------------------        
         /*Thread threadGen = new Thread(){
             public void run(){*/
-                algGenetico.ejecutar(pobInicial);
+                Genetico algGenetico=new Genetico(gPiezas,mDimension);
+                algGenetico.ejecutar(pobInicial,finalContador);
+                this.mejorGen=algGenetico.mejor();
         /*    }
         };
         threadGen.start();
         
-        //ALGORITMO MEMETICO------------------------------------------------------
-        
+        //ALGORITMO MEMETICO------------------------------------------------------        
         /*Thread threadMem = new Thread(){
             public void run(){*/
-                Memetico algMemetico=new Memetico(5000,500,gPiezas,mDimension,graspPobInicial);
-                algMemetico.ejecutar(pobInicial);
+               Memetico algMemetico=new Memetico(gPiezas,mDimension,graspPobInicial);
+               algMemetico.ejecutar(pobInicial,finalContador);
+               this.mejorMeme=algMemetico.mejor();
         /*    }
         };
-        threadMem.start();  */      
-        
-        
+        threadMem.start();  */       
     }
 }

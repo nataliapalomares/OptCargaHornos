@@ -4,35 +4,38 @@ package optimizarcargahornos;
  */
 public class Memetico {
     //Parametros
-    int maxGeneraciones;
-    int maxSinMejora;
     GestorPiezas gPiezas;
     boolean[][] mDimension;
     SolucionMeme mejorSol;
     Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
-    final static double T_RECOMBINACION=0.65;
-    final static double T_MUTACION=0.06; //tasa de mutacion
+    static double T_RECOMBINACION;
+    static double PROBABILIDAD_UC;//probabilidad usada en uniform crossover
+    static double T_MUTACION; //tasa de mutacion
     final static int NPIEZAS_MUTAR_GENERAR=1;//cantidad de elementos a modificar en la mutacion de generarNuevaPoblacion
-    final static double PROBABILIDAD_UC=0.70;//probabilidad usada en uniform crossover
+        
     //Parametros para la búsqueda local
-    final static int GEN_INTERVALO_LS=1;//indica cada cuantas generaciones se hará la busqueda local
-    final static double PORC_LS=0.05;//proporcion de la poblacion a la que se le aplica busqueda local
-    final static int VECINOS_LS=100;//numero de vecino visitados durante la busqueda local
+    static int GEN_INTERVALO_LS;//indica cada cuantas generaciones se hará la busqueda local
+    static double PORC_LS;//proporcion de la poblacion a la que se le aplica busqueda local
+    static int VECINOS_LS;//numero de vecino visitados durante la busqueda local
     final static int NPIEZAS_MUTAR_LS=1;//cantidad de elementos afectados por la mutacion en la bus. local
-    //Parametros Restaurar Poblacion
-    final static double PORC_PRESERVAR=0.07; //porcentaje de la poblacion a preservar
-    final static double ALF_RESTAURAR=0.4;//alfa para seleccionar el RCL
-    final static int NPIEZAS_RESTAURAR=1;//cantidad de elementos a modificar en la solucion
     
-    public Memetico(int maxG,int maxSM,GestorPiezas gPiezas,boolean[][] mDimension, Grasp graspRestaurar){
-        this.maxGeneraciones=maxG;
-        this.maxSinMejora=maxSM;
+    //Parametros Restaurar Poblacion    
+    static double PORC_PRESERVAR; //porcentaje de la poblacion a preservar
+    final static int NPIEZAS_RESTAURAR=1;//cantidad de elementos a modificar en la solucion
+    //final static double ALF_RESTAURAR=0.4;//alfa para seleccionar el RCL
+    
+    //Condiciones de parada
+    static int MAX_SIN_MEJORA;
+    static int MAX_GENERACIONES;
+    static int TIEMPO_MAXIMO;
+    
+    public Memetico(GestorPiezas gPiezas,boolean[][] mDimension, Grasp graspRestaurar){
         this.gPiezas=gPiezas;
         this.mDimension=mDimension;
         this.graspRestaurar=graspRestaurar;
-        this.graspRestaurar.setAlpha(ALF_RESTAURAR);
+        //this.graspRestaurar.setAlpha(ALF_RESTAURAR);
     }
     public SolucionMeme[] uniform_crossover(SolucionMeme p1,SolucionMeme p2){
         SolucionMeme[] hijos=new SolucionMeme[2];
@@ -146,16 +149,13 @@ public class Memetico {
         }
         return nuevaPob;
     }
-    public SolucionMeme ejecutar(PoblacionMeme pob){
-        //FALTA CONSIDERAR EL TEMPORIZADOR
-        int sinMejora=0;
+    public void ejecutar(PoblacionMeme pob,long finalContador){
+        //FALTA CONSIDERAR EL TEMPORIZADOR        
         //mejorSol=pob.buscarMejor();
         mejorSol=pob.getMejor();
         double fitnessGRASP=mejorSol.getFitness();
-        long end=20*60*1000;
-        long start=System.currentTimeMillis();
-        long startCont=start;
-        for(int generacion=0;(System.currentTimeMillis()-start)<end && generacion<this.maxGeneraciones;generacion++){
+        int sinMejora=0;
+        for(int generacion=0;(System.currentTimeMillis()<finalContador) && generacion<MAX_GENERACIONES;generacion++){
             PoblacionMeme nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);
             //Solucion mejorActual=pob.buscarMejor();
@@ -166,17 +166,16 @@ public class Memetico {
             }
             else{
                 sinMejora++;
-                if(sinMejora==this.maxSinMejora){
+                if(sinMejora==MAX_SIN_MEJORA){
                     pob=restaurarPoblacion(pob);
                     sinMejora=0;
                 }
             }
-            if((System.currentTimeMillis()-startCont)-30000>0){
-                mejorSol.imprimir(System.currentTimeMillis()-start,fitnessGRASP);
-                startCont=System.currentTimeMillis();
-            }
         }
         //mejorSol.imprimir(fitnessGRASP);
-        return mejorSol;
+        //return mejorSol;
+    }
+    public SolucionMeme mejor(){
+        return this.mejorSol;
     }
 }
