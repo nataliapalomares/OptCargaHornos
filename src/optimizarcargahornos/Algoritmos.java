@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JProgressBar;
+import javax.swing.SwingWorker;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -34,6 +36,54 @@ public class Algoritmos {
     public Algoritmos() {
         //inicializarGestoresProd();
         //lPedidos=new ArrayList<>();
+    }
+    public SwingWorker createWorker(JProgressBar executionProgressBar) {
+        return new SwingWorker<Void, Integer>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                long inicioContador=System.currentTimeMillis();
+                long finalContador=(TIEMPO_MAXIMO*60*1000)+inicioContador;
+                crearEstructuraAuxiliares();
+                //GRASP-CREACION DE LA POBLACION INICIAL----------------------------------
+                Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
+                
+                //Instant first = Instant.now();
+                PoblacionMeme pobInicial=graspPobInicial.ejecutar();
+                publish(1);
+                //Instant second= Instant.now();
+                //Duration duration = Duration.between(first, second);
+
+                //ALGORITMO GENÉTICO----------------------------------------------------        
+                /*Thread threadGen = new Thread(){
+                    public void run(){*/
+                        Genetico algGenetico=new Genetico(gPiezas,mDimension);
+                        algGenetico.ejecutar(pobInicial,finalContador);
+                        mejorGen=algGenetico.mejor();
+                        publish(50);
+                /*    }
+                };
+                threadGen.start();*/
+                //ALGORITMO MEMETICO------------------------------------------------------        
+                /*Thread threadMem = new Thread(){
+                    public void run(){*/
+                       Memetico algMemetico=new Memetico(gPiezas,mDimension,graspPobInicial);
+                       algMemetico.ejecutar(pobInicial,finalContador);
+                       mejorMeme=algMemetico.mejor();
+                /*    }
+                };
+                threadMem.start();  */
+                return null;                
+            }
+            @Override
+            protected void process(List<Integer> avances) {
+                // Get Info
+                executionProgressBar.setValue(avances.get(0));
+            }
+            @Override
+            protected void done() {
+                executionProgressBar.setValue(100);
+            }
+        };    
     }
     private void inicializarGestoresProd(){
         gSets=new GestorSets();
@@ -98,6 +148,8 @@ public class Algoritmos {
                     gSets.addRSet(i,'A',Integer.parseInt(linea[5]));
                     gSets.add(setActual,i++);
                 } else if (tipo == 2) {//PRODUCTO
+                    String[] detallesDescripcion=linea[1].split("/");
+                    if(detallesDescripcion.length!=3) throw new Exception("Archivo con formato incorrecto");
                     Producto prodActual = new Producto(Integer.parseInt(linea[0]), linea[1], Integer.parseInt(linea[2]), linea[3]);
                     gProd.addRProd(i,'A',Integer.parseInt(linea[4]));
                     gProd.add(prodActual,i++);
@@ -213,8 +265,7 @@ public class Algoritmos {
                 this.mejorGen=algGenetico.mejor();
         /*    }
         };
-        threadGen.start();
-        
+        threadGen.start();*/
         //ALGORITMO MEMETICO------------------------------------------------------        
         /*Thread threadMem = new Thread(){
             public void run(){*/
@@ -223,6 +274,6 @@ public class Algoritmos {
                this.mejorMeme=algMemetico.mejor();
         /*    }
         };
-        threadMem.start();  */       
+        threadMem.start();  */
     }
 }

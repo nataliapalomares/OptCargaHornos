@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,7 +38,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.csv", "csv");
         fc.setFileFilter(filter);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,7 +181,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         maxIteratNoChangeSpinner = new javax.swing.JSpinner();
         executeButton = new javax.swing.JButton();
         backParametersButton = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        executionProgressBar = new javax.swing.JProgressBar();
         jLabel42 = new javax.swing.JLabel();
         resultadosPiezas = new javax.swing.JPanel();
         jLabel43 = new javax.swing.JLabel();
@@ -697,7 +698,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelDatHornosLayout.setVerticalGroup(
@@ -957,7 +958,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         cargarDatos.setLayout(cargarDatosLayout);
         cargarDatosLayout.setHorizontalGroup(
             cargarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         cargarDatosLayout.setVerticalGroup(
             cargarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1555,6 +1556,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             }
         });
 
+        executionProgressBar.setToolTipText("");
+        executionProgressBar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                executionProgressBarStateChanged(evt);
+            }
+        });
+
         jLabel42.setText("Progreso de ejecución:");
 
         javax.swing.GroupLayout confParametrosLayout = new javax.swing.GroupLayout(confParametros);
@@ -1565,7 +1573,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(executionProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(confParametrosLayout.createSequentialGroup()
                             .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
@@ -1603,7 +1611,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel42)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(executionProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(confParametrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(executeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2512,18 +2520,52 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             }
         }
     }
+    private void activarElementos(boolean estado){
+        //Activa o desactiva botones
+        backParametersButton.setEnabled(estado);
+        restoreButton.setEnabled(estado);
+        executeButton.setEnabled(estado);
+        
+        //Factores de cliente
+        maxTimeSpinner.setEnabled(estado);
+        equalFactorsCheckBox.setEnabled(estado);
+        if(!equalFactorsCheckBox.isSelected()){
+            demandSpinner.setEnabled(estado);
+            weightSpinner.setEnabled(estado);
+            volumeSpinner.setEnabled(estado);
+        }
+        //Grasp
+        pobSizeGraspSpinner.setEnabled(estado);
+        alphaGraspSpinner.setEnabled(estado);
+        //Memetico
+        tasaRecombSpinner.setEnabled(estado);
+        probRecombSpinner.setEnabled(estado);
+        tasaMutSpinner.setEnabled(estado);
+        intervalGenSpinner.setEnabled(estado);
+        porcAplicationSpinner.setEnabled(estado);
+        neighboursVisitSpinner.setEnabled(estado);
+        maxSinMejoraSpinner.setEnabled(estado);
+        porcConservarSpinner.setEnabled(estado);
+        maxIterationSpinner.setEnabled(estado);
+        //Genetico
+        tCasamientoSpinner.setEnabled(estado);
+        pRecombGSpinner.setEnabled(estado);
+        tMutacionGSpinner.setEnabled(estado);
+        porcConservarGSpinner.setEnabled(estado);
+        maxIterationsGSpinner.setEnabled(estado);
+        maxIteratNoChangeSpinner.setEnabled(estado);
+    }
     private void executeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_executeButtonMouseClicked
         // TODO add your handling code here:
         double peso = (double) weightSpinner.getValue();
         double volumen = (double) volumeSpinner.getValue();
         double demanda = (double) demandSpinner.getValue();
         if (equalFactorsCheckBox.isSelected() || ((peso + volumen + demanda) == 1)) {
+            executionProgressBar.setValue(0);
             colocarValoresParametros();
-            alg.ejecutar();//ejecutar ambos algoritmos
-            mostrarSoluciones();
-            mostrarAtendidos();
-            CardLayout card = (CardLayout) ventanaContenedora.getLayout();
-            card.show(ventanaContenedora, "resultadosPiezas");
+            activarElementos(false);
+            SwingWorker work=alg.createWorker(executionProgressBar);
+            work.execute();            
         } else {
             mostrarMensaje(-3);
         }
@@ -2625,7 +2667,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 piezaActual.getLargo(), piezaActual.getPeso(), alg.gPiezas.stock(idActual - 1),
                 alg.gPiezas.pendientes(idActual - 1)});
         }
-
     }
 
     private void mostrarDatosPedidos() {
@@ -2787,6 +2828,17 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_equalFactorsCheckBoxStateChanged
 
+    private void executionProgressBarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_executionProgressBarStateChanged
+        // TODO add your handling code here:
+        if(executionProgressBar.getValue()==100){
+            mostrarSoluciones();
+            mostrarAtendidos();
+            activarElementos(true);
+            CardLayout card = (CardLayout) ventanaContenedora.getLayout();
+            card.show(ventanaContenedora, "resultadosPiezas");
+        }
+    }//GEN-LAST:event_executionProgressBarStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2836,6 +2888,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JCheckBox equalFactorsCheckBox;
     private javax.swing.JButton examinateFile;
     private javax.swing.JButton executeButton;
+    private javax.swing.JProgressBar executionProgressBar;
     private javax.swing.JTextField fileName;
     private javax.swing.JTextField fitGenPiezasText;
     private javax.swing.JTextField fitMemePiezasField;
@@ -2920,7 +2973,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
