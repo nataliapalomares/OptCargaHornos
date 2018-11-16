@@ -130,6 +130,10 @@ public class Solucion implements Comparable<Solucion>{
         return true;
     }
     
+    public int getCantColocada(int ind){
+        return this.piezasCol[ind];
+    }
+    
     @Override
     public int compareTo(Solucion solComparar) {
        //  int compareage=((Student)comparestu).getStudentage();

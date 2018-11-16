@@ -24,16 +24,16 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
      * Creates new form OptimizarCargaVentana
      */
     final JFileChooser fc = new JFileChooser();
-    Algoritmos alg=new Algoritmos();
+    Algoritmos alg = new Algoritmos();
     boolean datosHorno;
     boolean datosSets;
     boolean datosPedidos;
-    
+
     public OptimizarCargaVentana() {
         initComponents();
-        datosHorno=false;
-        datosSets=false;
-        datosPedidos=false;
+        datosHorno = false;
+        datosSets = false;
+        datosPedidos = false;
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.csv", "csv");
         fc.setFileFilter(filter);
     }
@@ -212,25 +212,27 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         weightGenPiezas = new javax.swing.JTextField();
         resultSetAtendidosPanel = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        memeSetsTable = new javax.swing.JTable();
-        jPanel28 = new javax.swing.JPanel();
-        jLabel65 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
-        fitMemeSetsAtend = new javax.swing.JTextField();
-        volumeMemeSetsAtend = new javax.swing.JTextField();
-        weightMemeSetsAtend = new javax.swing.JTextField();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel15 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        piezasMAtendTable = new javax.swing.JTable();
+        jPanel16 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        productosMAtendTable = new javax.swing.JTable();
+        jPanel17 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        setsMAtendTable = new javax.swing.JTable();
         jPanel29 = new javax.swing.JPanel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel18 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        piezasGAtendTable = new javax.swing.JTable();
+        jPanel19 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        productosGAtendTable = new javax.swing.JTable();
+        jPanel20 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        genSetsTable = new javax.swing.JTable();
-        jPanel30 = new javax.swing.JPanel();
-        jLabel68 = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        fitGenSetsAtend = new javax.swing.JTextField();
-        volumeGenSetsAtend = new javax.swing.JTextField();
-        weightGenSetsAtend = new javax.swing.JTextField();
+        setsGAtendTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Optimizacion de carga de hornos");
@@ -955,7 +957,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         cargarDatos.setLayout(cargarDatosLayout);
         cargarDatosLayout.setHorizontalGroup(
             cargarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         cargarDatosLayout.setVerticalGroup(
             cargarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1886,7 +1888,105 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
         jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MEMÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        memeSetsTable.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+
+        piezasMAtendTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Tipo", "Modelo", "Color", "Cant. horneada"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        piezasMAtendTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(piezasMAtendTable);
+        if (piezasMAtendTable.getColumnModel().getColumnCount() > 0) {
+            piezasMAtendTable.getColumnModel().getColumn(0).setMinWidth(15);
+            piezasMAtendTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Piezas", jPanel15);
+
+        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+
+        productosMAtendTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Tipo", "Modelo", "Color", "Cant. completada"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        productosMAtendTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(productosMAtendTable);
+        if (productosMAtendTable.getColumnModel().getColumnCount() > 0) {
+            productosMAtendTable.getColumnModel().getColumn(0).setMinWidth(15);
+            productosMAtendTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Productos", jPanel16);
+
+        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
+
+        setsMAtendTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1894,7 +1994,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id set", "Modelo", "Color", "Cantidad"
+                "Id", "Modelo", "Color", "Cant. completada"
             }
         ) {
             Class[] types = new Class [] {
@@ -1912,101 +2012,141 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        memeSetsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane8.setViewportView(memeSetsTable);
+        jScrollPane3.setViewportView(setsMAtendTable);
+        if (setsMAtendTable.getColumnModel().getColumnCount() > 0) {
+            setsMAtendTable.getColumnModel().getColumn(0).setMinWidth(15);
+            setsMAtendTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
 
-        jPanel28.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel65.setText("Valor fitness");
-
-        jLabel66.setText("Volumen cargado (m3)");
-
-        jLabel67.setText("Peso cargado (kg)");
-
-        fitMemeSetsAtend.setEditable(false);
-        fitMemeSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
-        fitMemeSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        fitMemeSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
-        fitMemeSetsAtend.setEnabled(false);
-
-        volumeMemeSetsAtend.setEditable(false);
-        volumeMemeSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
-        volumeMemeSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        volumeMemeSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
-        volumeMemeSetsAtend.setEnabled(false);
-
-        weightMemeSetsAtend.setEditable(false);
-        weightMemeSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
-        weightMemeSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        weightMemeSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
-        weightMemeSetsAtend.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
-        jPanel28.setLayout(jPanel28Layout);
-        jPanel28Layout.setHorizontalGroup(
-            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel28Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addComponent(jLabel65)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(fitMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel66)
-                            .addComponent(jLabel67))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(weightMemeSetsAtend, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(volumeMemeSetsAtend))))
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
         );
-        jPanel28Layout.setVerticalGroup(
-            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel28Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel65)
-                    .addComponent(fitMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel66)
-                    .addComponent(volumeMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel67)
-                    .addComponent(weightMemeSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
+
+        jTabbedPane2.addTab("Sets", jPanel17);
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel27Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addContainerGap())
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
 
         jPanel29.setBackground(new java.awt.Color(255, 255, 255));
         jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GENÉTICO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        genSetsTable.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+
+        piezasGAtendTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Tipo", "Modelo", "Color", "Cant. horneada"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(piezasGAtendTable);
+        if (piezasGAtendTable.getColumnModel().getColumnCount() > 0) {
+            piezasGAtendTable.getColumnModel().getColumn(0).setMinWidth(15);
+            piezasGAtendTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+        );
+
+        jTabbedPane3.addTab("Piezas", jPanel18);
+
+        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
+
+        productosGAtendTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Tipo", "Modelo", "Color", "Cant. completada"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane8.setViewportView(productosGAtendTable);
+        if (productosGAtendTable.getColumnModel().getColumnCount() > 0) {
+            productosGAtendTable.getColumnModel().getColumn(0).setMinWidth(15);
+            productosGAtendTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+        );
+
+        jTabbedPane3.addTab("Productos", jPanel19);
+
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
+
+        setsGAtendTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -2014,7 +2154,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id set", "Modelo", "Color", "Cantidad"
+                "Id", "Modelo", "Color", "Cant. completada"
             }
         ) {
             Class[] types = new Class [] {
@@ -2032,95 +2172,39 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        genSetsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane9.setViewportView(genSetsTable);
+        jScrollPane9.setViewportView(setsGAtendTable);
+        if (setsGAtendTable.getColumnModel().getColumnCount() > 0) {
+            setsGAtendTable.getColumnModel().getColumn(0).setMinWidth(15);
+            setsGAtendTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+        }
 
-        jPanel30.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel68.setText("Valor fitness");
-
-        jLabel69.setText("Volumen cargado (m3)");
-
-        jLabel70.setText("Peso cargado (kg)");
-
-        fitGenSetsAtend.setEditable(false);
-        fitGenSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
-        fitGenSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        fitGenSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
-        fitGenSetsAtend.setEnabled(false);
-
-        volumeGenSetsAtend.setEditable(false);
-        volumeGenSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
-        volumeGenSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        volumeGenSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
-        volumeGenSetsAtend.setEnabled(false);
-
-        weightGenSetsAtend.setEditable(false);
-        weightGenSetsAtend.setBackground(new java.awt.Color(255, 255, 255));
-        weightGenSetsAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        weightGenSetsAtend.setDisabledTextColor(new java.awt.Color(0, 51, 51));
-        weightGenSetsAtend.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
-        jPanel30.setLayout(jPanel30Layout);
-        jPanel30Layout.setHorizontalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addComponent(jLabel68)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(fitGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel69)
-                            .addComponent(jLabel70))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(weightGenSetsAtend, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(volumeGenSetsAtend))))
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
         );
-        jPanel30Layout.setVerticalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel68)
-                    .addComponent(fitGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel69)
-                    .addComponent(volumeGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel70)
-                    .addComponent(weightGenSetsAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
+
+        jTabbedPane3.addTab("Sets", jPanel20);
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
         jPanel29Layout.setHorizontalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
-                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
+            .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9)
+                .addComponent(jTabbedPane3)
                 .addContainerGap())
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel29Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane3)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout resultSetAtendidosPanelLayout = new javax.swing.GroupLayout(resultSetAtendidosPanel);
@@ -2205,187 +2289,266 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
     private void cargarDatosPan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarDatosPan
         // TODO add your handling code here:       
-        CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+        CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "cargarDatos");
     }//GEN-LAST:event_cargarDatosPan
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+        CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "inicio");
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void nextCargaButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextCargaButtonMouseClicked
         // TODO add your handling code here:
-        if(datosHorno && datosSets && datosPedidos){
-            CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+        if (datosHorno && datosSets && datosPedidos) {
+            CardLayout card = (CardLayout) ventanaContenedora.getLayout();
             card.show(ventanaContenedora, "confParametros");
         }
     }//GEN-LAST:event_nextCargaButtonMouseClicked
 
     private void backParametersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backParametersButtonMouseClicked
         // TODO add your handling code here:
-        CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+        CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "cargarDatos");
     }//GEN-LAST:event_backParametersButtonMouseClicked
-    private void colocarValoresParametros(){
+    private void colocarValoresParametros() {
         //Se asigna los valores especificados a los parametros
         //FACTORES CLIENTE
-        Algoritmos.TIEMPO_MAXIMO=(int)maxTimeSpinner.getValue();
-        if(equalFactorsCheckBox.isSelected()){
-            double valor=1.0/3.0;
-            Solucion.COEF_DEMANDA=valor;
-            Solucion.COEF_PESO=valor;
-            Solucion.COEF_VOLUMEN=valor;
-            
+        Algoritmos.TIEMPO_MAXIMO = (int) maxTimeSpinner.getValue();
+        if (equalFactorsCheckBox.isSelected()) {
+            double valor = 1.0 / 3.0;
+            Solucion.COEF_DEMANDA = valor;
+            Solucion.COEF_PESO = valor;
+            Solucion.COEF_VOLUMEN = valor;
+
             //-------------------------------------------------------------PENDIENTE
-            SolucionMeme.COEF_DEMANDA=valor;
-            SolucionMeme.COEF_PESO=valor;
-            SolucionMeme.COEF_VOLUMEN=valor;
-        }
-        else{
-            Solucion.COEF_DEMANDA=(double)demandSpinner.getValue();
-            Solucion.COEF_PESO=(double)weightSpinner.getValue();
-            Solucion.COEF_VOLUMEN=(double)volumeSpinner.getValue();
-            
+            SolucionMeme.COEF_DEMANDA = valor;
+            SolucionMeme.COEF_PESO = valor;
+            SolucionMeme.COEF_VOLUMEN = valor;
+        } else {
+            Solucion.COEF_DEMANDA = (double) demandSpinner.getValue();
+            Solucion.COEF_PESO = (double) weightSpinner.getValue();
+            Solucion.COEF_VOLUMEN = (double) volumeSpinner.getValue();
+
             //-------------------------------------------------------------PENDIENTE
-            SolucionMeme.COEF_DEMANDA=(double)demandSpinner.getValue();
-            SolucionMeme.COEF_PESO=(double)weightSpinner.getValue();
-            SolucionMeme.COEF_VOLUMEN=(double)volumeSpinner.getValue();
+            SolucionMeme.COEF_DEMANDA = (double) demandSpinner.getValue();
+            SolucionMeme.COEF_PESO = (double) weightSpinner.getValue();
+            SolucionMeme.COEF_VOLUMEN = (double) volumeSpinner.getValue();
         }
         //GRASP-----------------------------------------------------------------
-        Algoritmos.ALF_INICIAL=(double)alphaGraspSpinner.getValue();
-        Algoritmos.TAM_INICIAL=(int)pobSizeGraspSpinner.getValue();
-        
+        Algoritmos.ALF_INICIAL = (double) alphaGraspSpinner.getValue();
+        Algoritmos.TAM_INICIAL = (int) pobSizeGraspSpinner.getValue();
+
         //MEMETICO--------------------------------------------------------------
         //Generacion de una nueva poblacion
-        Memetico.T_RECOMBINACION=(double)tasaRecombSpinner.getValue();
-        Memetico.PROBABILIDAD_UC=(double)probRecombSpinner.getValue();
-        Memetico.T_MUTACION=(double)tasaMutSpinner.getValue();
-        
+        Memetico.T_RECOMBINACION = (double) tasaRecombSpinner.getValue();
+        Memetico.PROBABILIDAD_UC = (double) probRecombSpinner.getValue();
+        Memetico.T_MUTACION = (double) tasaMutSpinner.getValue();
+
         //Busqueda local
-        Memetico.GEN_INTERVALO_LS=(int)intervalGenSpinner.getValue();
-        Memetico.PORC_LS=(double)porcAplicationSpinner.getValue();
-        Memetico.VECINOS_LS=(int)neighboursVisitSpinner.getValue();
-        
+        Memetico.GEN_INTERVALO_LS = (int) intervalGenSpinner.getValue();
+        Memetico.PORC_LS = (double) porcAplicationSpinner.getValue();
+        Memetico.VECINOS_LS = (int) neighboursVisitSpinner.getValue();
+
         //Restauracion de la poblacion
-        Memetico.MAX_SIN_MEJORA=(int)maxSinMejoraSpinner.getValue();
-        Memetico.PORC_PRESERVAR=(double)porcConservarSpinner.getValue();
-        
+        Memetico.MAX_SIN_MEJORA = (int) maxSinMejoraSpinner.getValue();
+        Memetico.PORC_PRESERVAR = (double) porcConservarSpinner.getValue();
+
         //Condiciones de parada
-        Memetico.MAX_GENERACIONES=(int)maxIterationSpinner.getValue();
-        
+        Memetico.MAX_GENERACIONES = (int) maxIterationSpinner.getValue();
+
         //GENETICO--------------------------------------------------------------
         //Casamiento
-        Genetico.TASA_CASAMIENTO=(double)tCasamientoSpinner.getValue();
-        Genetico.PROBABILIDAD_UC =(double)pRecombGSpinner.getValue();
-        
+        Genetico.TASA_CASAMIENTO = (double) tCasamientoSpinner.getValue();
+        Genetico.PROBABILIDAD_UC = (double) pRecombGSpinner.getValue();
+
         //Mutacion
-        Genetico.TASA_MUTACION=(double)tMutacionGSpinner.getValue();
-        
+        Genetico.TASA_MUTACION = (double) tMutacionGSpinner.getValue();
+
         //Depuracion de la poblacion
-        Genetico.PORC_PRESERVAR=(double)porcConservarGSpinner.getValue();
-        
+        Genetico.PORC_PRESERVAR = (double) porcConservarGSpinner.getValue();
+
         //Condiciones de parada
-        Genetico.MAX_ITERACIONES=(int)maxIterationsGSpinner.getValue();
-        Genetico.MAX_SIN_MEJORA=(int)maxIteratNoChangeSpinner.getValue();
-        
+        Genetico.MAX_ITERACIONES = (int) maxIterationsGSpinner.getValue();
+        Genetico.MAX_SIN_MEJORA = (int) maxIteratNoChangeSpinner.getValue();
+
     }
-    
-    private void mostrarSoluciones(){
-        fitMemePiezasField.setText(String.format("%.4f",alg.mejorMeme.getFitness()));
-        fitMemeSetsAtend.setText(String.format("%.4f",alg.mejorMeme.getFitness()));
-        
-        fitGenPiezasText.setText(String.format("%.4f",alg.mejorGen.getFitness()));
-        fitGenSetsAtend.setText(String.format("%.4f",alg.mejorGen.getFitness()));
-                                
-        double volumenM=0;
-        double pesoM=0;
-        double volumenG=0;
-        double pesoG=0;
-        
+
+    private void mostrarSoluciones() {
+        fitMemePiezasField.setText(String.format("%.4f", alg.mejorMeme.getFitness()));
+        fitGenPiezasText.setText(String.format("%.4f", alg.mejorGen.getFitness()));
+
+        double volumenM = 0;
+        double pesoM = 0;
+        double volumenG = 0;
+        double pesoG = 0;
+
         //Limpiando las tablas
         DefaultTableModel modelMemePieza = (DefaultTableModel) solucionMemeTable.getModel();
         modelMemePieza.setRowCount(0);
         modelMemePieza.setColumnCount(0);
-        
-        DefaultTableModel modelGenPieza=(DefaultTableModel)solucionGenTable.getModel();
+
+        DefaultTableModel modelGenPieza = (DefaultTableModel) solucionGenTable.getModel();
         modelGenPieza.setRowCount(0);
         modelGenPieza.setColumnCount(0);
-        
-        SolucionMeme mejorMeme=alg.mejorMeme;
-        int[][] arregloPiezasMeme=mejorMeme.arregloPiezas;
-        SolucionG mejorGen=alg.mejorGen;
-                
-        for(int i=0;i<(Horno.nVagonetas);i++){
+
+        SolucionMeme mejorMeme = alg.mejorMeme;
+        int[][] arregloPiezasMeme = mejorMeme.arregloPiezas;
+        SolucionG mejorGen = alg.mejorGen;
+
+        for (int i = 0; i < (Horno.nVagonetas); i++) {
             //Calculando el peso y volumen cargado
-            volumenM+=mejorMeme.getVolV(i);
-            pesoM+=mejorMeme.getPesoV(i);
-            volumenG+=mejorGen.getVolV(i);
-            pesoG+=mejorGen.getPesoV(i);
-            
+            volumenM += mejorMeme.getVolV(i);
+            pesoM += mejorMeme.getPesoV(i);
+            volumenG += mejorGen.getVolV(i);
+            pesoG += mejorGen.getPesoV(i);
+
             //Llenando la tabla con la solucion Memetico
-            Integer[] datosVagonM= IntStream.of(arregloPiezasMeme[i]).boxed().toArray(Integer[]::new);
-            modelMemePieza.addColumn("Vagon "+(i+1),datosVagonM);
-            
+            Integer[] datosVagonM = IntStream.of(arregloPiezasMeme[i]).boxed().toArray(Integer[]::new);
+            modelMemePieza.addColumn("Vagon " + (i + 1), datosVagonM);
+
             //Llenando la tabla con la solucion Genetico
-            Integer[] datosVagonG=mejorGen.getPiezasVagon(i);
-            modelGenPieza.addColumn("Vagon "+(i+1),datosVagonG);
+            Integer[] datosVagonG = mejorGen.getPiezasVagon(i);
+            modelGenPieza.addColumn("Vagon " + (i + 1), datosVagonG);
         }
-        volumeMemePiezas.setText(String.format("%.4f",volumenM));
-        weightMemePiezas.setText(String.format("%.4f",pesoM));
-        volumeMemeSetsAtend.setText(String.format("%.4f",volumenM));
-        weightMemeSetsAtend.setText(String.format("%.4f",pesoM));
-        
-        volumeGenPiezas.setText(String.format("%.4f",volumenG));
-        weightGenPiezas.setText(String.format("%.4f",pesoG));
-        volumeGenSetsAtend.setText(String.format("%.4f",volumenG));
-        weightGenSetsAtend.setText(String.format("%.4f",pesoG));
+        volumeMemePiezas.setText(String.format("%.4f", volumenM));
+        weightMemePiezas.setText(String.format("%.4f", pesoM));
+
+        volumeGenPiezas.setText(String.format("%.4f", volumenG));
+        weightGenPiezas.setText(String.format("%.4f", pesoG));
     }
-    
+
+    private void mostrarAtendidos() {
+        //Limpiando las tablas del memetico
+        DefaultTableModel modelMPiezaAtend = (DefaultTableModel) piezasMAtendTable.getModel();
+        modelMPiezaAtend.setRowCount(0);
+        DefaultTableModel modelMProdAtend = (DefaultTableModel) productosMAtendTable.getModel();
+        modelMProdAtend.setRowCount(0);
+        DefaultTableModel modelMSetAtend = (DefaultTableModel) setsMAtendTable.getModel();
+        modelMSetAtend.setRowCount(0);
+
+        //Limpiando las tablas del genetico
+        DefaultTableModel modelGPiezaAtend = (DefaultTableModel) piezasGAtendTable.getModel();
+        modelGPiezaAtend.setRowCount(0);
+        DefaultTableModel modelGProdAtend = (DefaultTableModel) productosGAtendTable.getModel();
+        modelGProdAtend.setRowCount(0);
+        DefaultTableModel modelGSetAtend = (DefaultTableModel) setsGAtendTable.getModel();
+        modelGSetAtend.setRowCount(0);
+
+        SolucionMeme mejorMeme = alg.mejorMeme;
+        SolucionG mejorGen = alg.mejorGen;
+        //Llenando la cantidad de piezas seleccionadas
+        for (int i = 0; i < GestorPiezas.cantidadPiezas; i++) {
+            int cantMeme=mejorMeme.getCantColocada(i);
+            int cantGen=mejorGen.getCantColocada(i);
+            if ((cantMeme > 0)||(cantGen>0)) {
+                //id, modelo, color, lista productos,stock
+                Pieza actual = alg.gPiezas.getPieza(i);
+                String[] descripcion = actual.getDescripcion();
+                if(cantMeme>0)
+                    modelMPiezaAtend.addRow(new Object[]{actual.getId(), descripcion[0],
+                        descripcion[1], descripcion[2],cantMeme});
+                if(cantGen>0)
+                    modelGPiezaAtend.addRow(new Object[]{actual.getId(), descripcion[0],
+                        descripcion[1], descripcion[2],cantGen});
+            }
+        }
+        //Llenando la cantidad de productos seleccionados
+        int[] nuevoStockProdM=new int[alg.gProd.lProd.length];
+        int[] nuevoStockProdG=new int[alg.gProd.lProd.length];
+        int indProd=0;
+        for (Producto actualProd:alg.gProd.lProd){
+            nuevoStockProdM[indProd]=Integer.MAX_VALUE;
+            nuevoStockProdG[indProd]=Integer.MAX_VALUE;
+            for(int idPieza:actualProd.lPiezas){
+                //Se calcula el productosCompletados=piezasAlmacen+stockHorneado;
+                int cantidadActualM=alg.gPiezas.stock(idPieza-1)+mejorMeme.getCantColocada(idPieza-1);
+                if(cantidadActualM<nuevoStockProdM[indProd]) nuevoStockProdM[indProd]=cantidadActualM;
+                int cantidadActualG=alg.gPiezas.stock(idPieza-1)+mejorGen.getCantColocada(idPieza-1);
+                if(cantidadActualG<nuevoStockProdG[indProd]) nuevoStockProdG[indProd]=cantidadActualG;
+            }
+            if(nuevoStockProdM[indProd]==Integer.MAX_VALUE) nuevoStockProdM[indProd]=0;
+            if(nuevoStockProdG[indProd]==Integer.MAX_VALUE) nuevoStockProdG[indProd]=0;
+            String[] descripcion=actualProd.getDescripcion();
+            if(nuevoStockProdM[indProd]>0){
+                modelMProdAtend.addRow(new Object[]{actualProd.id,descripcion[0],
+                    descripcion[1],descripcion[2],nuevoStockProdM[indProd]});                
+            }
+            if(nuevoStockProdG[indProd]>0){
+                modelGProdAtend.addRow(new Object[]{actualProd.id,descripcion[0],
+                    descripcion[1],descripcion[2],nuevoStockProdG[indProd]});
+            }
+            nuevoStockProdM[indProd]+=alg.gProd.stock(indProd);
+            nuevoStockProdG[indProd]+=alg.gProd.stock(indProd);
+            indProd++;
+        }
+        
+        //Llenando las tablas de sets
+        for(Set actualSet:alg.gSets.lSets){
+            int nuevoStockM=Integer.MAX_VALUE;
+            int nuevoStockG=Integer.MAX_VALUE;
+            for(int idProducto:actualSet.lProductos){
+                int cantidadActualM=nuevoStockProdM[idProducto-1];
+                if(cantidadActualM<nuevoStockM) nuevoStockM=cantidadActualM;
+                int cantidadActualG=nuevoStockProdG[idProducto-1];
+                if(cantidadActualG<nuevoStockG) nuevoStockG=cantidadActualG;
+            }
+            if(nuevoStockM==Integer.MAX_VALUE) nuevoStockM=0;
+            if(nuevoStockG==Integer.MAX_VALUE) nuevoStockG=0;
+            if(nuevoStockM>0){
+                modelMSetAtend.addRow(new Object[]{actualSet.id,actualSet.modelo,
+                    actualSet.color,nuevoStockM});
+            }   
+            if(nuevoStockG>0){
+                modelGSetAtend.addRow(new Object[]{actualSet.id,actualSet.modelo,
+                    actualSet.color,nuevoStockG});
+            }
+        }
+    }
     private void executeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_executeButtonMouseClicked
         // TODO add your handling code here:
-        double peso=(double)weightSpinner.getValue();
-        double volumen=(double)volumeSpinner.getValue();
-        double demanda=(double)demandSpinner.getValue();
-        if(equalFactorsCheckBox.isSelected() || ((peso+volumen+demanda)==1)){
+        double peso = (double) weightSpinner.getValue();
+        double volumen = (double) volumeSpinner.getValue();
+        double demanda = (double) demandSpinner.getValue();
+        if (equalFactorsCheckBox.isSelected() || ((peso + volumen + demanda) == 1)) {
             colocarValoresParametros();
             alg.ejecutar();//ejecutar ambos algoritmos
-            mostrarSoluciones();//PENDIENTE
-            CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+            mostrarSoluciones();
+            mostrarAtendidos();
+            CardLayout card = (CardLayout) ventanaContenedora.getLayout();
             card.show(ventanaContenedora, "resultadosPiezas");
-        }
-        else{
+        } else {
             mostrarMensaje(-3);
         }
     }//GEN-LAST:event_executeButtonMouseClicked
 
     private void setsAtendidosRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_setsAtendidosRadioButtonStateChanged
         // TODO add your handling code here:
-        if(setsAtendidosRadioButton.isSelected()){
-            CardLayout card = (CardLayout)panelTablas.getLayout();
+        if (setsAtendidosRadioButton.isSelected()) {
+            CardLayout card = (CardLayout) panelTablas.getLayout();
             card.show(panelTablas, "resultSetAtendidosPanel");
         }
     }//GEN-LAST:event_setsAtendidosRadioButtonStateChanged
 
     private void piezasRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_piezasRadioButtonStateChanged
         // TODO add your handling code here:
-        
-        if(piezasRadioButton.isSelected()){
-            CardLayout card = (CardLayout)panelTablas.getLayout();
+
+        if (piezasRadioButton.isSelected()) {
+            CardLayout card = (CardLayout) panelTablas.getLayout();
             card.show(panelTablas, "resultPiezasAtendPanel");
         }
     }//GEN-LAST:event_piezasRadioButtonStateChanged
 
     private void resultadosBackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultadosBackButtonMouseClicked
         // TODO add your handling code here:
-        CardLayout card = (CardLayout)ventanaContenedora.getLayout();
+        CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "confParametros");
     }//GEN-LAST:event_resultadosBackButtonMouseClicked
 
     private void examinateFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_examinateFileMouseClicked
         // TODO add your handling code here:
-        
+
         int returnVal = fc.showOpenDialog(OptimizarCargaVentana.this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -2396,160 +2559,165 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             fileName.setText("");
         }
     }//GEN-LAST:event_examinateFileMouseClicked
-    private void mostrarDatosHornoPestania(){
+    private void mostrarDatosHornoPestania() {
         maxVolume.setText(Double.toString(Horno.volMaximo));
         numberWagons.setText(Integer.toString(Horno.nVagonetas));
         maxWeight.setText(Double.toString(Vagoneta.pesoMaximo));
         numberCompartments.setText(Integer.toString(Vagoneta.nCompartimentos));
-        
+
         //Limpiando la tabla de compartimentos
         DefaultTableModel model = (DefaultTableModel) compartmentsTable.getModel();
         model.setRowCount(0);
-        
+
         //Llenando la tabla de compartimentos
-        Compartimento[] listaComp= Vagoneta.lCompartimentos;
-        for (Compartimento comp:listaComp){
-            model.addRow(new Object[]{comp.getId(), comp.ancho(), comp.largo(),comp.alto()});
+        Compartimento[] listaComp = Vagoneta.lCompartimentos;
+        for (Compartimento comp : listaComp) {
+            model.addRow(new Object[]{comp.getId(), comp.ancho(), comp.largo(), comp.alto()});
         }
     }
-    private void mostrarDatosSet(){
-       
-       //Limpiando las tablas de datos
-       DefaultTableModel modelSet = (DefaultTableModel) setsTable.getModel(); 
-       modelSet.setRowCount(0);
-       DefaultTableModel modelProd = (DefaultTableModel) productosTable.getModel(); 
-       modelProd.setRowCount(0);
-       DefaultTableModel modelPieces=(DefaultTableModel) piecesTable.getModel(); 
-       modelPieces.setRowCount(0);
-       DefaultTableModel modelPedido=(DefaultTableModel) tablePedidos.getModel(); 
-       modelPedido.setRowCount(0);
 
-       //Llenando la tabla de sets
-       Set[] listaSets=alg.gSets.lSets;
-       for(Set setActual:listaSets){
-           int idActual=setActual.id;
-           //id, modelo, color, lista productos,stock
-           modelSet.addRow(new Object[]{idActual,setActual.modelo,setActual.color,
-               setActual.cadenaListaProd(),alg.gSets.stock(idActual-1)});           
-           
-       }
-       
-       //Llenando la tabla de productos
-       Producto[] listaProductos=alg.gProd.lProd;
-       for(Producto prodActual:listaProductos){
-           int idActual=prodActual.id;
-           String[] datosDescrip=prodActual.getDescripcion();
-           //id, tipo, modelo, color, lista de piezas,stock
-           modelProd.addRow(new Object[]{idActual,datosDescrip[0],datosDescrip[1],datosDescrip[2],
-               prodActual.cadenaPiezas(),alg.gProd.stock(idActual-1)});
-       }
-       
-       //Llenando la tabla de piezas
-       Pieza[] listaPiezas=alg.gPiezas.lPiezas;
-       for(Pieza piezaActual:listaPiezas){
-           int idActual=piezaActual.getId();
-           String[] datosDescrip=piezaActual.getDescripcion();
-           //id, tipo,modelo,color,alto,ancho,largo,peso,stock,pendiente
-           modelPieces.addRow(new Object[]{idActual,datosDescrip[0],datosDescrip[1],
-               datosDescrip[2],piezaActual.getAlto(),piezaActual.getAncho(),
-               piezaActual.getLargo(),piezaActual.getPeso(),alg.gPiezas.stock(idActual-1),
-               alg.gPiezas.pendientes(idActual-1)});
-       }
-       
-       
+    private void mostrarDatosSet() {
+
+        //Limpiando las tablas de datos
+        DefaultTableModel modelSet = (DefaultTableModel) setsTable.getModel();
+        modelSet.setRowCount(0);
+        DefaultTableModel modelProd = (DefaultTableModel) productosTable.getModel();
+        modelProd.setRowCount(0);
+        DefaultTableModel modelPieces = (DefaultTableModel) piecesTable.getModel();
+        modelPieces.setRowCount(0);
+        DefaultTableModel modelPedido = (DefaultTableModel) tablePedidos.getModel();
+        modelPedido.setRowCount(0);
+
+        //Llenando la tabla de sets
+        Set[] listaSets = alg.gSets.lSets;
+        for (Set setActual : listaSets) {
+            int idActual = setActual.id;
+            //id, modelo, color, lista productos,stock
+            modelSet.addRow(new Object[]{idActual, setActual.modelo, setActual.color,
+                setActual.cadenaListaProd(), alg.gSets.stock(idActual - 1)});
+
+        }
+
+        //Llenando la tabla de productos
+        Producto[] listaProductos = alg.gProd.lProd;
+        for (Producto prodActual : listaProductos) {
+            int idActual = prodActual.id;
+            String[] datosDescrip = prodActual.getDescripcion();
+            //id, tipo, modelo, color, lista de piezas,stock
+            modelProd.addRow(new Object[]{idActual, datosDescrip[0], datosDescrip[1], datosDescrip[2],
+                prodActual.cadenaPiezas(), alg.gProd.stock(idActual - 1)});
+        }
+
+        //Llenando la tabla de piezas
+        Pieza[] listaPiezas = alg.gPiezas.lPiezas;
+        for (Pieza piezaActual : listaPiezas) {
+            int idActual = piezaActual.getId();
+            String[] datosDescrip = piezaActual.getDescripcion();
+            //id, tipo,modelo,color,alto,ancho,largo,peso,stock,pendiente
+            modelPieces.addRow(new Object[]{idActual, datosDescrip[0], datosDescrip[1],
+                datosDescrip[2], piezaActual.getAlto(), piezaActual.getAncho(),
+                piezaActual.getLargo(), piezaActual.getPeso(), alg.gPiezas.stock(idActual - 1),
+                alg.gPiezas.pendientes(idActual - 1)});
+        }
+
     }
-    private void mostrarDatosPedidos(){
+
+    private void mostrarDatosPedidos() {
         //Limpiando la tabla de pedidos
-        DefaultTableModel modelPedidos = (DefaultTableModel) tablePedidos.getModel(); 
+        DefaultTableModel modelPedidos = (DefaultTableModel) tablePedidos.getModel();
         modelPedidos.setRowCount(0);
         //Llenando la tabla de pedidos
-        List<Pedido> listaPedidos=alg.lPedidos;
-        for(Pedido pedActual: listaPedidos){
+        List<Pedido> listaPedidos = alg.lPedidos;
+        for (Pedido pedActual : listaPedidos) {
             //id,set pedido,prioridad cliente,fecha de entrega, cantidad
-            modelPedidos.addRow(new Object[]{pedActual.idPedido(),pedActual.idSetPedido(),
-                pedActual.priorCliente(),pedActual.fechaEntrega(),pedActual.cantidad()});
+            modelPedidos.addRow(new Object[]{pedActual.idPedido(), pedActual.idSetPedido(),
+                pedActual.priorCliente(), pedActual.fechaEntrega(), pedActual.cantidad()});
         }
-        
+
     }
-    private void mostrarMensaje(int resultado){
+
+    private void mostrarMensaje(int resultado) {
         String mensaje;
-        String titulo="Alerta";
+        String titulo = "Alerta";
         switch (resultado) {
             case 1:
-                mensaje="Se cargo el archivo exitosamente.";
-                titulo="Carga exitosa";
-                if(!datosHorno || !datosSets || !datosPedidos){
-                    mensaje=mensaje+"\nPendiente por cargar: ";
-                    String pendientes="";
-                    if(!datosHorno) pendientes="Horno";
-                    if(!datosSets){
-                        if(pendientes.length()>0) pendientes=pendientes+", ";
-                        pendientes=pendientes+"Sets/Productos/Piezas";
+                mensaje = "Se cargo el archivo exitosamente.";
+                titulo = "Carga exitosa";
+                if (!datosHorno || !datosSets || !datosPedidos) {
+                    mensaje = mensaje + "\nPendiente por cargar: ";
+                    String pendientes = "";
+                    if (!datosHorno) {
+                        pendientes = "Horno";
                     }
-                    if(!datosPedidos){
-                        if(pendientes.length()>0) pendientes=pendientes+", ";
-                        pendientes=pendientes+"Pedidos";
+                    if (!datosSets) {
+                        if (pendientes.length() > 0) {
+                            pendientes = pendientes + ", ";
+                        }
+                        pendientes = pendientes + "Sets/Productos/Piezas";
                     }
-                    mensaje=mensaje+pendientes;                    
+                    if (!datosPedidos) {
+                        if (pendientes.length() > 0) {
+                            pendientes = pendientes + ", ";
+                        }
+                        pendientes = pendientes + "Pedidos";
+                    }
+                    mensaje = mensaje + pendientes;
                 }
                 break;
             case -1:
-                mensaje="No se pudo abrir el archivo";
+                mensaje = "No se pudo abrir el archivo";
                 break;
             case -2:
-                mensaje="El archivo no tiene el formato correcto";
+                mensaje = "El archivo no tiene el formato correcto";
                 break;
             default:
-                mensaje="Los factores de priorización deben sumar 1";
+                mensaje = "Los factores de priorización deben sumar 1";
                 break;
         }
-        JOptionPane.showMessageDialog(rootPane, mensaje,                        
-                        titulo, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(rootPane, mensaje,
+                titulo, JOptionPane.INFORMATION_MESSAGE);
     }
     private void loadFileDataButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadFileDataButtonMouseClicked
         // TODO add your handling code here:
-        if (typeOvenRadioButton.isSelected()){
-            int resultado=alg.datosHorno(fileName.getText());
-            datosHorno=(resultado==1);
-            if(datosHorno){
+        if (typeOvenRadioButton.isSelected()) {
+            int resultado = alg.datosHorno(fileName.getText());
+            datosHorno = (resultado == 1);
+            if (datosHorno) {
                 mostrarDatosHornoPestania();
             }
-            mostrarMensaje(resultado);                
-             
-        }
-        else if(typeSetsRadioButton.isSelected()){
-            int resultado=alg.cargarDatos(fileName.getText());
-            datosSets=(resultado==1);
-            if(datosSets){
+            mostrarMensaje(resultado);
+
+        } else if (typeSetsRadioButton.isSelected()) {
+            int resultado = alg.cargarDatos(fileName.getText());
+            datosSets = (resultado == 1);
+            if (datosSets) {
                 typePedidosRadioButton.setEnabled(datosSets);
-                datosPedidos=false;
+                datosPedidos = false;
                 mostrarDatosSet();
             }
-            mostrarMensaje(resultado);             
-        }
-        else if (typePedidosRadioButton.isSelected()){
-            int resultado=alg.cargarPedidos(fileName.getText());
-            datosPedidos=(resultado==1);
-            if(datosPedidos){
-                mostrarDatosPedidos();                
+            mostrarMensaje(resultado);
+        } else if (typePedidosRadioButton.isSelected()) {
+            int resultado = alg.cargarPedidos(fileName.getText());
+            datosPedidos = (resultado == 1);
+            if (datosPedidos) {
+                mostrarDatosPedidos();
             }
-            mostrarMensaje(resultado);                   
+            mostrarMensaje(resultado);
         }
         loadFileDataButton.setEnabled(false);
         fileName.setText("");
         //Verifica que todos los archivos se hayan cargado antes de pasar a la 
         //siguiente etapa
-        if(datosHorno && datosSets && datosPedidos){
+        if (datosHorno && datosSets && datosPedidos) {
             nextCargaButton.setEnabled(true);
-        }else{
+        } else {
             nextCargaButton.setEnabled(false);
         }
     }//GEN-LAST:event_loadFileDataButtonMouseClicked
 
     private void restoreButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restoreButtonMouseClicked
-        
+
         //Boton que regresa todos los campos a su valor predeterminado
-        
         //Factores cliente
         equalFactorsCheckBox.setSelected(true);
         /*double factor=1.0/3.0;
@@ -2557,11 +2725,11 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         weightSpinner.setValue(factor);
         volumeSpinner.setValue(factor);*/
         maxTimeSpinner.setValue(5); //                  Tiempo maximo de ejecucion
-        
+
         //Parametros del GRASP--------------------------------------------------
         pobSizeGraspSpinner.setValue(7500); //          Tamaño de la poblacion
         alphaGraspSpinner.setValue(0.4); //             Alfa
-        
+
         //Parametros del Memetico-----------------------------------------------
         //-*Generacion de una nueva poblacion
         tasaRecombSpinner.setValue(0.65); //            Tasa de recombinacion
@@ -2576,7 +2744,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         porcConservarSpinner.setValue(0.07);//          Porcentaje de soluciones a conservar        
         //-*Condiciones de parada
         maxIterationSpinner.setValue(1000);//           Maximo numero de iteraciones
-        
+
         //Parametros del Genetico-----------------------------------------------
         //-*Casamiento
         tCasamientoSpinner.setValue(0.65);//            Tasa de casamiento
@@ -2592,8 +2760,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
     private void equalFactorsCheckBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_equalFactorsCheckBoxStateChanged
         // TODO add your handling code here:
-        if(equalFactorsCheckBox.isSelected()){
-            double factor=1.0/3.0;
+        if (equalFactorsCheckBox.isSelected()) {
+            double factor = 1.0 / 3.0;
             //Colocar el valor en los spinners
             demandSpinner.setValue(factor);
             weightSpinner.setValue(factor);
@@ -2602,8 +2770,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             demandSpinner.setEnabled(false);
             weightSpinner.setEnabled(false);
             volumeSpinner.setEnabled(false);
-        }
-        else{
+        } else {
             demandSpinner.setValue(0.4);
             weightSpinner.setValue(0.3);
             volumeSpinner.setValue(0.3);
@@ -2665,10 +2832,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JButton executeButton;
     private javax.swing.JTextField fileName;
     private javax.swing.JTextField fitGenPiezasText;
-    private javax.swing.JTextField fitGenSetsAtend;
     private javax.swing.JTextField fitMemePiezasField;
-    private javax.swing.JTextField fitMemeSetsAtend;
-    private javax.swing.JTable genSetsTable;
     private javax.swing.JPanel graspVariables;
     private javax.swing.JPanel inicio;
     private javax.swing.JSpinner intervalGenSpinner;
@@ -2721,13 +2885,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -2736,16 +2894,20 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2753,6 +2915,10 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -2762,6 +2928,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JButton loadFileDataButton;
     private javax.swing.JSpinner maxIteratNoChangeSpinner;
     private javax.swing.JSpinner maxIterationSpinner;
@@ -2771,7 +2939,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JSpinner maxTimeSpinner;
     private javax.swing.JTextField maxVolume;
     private javax.swing.JTextField maxWeight;
-    private javax.swing.JTable memeSetsTable;
     private javax.swing.JSpinner neighboursVisitSpinner;
     private javax.swing.JButton nextCargaButton;
     private javax.swing.JTextField numberCompartments;
@@ -2784,6 +2951,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JPanel panelDatSets;
     private javax.swing.JPanel panelTablas;
     private javax.swing.JTable piecesTable;
+    private javax.swing.JTable piezasGAtendTable;
+    private javax.swing.JTable piezasMAtendTable;
     private javax.swing.JRadioButton piezasRadioButton;
     private javax.swing.JSpinner pobSizeGraspSpinner;
     private javax.swing.JSpinner porcAplicationSpinner;
@@ -2792,6 +2961,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JSpinner porcConservarSpinner;
     private javax.swing.JLabel probRecombLabel;
     private javax.swing.JSpinner probRecombSpinner;
+    private javax.swing.JTable productosGAtendTable;
+    private javax.swing.JTable productosMAtendTable;
     private javax.swing.JTable productosTable;
     private javax.swing.JButton restoreButton;
     private javax.swing.JPanel resultPiezasAtendPanel;
@@ -2799,6 +2970,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.JToggleButton resultadosBackButton;
     private javax.swing.JPanel resultadosPiezas;
     private javax.swing.JRadioButton setsAtendidosRadioButton;
+    private javax.swing.JTable setsGAtendTable;
+    private javax.swing.JTable setsMAtendTable;
     private javax.swing.JTable setsTable;
     private javax.swing.JTable solucionGenTable;
     private javax.swing.JTable solucionMemeTable;
@@ -2823,16 +2996,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private javax.swing.ButtonGroup vistaResultados;
     private javax.swing.ButtonGroup vistaSets;
     private javax.swing.JTextField volumeGenPiezas;
-    private javax.swing.JTextField volumeGenSetsAtend;
     private javax.swing.JLabel volumeLabel;
     private javax.swing.JTextField volumeMemePiezas;
-    private javax.swing.JTextField volumeMemeSetsAtend;
     private javax.swing.JSpinner volumeSpinner;
     private javax.swing.JTextField weightGenPiezas;
-    private javax.swing.JTextField weightGenSetsAtend;
     private javax.swing.JLabel weightLabel;
     private javax.swing.JTextField weightMemePiezas;
-    private javax.swing.JTextField weightMemeSetsAtend;
     private javax.swing.JSpinner weightSpinner;
     // End of variables declaration//GEN-END:variables
 }
