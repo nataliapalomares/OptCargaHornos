@@ -2396,7 +2396,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         SolucionMeme mejorMeme = alg.mejorMeme;
         int[][] arregloPiezasMeme = mejorMeme.arregloPiezas;
         SolucionG mejorGen = alg.mejorGen;
-
+        
+        Integer[] indCompartimento=new Integer[Vagoneta.nCompartimentos];
+        for(int i=0;i<Vagoneta.nCompartimentos;i++){
+            indCompartimento[i]=i+1;
+        }
+        modelMemePieza.addColumn("Id Comp.", indCompartimento);
+        modelGenPieza.addColumn("Id Comp.", indCompartimento);
         for (int i = 0; i < (Horno.nVagonetas); i++) {
             //Calculando el peso y volumen cargado
             volumenM += mejorMeme.getVolV(i);
