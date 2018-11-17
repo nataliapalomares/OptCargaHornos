@@ -2565,7 +2565,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             colocarValoresParametros();
             activarElementos(false);
             SwingWorker work=alg.createWorker(executionProgressBar);
-            work.execute();            
+            work.execute();
         } else {
             mostrarMensaje(-3);
         }

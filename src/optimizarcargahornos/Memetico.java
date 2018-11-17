@@ -35,6 +35,7 @@ public class Memetico {
         this.gPiezas=gPiezas;
         this.mDimension=mDimension;
         this.graspRestaurar=graspRestaurar;
+        this.mejorSol=null;
         //this.graspRestaurar.setAlpha(ALF_RESTAURAR);
     }
     public SolucionMeme[] uniform_crossover(SolucionMeme p1,SolucionMeme p2){
@@ -149,13 +150,13 @@ public class Memetico {
         }
         return nuevaPob;
     }
-    public void ejecutar(PoblacionMeme pob,long finalContador){
+    public void ejecutar(PoblacionMeme pob){
         //FALTA CONSIDERAR EL TEMPORIZADOR        
         //mejorSol=pob.buscarMejor();
         mejorSol=pob.getMejor();
         double fitnessGRASP=mejorSol.getFitness();
         int sinMejora=0;
-        for(int generacion=0;(System.currentTimeMillis()<finalContador) && generacion<MAX_GENERACIONES;generacion++){
+        for(int generacion=0;generacion<MAX_GENERACIONES;generacion++){
             PoblacionMeme nuevaPop=generarNuevaPoblacion(pob,generacion);
             pob=actualizarPoblacion(nuevaPop,pob);
             //Solucion mejorActual=pob.buscarMejor();

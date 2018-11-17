@@ -34,49 +34,64 @@ public class Algoritmos {
     static int TIEMPO_MAXIMO;//cantidad de minutos de ejecucion del algoritmo
     
     public Algoritmos() {
-        //inicializarGestoresProd();
-        //lPedidos=new ArrayList<>();
+        this.mejorMeme=null;
+        this.mejorGen=null;
     }
     public SwingWorker createWorker(JProgressBar executionProgressBar) {
         return new SwingWorker<Void, Integer>() {
             @Override
             protected Void doInBackground() throws Exception {
                 long inicioContador=System.currentTimeMillis();
-                long finalContador=(TIEMPO_MAXIMO*60*1000)+inicioContador;
+                long finalContador=TIEMPO_MAXIMO*60*1000;
                 crearEstructuraAuxiliares();
                 //GRASP-CREACION DE LA POBLACION INICIAL----------------------------------
-                Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-                
-                //Instant first = Instant.now();
+                Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);                
                 PoblacionMeme pobInicial=graspPobInicial.ejecutar();
-                publish(1);
-                //Instant second= Instant.now();
-                //Duration duration = Duration.between(first, second);
-
+                int porcentaje=Math.round(((System.currentTimeMillis()-inicioContador)*100/finalContador));
+                if(porcentaje>100){
+                    mejorMeme=pobInicial.getMejor();                    
+                    mejorGen=new SolucionG(mejorMeme);
+                    return null;
+                }
+                
+                Genetico algGenetico=new Genetico(gPiezas,mDimension);
+                PoblacionGen pobGen=algGenetico.convertirPoblacion(pobInicial);                
+                porcentaje=Math.round(((System.currentTimeMillis()-inicioContador)*100/finalContador));
+                if(porcentaje>100){
+                    mejorGen=pobGen.getMejor();
+                    mejorMeme=pobInicial.getMejor();
+                    return null;
+                }
+                else publish(porcentaje);
                 //ALGORITMO GENÉTICO----------------------------------------------------        
-                /*Thread threadGen = new Thread(){
-                    public void run(){*/
-                        Genetico algGenetico=new Genetico(gPiezas,mDimension);
-                        algGenetico.ejecutar(pobInicial,finalContador);
-                        mejorGen=algGenetico.mejor();
-                        publish(50);
-                /*    }
+                Thread threadGen = new Thread(){
+                    public void run(){                        
+                        algGenetico.ejecutar(pobGen);
+                    }
                 };
-                threadGen.start();*/
-                //ALGORITMO MEMETICO------------------------------------------------------        
-                /*Thread threadMem = new Thread(){
-                    public void run(){*/
-                       Memetico algMemetico=new Memetico(gPiezas,mDimension,graspPobInicial);
-                       algMemetico.ejecutar(pobInicial,finalContador);
-                       mejorMeme=algMemetico.mejor();
-                /*    }
+                threadGen.start();
+                //ALGORITMO MEMETICO------------------------------------------------------ 
+                Memetico algMemetico=new Memetico(gPiezas,mDimension,graspPobInicial);
+                Thread threadMem = new Thread(){
+                    public void run(){
+                       algMemetico.ejecutar(pobInicial);
+                    }
                 };
-                threadMem.start();  */
+                threadMem.start();
+                
+                long intervalo=((finalContador+inicioContador)-System.currentTimeMillis())/5;
+                for(int i=0;i<5;i++){
+                    Thread.sleep(intervalo);
+                    publish(Math.round(((System.currentTimeMillis()-inicioContador)*100/finalContador)));
+                }
+                threadGen.interrupt();
+                threadMem.interrupt();
+                mejorGen=algGenetico.mejor();
+                mejorMeme=algMemetico.mejor();
                 return null;                
             }
             @Override
             protected void process(List<Integer> avances) {
-                // Get Info
                 executionProgressBar.setValue(avances.get(0));
             }
             @Override
@@ -261,8 +276,8 @@ public class Algoritmos {
         /*Thread threadGen = new Thread(){
             public void run(){*/
                 Genetico algGenetico=new Genetico(gPiezas,mDimension);
-                algGenetico.ejecutar(pobInicial,finalContador);
-                this.mejorGen=algGenetico.mejor();
+//                algGenetico.ejecutar(pobInicial,finalContador);
+//                this.mejorGen=algGenetico.mejor();
         /*    }
         };
         threadGen.start();*/
@@ -270,7 +285,7 @@ public class Algoritmos {
         /*Thread threadMem = new Thread(){
             public void run(){*/
                Memetico algMemetico=new Memetico(gPiezas,mDimension,graspPobInicial);
-               algMemetico.ejecutar(pobInicial,finalContador);
+//               algMemetico.ejecutar(pobInicial,finalContador);
                this.mejorMeme=algMemetico.mejor();
         /*    }
         };

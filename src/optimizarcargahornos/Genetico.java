@@ -29,6 +29,7 @@ public class Genetico {
     public Genetico(GestorPiezas gPiezas, boolean[][] mDimension){     
         this.gPiezas=gPiezas;
         this.mDimension=mDimension;
+        this.mejor=null;
     }
     public PoblacionGen convertirPoblacion(PoblacionMeme pob){
         PoblacionGen pobGen=new PoblacionGen();
@@ -101,12 +102,11 @@ public class Genetico {
         }
         return nuevaPob;
     }
-    public void ejecutar(PoblacionMeme pob,long finalContador){
-        PoblacionGen pobGen=convertirPoblacion(pob);
+    public void ejecutar(PoblacionGen pobGen){
         this.mejor=pobGen.getMejor();
         int tOriginal=pobGen.size();
         int sinMejora=0;
-        for(int i=0;(System.currentTimeMillis()<finalContador) && (i<MAX_ITERACIONES) && sinMejora<MAX_SIN_MEJORA;i++){
+        for(int i=0;(i<MAX_ITERACIONES) && sinMejora<MAX_SIN_MEJORA;i++){
             casamiento(pobGen);
             mutacion(pobGen);
             pobGen= depurarPobGen(pobGen,tOriginal);
