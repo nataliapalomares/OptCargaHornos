@@ -2818,9 +2818,9 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             weightSpinner.setEnabled(false);
             volumeSpinner.setEnabled(false);
         } else {
-            demandSpinner.setValue(0.4);
-            weightSpinner.setValue(0.3);
-            volumeSpinner.setValue(0.3);
+            //demandSpinner.setValue(0.4);
+            //weightSpinner.setValue(0.3);
+            //volumeSpinner.setValue(0.3);
             //Desbloquear los spinners
             demandSpinner.setEnabled(true);
             weightSpinner.setEnabled(true);
@@ -2836,6 +2836,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             activarElementos(true);
             CardLayout card = (CardLayout) ventanaContenedora.getLayout();
             card.show(ventanaContenedora, "resultadosPiezas");
+            executionProgressBar.setValue(0);
         }
     }//GEN-LAST:event_executionProgressBarStateChanged
 
