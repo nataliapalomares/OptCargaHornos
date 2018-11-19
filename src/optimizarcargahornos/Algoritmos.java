@@ -253,7 +253,7 @@ public class Algoritmos {
         }
     }
     
-    public void ejecutar(){
+    private void ejecutar(){
         
         long inicioContador=System.currentTimeMillis();
         long finalContador=(TIEMPO_MAXIMO*60*1000)+inicioContador;
