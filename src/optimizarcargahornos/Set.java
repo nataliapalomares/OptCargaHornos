@@ -4,11 +4,11 @@ package optimizarcargahornos;
  * @author Natalia Palomares Melgarejo
  */
 public class Set {
-   int id;
-   String modelo;//int idModelo;
-   String color;//int idColor;
-   int nProductos; //numero de productos que componen el set
-   int[] lProductos; //lista de los id de los productos
+   private int id;
+   private String modelo;//int idModelo;
+   private String color;//int idColor;
+   private int nProductos; //numero de productos que componen el set
+   final private int[] lProductos; //lista de los id de los productos
 
    public Set(int id, String modelo,String color,int nProductos,String lista){
        this.id=id;
@@ -23,6 +23,18 @@ public class Set {
    }
    public int[] listaProd(){
        return this.lProductos;
+   }
+   public int id(){
+       return this.id;
+   }
+   public String modelo(){
+       return this.modelo;
+   }
+   public String color(){
+       return this.color;
+   }
+   public int nProductos(){
+       return this.nProductos;
    }
    public String cadenaListaProd(){
        String cadena="";

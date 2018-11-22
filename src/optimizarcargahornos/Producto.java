@@ -4,10 +4,10 @@ package optimizarcargahornos;
  * @author Natalia Palomares Melgarejo
  */
 public class Producto {
-    int id;
-    String descripcion;
-    int nPiezas; //indica la cantidad de piezas que componen un producto;
-    int[] lPiezas; //lista de los ids de las piezas que componen un producto;
+    private int id;
+    private String descripcion;
+    private int nPiezas; //indica la cantidad de piezas que componen un producto;
+    final private int[] lPiezas; //lista de los ids de las piezas que componen un producto;
     
     public Producto(int id,String descripcion,int nPiezas,String lista){
         this.id=id;
@@ -17,6 +17,12 @@ public class Producto {
         String[] piezas=lista.split("/");
         for(int i=0;i<nPiezas;i++)
             lPiezas[i]=Integer.parseInt(piezas[i]);
+    }
+    public int id(){
+        return this.id;
+    }
+    public int nPiezas(){
+        return this.nPiezas;
     }
     public int[] listaPiezas(){
         return this.lPiezas;
@@ -29,7 +35,7 @@ public class Producto {
         }
         return cadena;
     }
-    public String[] getDescripcion(){
+    public String[] descripcion(){
         String[] datosDescrip=descripcion.split("/");
         return datosDescrip;
     }

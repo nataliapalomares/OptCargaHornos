@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,9 +26,9 @@ public class Solucion implements Comparable<Solucion>{
     
     //Estructuras auxiliares
     int[] piezasCol;
-    double[] prioridadV;
-    double[] pesoV;
-    double[] volV;
+    private double[] prioridadV;
+    private double[] pesoV;
+    private double[] volV;
     
     public Solucion(){
         this.fitness=0.0;
@@ -63,21 +62,30 @@ public class Solucion implements Comparable<Solucion>{
         this.fitness=fitness;
     }
     public void agregarElemento(int rV,Pieza nuevaPieza,GestorPiezas gPiezas){
-        int ind=nuevaPieza.getId()-1;
+        //Funcion que agrega un elemento a la solucion
+        //En esta, se actualiza (aumenta) la cantidad de piezasColocadas, la sumatoria de
+        //prioridad, peso y volumen del vagon (rV) en el que se coloco
+        int ind=nuevaPieza.id()-1;
         int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         piezasCol[ind]+=1;
         prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        pesoV[rV]+=nuevaPieza.peso;
-        volV[rV]+=nuevaPieza.volumen;
+        pesoV[rV]+=nuevaPieza.peso();
+        volV[rV]+=nuevaPieza.volumen();
     }
     public void quitarElemento(int rV,int ind,Pieza piezaPorQuitar,GestorPiezas gPiezas){
+        //Funcion que retira un elemento de la solucion
+        //Actualiza (reduce) la cantidad de piezasColocadas y la sumatoria de prioridad,
+        //peso y volumen del vagon (rV) en el que se coloco
         piezasCol[ind]-=1;
         int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        pesoV[rV]-=piezaPorQuitar.peso;
-        volV[rV]-=piezaPorQuitar.volumen;
+        pesoV[rV]-=piezaPorQuitar.peso();
+        volV[rV]-=piezaPorQuitar.volumen();
     }
     public void actualizarFitness(){
+        //Calcula el valor fitness de la solucion en general: considerando los 
+        //coeficientes de demanda, volumen y peso
+        
         //Maxima prioridad que se puede cargar en una vagoneta
         int maxPrioridadW=MAXPRIORIDAD*Vagoneta.nCompartimentos;
         double fitnessActual=0;
@@ -89,6 +97,11 @@ public class Solucion implements Comparable<Solucion>{
         fitness=fitnessActual;
     }
     public Pieza buscarReemplazo(int ind,int rC,boolean[][]mDimensiones,GestorPiezas gPiezas){
+        //Funcion que busca una pieza para reemplazar la pieza de indice "ind"
+        //para ser un candidato para reemplazo debe caber en el compartimento "rC"
+        //y debe ser diferente a la pieza actual ("ind")
+        
+        //Generar la lista de piezas candidatas para el reemplazo
         List<Integer> indicesReemplazo=new ArrayList<>();
         for(int i=0;i<gPiezas.size();i++){
             if(mDimensiones[i][rC] && (i!=ind)){
@@ -102,11 +115,15 @@ public class Solucion implements Comparable<Solucion>{
             if(ind==-1) return null;
             return gPiezas.getPieza(ind);
         }
+        
+        //Seleccionar al azar una pieza entre los candidatos
         Random aleatorio = new Random(System.currentTimeMillis());
         int reemplazo=aleatorio.nextInt(indicesReemplazo.size());
         return gPiezas.getPieza(indicesReemplazo.get(reemplazo));
     }
     public boolean valida(GestorPiezas gPieza){
+        //Funcion que verifica si la solucion es valida, es decir si respeta las
+        //restricciones
         double volTotal=0;
         for(int i=0;i<Horno.nVagonetas;i++){
             //RE1: no exceder el peso máximo de la vagoneta
@@ -131,6 +148,7 @@ public class Solucion implements Comparable<Solucion>{
     }
     
     public int getCantColocada(int ind){
+        //devuelve la cantidad colocada del tipo de pieza con indice "ind"
         return this.piezasCol[ind];
     }
     

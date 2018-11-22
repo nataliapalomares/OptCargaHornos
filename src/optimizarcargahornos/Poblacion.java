@@ -5,11 +5,16 @@ package optimizarcargahornos;
  */
 public class Poblacion {
     int tamanio;
+    double sumaFitness;
     public Poblacion(){
-        this.tamanio=0;
+        tamanio=0;
+        sumaFitness=0.0;
     }
     public int size(){
-        return this.tamanio;
+        return tamanio;
+    }
+    public double getSumaFitness(){
+        return sumaFitness;
     }
     public int ruleta(double[] rangosRuleta,int izq,int der,double r){
         //Ruleta búsqueda binaria

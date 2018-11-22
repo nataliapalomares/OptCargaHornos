@@ -10,17 +10,13 @@ import java.util.List;
 public class PoblacionGen extends Poblacion{
     List<SolucionG> pob;
     SolucionG mejor;
-    double sumaFitness;
     
     public PoblacionGen(){
         super();
         this.pob=new ArrayList<>();
         this.mejor=null;
-        this.sumaFitness=0.0;
     }
-    public double getSumaFitness(){
-        return this.sumaFitness;
-    }
+    
     public SolucionG getMejor(){
         return this.mejor;
     }
@@ -31,13 +27,9 @@ public class PoblacionGen extends Poblacion{
         return this.pob.get(ind);
     }
     public double[] preparacionRuleta(){
-        double[] rangosRuleta=new double[this.tamanio];
-        /*double sumaFitness=0;
-        for(int i=0;i<this.tamanio;i++){
-            sumaFitness+=this.pob.get(i).getFitness();
-        }*/
+        double[] rangosRuleta=new double[tamanio];
         double anterior=0;
-        for(int i=0;i<this.tamanio;i++){
+        for(int i=0;i<tamanio;i++){
             rangosRuleta[i]=anterior+(this.pob.get(i).getFitness()/sumaFitness);
             anterior=rangosRuleta[i];
         }
@@ -48,14 +40,14 @@ public class PoblacionGen extends Poblacion{
         double r=Math.random();
         int izq=0;
         int der=rangosRuleta.length-1;
-        int indice=super.ruleta(rangosRuleta,izq,der,r);
+        int indice=ruleta(rangosRuleta,izq,der,r);
         return this.pob.get(indice);
     }
     public SolucionG ruleta(){
         double r=Math.random();
         double suma=0.0;
         for(SolucionG sol:this.pob){
-            suma+=(sol.fitness/this.sumaFitness);
+            suma+=(sol.fitness/sumaFitness);
             if(suma>=r) return sol;
         }
         return null;

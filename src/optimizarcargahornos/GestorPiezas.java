@@ -59,10 +59,10 @@ public class GestorPiezas {
         return prioridadProm[ind];
     }
     public double getVolumen(int ind){
-        return this.lPiezas[ind].getVolumen();
+        return this.lPiezas[ind].volumen();
     }
     public double getPeso(int ind){
-        return this.lPiezas[ind].getPeso();
+        return this.lPiezas[ind].peso();
     }
     public Pieza getPieza(int ind){
         return this.lPiezas[ind];

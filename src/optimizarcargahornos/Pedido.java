@@ -3,17 +3,16 @@ package optimizarcargahornos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static java.time.temporal.ChronoUnit.DAYS;
-import java.util.Date;
 
 /**
  * @author Natalia Palomares Melgarejo
  */
 public class Pedido {
-    int idPedido; //código que identifica el pedido
-    int idSet;//set pedido
-    int cantidad;
-    LocalDate fEntrega; //fecha de entrega
-    int pCliente; //prioridad del cliente 
+    private int idPedido; //código que identifica el pedido
+    private int idSet;//set pedido
+    private int cantidad;
+    private LocalDate fEntrega; //fecha de entrega
+    private int pCliente; //prioridad del cliente 
 
     public Pedido(int idP, int idS, int cant, LocalDate entrega,int priorCliente){
         this.idPedido=idP;

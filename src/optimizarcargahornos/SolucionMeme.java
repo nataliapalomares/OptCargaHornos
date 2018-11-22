@@ -22,7 +22,7 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
     static double COEF_VOLUMEN;
     static double COEF_PESO;
     //variables de la solucion particular
-    int[][] arregloPiezas;
+    private int[][] arregloPiezas;
     int[] piezasCol;
     private double[] prioridadV;//suma de las prioridades cargadas en la vagoneta
     private double[] volV;//volumen cargado a cada vagoneta
@@ -38,19 +38,43 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
         piezasCol=new int[GestorPiezas.cantidadPiezas];
         
     }
+    public double getPrioridadV(int w){
+        //Devuelve la prioridad cargada en el vagon w
+        return this.prioridadV[w];
+    }
+    public double getPesoV(int w){
+        //Devuelve el peso cargado en el vagon w
+        return this.pesoV[w];
+    }
+    public double getVolV(int w){
+        //Devuelve el volumen cargado en el vagon w
+        return this.volV[w];
+    }
     public double getFitness(){
+        //Devuelve el fitness de la solucion
         return fitness;
     }
     public int getCantColocada(int ind){
+        //Devuelve la cantidad de piezas de indice "ind" que se han colocado en
+        //la solucion
         return this.piezasCol[ind];
     }
-    public int getIdPieza(int v,int c){
-        return this.arregloPiezas[v][c];
+    public int getIdPieza(int rV,int rC){
+        //Devuelve el id de la pieza que esta en el vagon v, compartimento c
+        return this.arregloPiezas[rV][rC];
     }
     public int getIndPieza(int rV,int rC){
+        //Devuelve el indice de la pieza que esta en el vagon v, compartimento c
         return this.arregloPiezas[rV][rC]-1;
     }
+    public int[] getPiezasVagon(int vagon){
+        //Devuelve las piezas colocadas en el vagon especificado
+        return this.arregloPiezas[vagon];
+    }
     public void actualizarFitness(){
+        //Actualiza el valor fitness: recalcula el fitness considerando los coeficientes
+        //de demanda, volumen y peso
+        
         //Maxima prioridad que se puede cargar en una vagoneta
         int maxPrioridadW=MAXPRIORIDAD*Vagoneta.nCompartimentos;
         double fitnessActual=0;
@@ -62,25 +86,28 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
         this.fitness=fitnessActual;
     }
     public void quitarElemento(int rV,int rC,GestorPiezas gPiezas){
+        //Quita un elemento y reduce la prioridad, peso y volumen total cargados
+        //Marca el compartimento rC como vacio
+        
         int ind=getIndPieza(rV,rC);
         if(ind==-1) return;
         Pieza piezaActual=gPiezas.getPieza(ind);
         piezasCol[ind]-=1;
         int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         this.prioridadV[rV]-=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        this.pesoV[rV]-=piezaActual.peso;
-        this.volV[rV]-=piezaActual.volumen;
+        this.pesoV[rV]-=piezaActual.peso();
+        this.volV[rV]-=piezaActual.volumen();
         //Se señala que en el compartimento no hay ninguna pieza que no hay ningun elemento
         this.arregloPiezas[rV][rC]=0;
     }
     public void agregarElemento(int rV,int rC,Pieza nuevaPieza,GestorPiezas gPiezas){
-        int ind=nuevaPieza.getId()-1;
+        int ind=nuevaPieza.id()-1;
         int faltantesActual=Math.max(gPiezas.faltantes(ind)-piezasCol[ind],0);
         piezasCol[ind]+=1;
         this.prioridadV[rV]+=(gPiezas.getpPromedio(ind)*Math.ceil((double)(10*faltantesActual)/gPiezas.maxFaltantes));
-        this.pesoV[rV]+=nuevaPieza.peso;
-        this.volV[rV]+=nuevaPieza.volumen;
-        this.arregloPiezas[rV][rC]=nuevaPieza.getId();
+        this.pesoV[rV]+=nuevaPieza.peso();
+        this.volV[rV]+=nuevaPieza.volumen();
+        this.arregloPiezas[rV][rC]=nuevaPieza.id();
     }
     public void agregarElemento(int rV,int rC,int ind,GestorPiezas gPiezas){
         if(ind==-1){
@@ -223,15 +250,6 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
         } catch (IOException ex) {
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    public double getPrioridadV(int w){
-        return this.prioridadV[w];
-    }
-    public double getPesoV(int w){
-        return this.pesoV[w];
-    }
-    public double getVolV(int w){
-        return this.volV[w];
     }
     @Override
     public int compareTo(SolucionMeme solComparar) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package optimizarcargahornos;
 
 import java.awt.CardLayout;
@@ -16,8 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Natalia
+ * @author Natalia Palomares Melgarejo
  */
 public class OptimizarCargaVentana extends javax.swing.JFrame {
 
@@ -2402,7 +2396,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         modelGenPieza.setColumnCount(0);
 
         SolucionMeme mejorMeme = alg.mejorMeme;
-        int[][] arregloPiezasMeme = mejorMeme.arregloPiezas;
         SolucionG mejorGen = alg.mejorGen;
         
         Integer[] indCompartimento=new Integer[Vagoneta.nCompartimentos];
@@ -2419,7 +2412,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             pesoG += mejorGen.getPesoV(i);
 
             //Llenando la tabla con la solucion Memetico
-            Integer[] datosVagonM = IntStream.of(arregloPiezasMeme[i]).boxed().toArray(Integer[]::new);
+            Integer[] datosVagonM = IntStream.of(mejorMeme.getPiezasVagon(i)).boxed().toArray(Integer[]::new);
             modelMemePieza.addColumn("Vagon " + (i + 1), datosVagonM);
 
             //Llenando la tabla con la solucion Genetico
@@ -2459,12 +2452,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             if ((cantMeme > 0)||(cantGen>0)) {
                 //id, modelo, color, lista productos,stock
                 Pieza actual = alg.gPiezas.getPieza(i);
-                String[] descripcion = actual.getDescripcion();
+                String[] descripcion = actual.descripcion();
                 if(cantMeme>0)
-                    modelMPiezaAtend.addRow(new Object[]{actual.getId(), descripcion[0],
+                    modelMPiezaAtend.addRow(new Object[]{actual.id(), descripcion[0],
                         descripcion[1], descripcion[2],cantMeme});
                 if(cantGen>0)
-                    modelGPiezaAtend.addRow(new Object[]{actual.getId(), descripcion[0],
+                    modelGPiezaAtend.addRow(new Object[]{actual.id(), descripcion[0],
                         descripcion[1], descripcion[2],cantGen});
             }
         }
@@ -2475,7 +2468,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         for (Producto actualProd:alg.gProd.lProd){
             nuevoStockProdM[indProd]=Integer.MAX_VALUE;
             nuevoStockProdG[indProd]=Integer.MAX_VALUE;
-            for(int idPieza:actualProd.lPiezas){
+            for(int idPieza:actualProd.listaPiezas()){
                 //Se calcula el productosCompletados=piezasAlmacen+stockHorneado;
                 int cantidadActualM=alg.gPiezas.stock(idPieza-1)+mejorMeme.getCantColocada(idPieza-1);
                 if(cantidadActualM<nuevoStockProdM[indProd]) nuevoStockProdM[indProd]=cantidadActualM;
@@ -2484,13 +2477,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             }
             if(nuevoStockProdM[indProd]==Integer.MAX_VALUE) nuevoStockProdM[indProd]=0;
             if(nuevoStockProdG[indProd]==Integer.MAX_VALUE) nuevoStockProdG[indProd]=0;
-            String[] descripcion=actualProd.getDescripcion();
+            String[] descripcion=actualProd.descripcion();
             if(nuevoStockProdM[indProd]>0){
-                modelMProdAtend.addRow(new Object[]{actualProd.id,descripcion[0],
+                modelMProdAtend.addRow(new Object[]{actualProd.id(),descripcion[0],
                     descripcion[1],descripcion[2],nuevoStockProdM[indProd]});                
             }
             if(nuevoStockProdG[indProd]>0){
-                modelGProdAtend.addRow(new Object[]{actualProd.id,descripcion[0],
+                modelGProdAtend.addRow(new Object[]{actualProd.id(),descripcion[0],
                     descripcion[1],descripcion[2],nuevoStockProdG[indProd]});
             }
             nuevoStockProdM[indProd]+=alg.gProd.stock(indProd);
@@ -2502,7 +2495,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         for(Set actualSet:alg.gSets.lSets){
             int nuevoStockM=Integer.MAX_VALUE;
             int nuevoStockG=Integer.MAX_VALUE;
-            for(int idProducto:actualSet.lProductos){
+            for(int idProducto:actualSet.listaProd()){
                 int cantidadActualM=nuevoStockProdM[idProducto-1];
                 if(cantidadActualM<nuevoStockM) nuevoStockM=cantidadActualM;
                 int cantidadActualG=nuevoStockProdG[idProducto-1];
@@ -2511,12 +2504,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             if(nuevoStockM==Integer.MAX_VALUE) nuevoStockM=0;
             if(nuevoStockG==Integer.MAX_VALUE) nuevoStockG=0;
             if(nuevoStockM>0){
-                modelMSetAtend.addRow(new Object[]{actualSet.id,actualSet.modelo,
-                    actualSet.color,nuevoStockM});
+                modelMSetAtend.addRow(new Object[]{actualSet.id(),actualSet.modelo(),
+                    actualSet.color(),nuevoStockM});
             }   
             if(nuevoStockG>0){
-                modelGSetAtend.addRow(new Object[]{actualSet.id,actualSet.modelo,
-                    actualSet.color,nuevoStockG});
+                modelGSetAtend.addRow(new Object[]{actualSet.id(),actualSet.modelo(),
+                    actualSet.color(),nuevoStockG});
             }
         }
     }
@@ -2639,9 +2632,9 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         //Llenando la tabla de sets
         Set[] listaSets = alg.gSets.lSets;
         for (Set setActual : listaSets) {
-            int idActual = setActual.id;
+            int idActual = setActual.id();
             //id, modelo, color, lista productos,stock
-            modelSet.addRow(new Object[]{idActual, setActual.modelo, setActual.color,
+            modelSet.addRow(new Object[]{idActual, setActual.modelo(), setActual.color(),
                 setActual.cadenaListaProd(), alg.gSets.stock(idActual - 1)});
 
         }
@@ -2649,8 +2642,8 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         //Llenando la tabla de productos
         Producto[] listaProductos = alg.gProd.lProd;
         for (Producto prodActual : listaProductos) {
-            int idActual = prodActual.id;
-            String[] datosDescrip = prodActual.getDescripcion();
+            int idActual = prodActual.id();
+            String[] datosDescrip = prodActual.descripcion();
             //id, tipo, modelo, color, lista de piezas,stock
             modelProd.addRow(new Object[]{idActual, datosDescrip[0], datosDescrip[1], datosDescrip[2],
                 prodActual.cadenaPiezas(), alg.gProd.stock(idActual - 1)});
@@ -2659,12 +2652,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         //Llenando la tabla de piezas
         Pieza[] listaPiezas = alg.gPiezas.lPiezas;
         for (Pieza piezaActual : listaPiezas) {
-            int idActual = piezaActual.getId();
-            String[] datosDescrip = piezaActual.getDescripcion();
+            int idActual = piezaActual.id();
+            String[] datosDescrip = piezaActual.descripcion();
             //id, tipo,modelo,color,alto,ancho,largo,peso,stock,pendiente
             modelPieces.addRow(new Object[]{idActual, datosDescrip[0], datosDescrip[1],
-                datosDescrip[2], piezaActual.getAlto(), piezaActual.getAncho(),
-                piezaActual.getLargo(), piezaActual.getPeso(), alg.gPiezas.stock(idActual - 1),
+                datosDescrip[2], piezaActual.alto(), piezaActual.ancho(),
+                piezaActual.largo(), piezaActual.peso(), alg.gPiezas.stock(idActual - 1),
                 alg.gPiezas.pendientes(idActual - 1)});
         }
     }
@@ -2716,6 +2709,9 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 break;
             case -2:
                 mensaje = "El archivo no tiene el formato correcto";
+                break;
+            case -3:
+                mensaje = "El archivo de pedidos no corresponde al de sets";
                 break;
             default:
                 mensaje = "Los factores de priorización deben sumar 1";

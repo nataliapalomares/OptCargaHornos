@@ -4,13 +4,13 @@ package optimizarcargahornos;
  * @author Natalia Palomares Melgarejo
  */
 public class Pieza {
-    int id;
-    String descripcion;
-    double ancho;//ancho de la pieza en m
-    double alto;//alto de la pieza en m
-    double largo;//largo de la pieza en m
-    double volumen;//volumen de la pieza en m3
-    double peso; //peso de la pieza en Kg
+    private int id;
+    private String descripcion;
+    private double ancho;//ancho de la pieza en m
+    private double alto;//alto de la pieza en m
+    private double largo;//largo de la pieza en m
+    private double volumen;//volumen de la pieza en m3
+    private double peso; //peso de la pieza en Kg
     
     public Pieza(int id,String descripcion,double h,double w,double l,double peso){
         this.id=id;
@@ -29,26 +29,26 @@ public class Pieza {
         //Comparando cada lado con el compartimento
         return (maximo<=maxDC && minimo<=minDC && medio<=medDC);
     }
-    public double getVolumen(){
+    public double volumen(){
         return this.volumen;
     }
-    public double getPeso(){
+    public double peso(){
         return this.peso;
     }
-    public int getId(){
+    public int id(){
         return this.id;
     }
-    public String[] getDescripcion(){
+    public String[] descripcion(){
         String[] datosDescrip=descripcion.split("/");
         return datosDescrip;
     }
-    public double getAlto(){
+    public double alto(){
         return alto;
     }
-    public double getAncho(){
+    public double ancho(){
         return ancho;
     }
-    public double getLargo(){
+    public double largo(){
         return largo;
     }
 }

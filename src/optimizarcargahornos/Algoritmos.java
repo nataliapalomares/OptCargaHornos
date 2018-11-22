@@ -2,8 +2,6 @@ package optimizarcargahornos;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -36,6 +34,7 @@ public class Algoritmos {
     public Algoritmos() {
         this.mejorMeme=null;
         this.mejorGen=null;
+        this.mDimension=null;
     }
     public SwingWorker createWorker(JProgressBar executionProgressBar) {
         return new SwingWorker<Void, Integer>() {
@@ -43,7 +42,7 @@ public class Algoritmos {
             protected Void doInBackground() throws Exception {
                 long inicioContador=System.currentTimeMillis();
                 long finalContador=TIEMPO_MAXIMO*60*1000;
-                crearEstructuraAuxiliares();
+                if(mDimension==null) crearEstructuraAuxiliares();
                 //GRASP-CREACION DE LA POBLACION INICIAL----------------------------------
                 Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);                
                 PoblacionMeme pobInicial=graspPobInicial.ejecutar();
@@ -106,8 +105,6 @@ public class Algoritmos {
         gPiezas = new GestorPiezas();
     }
     public int datosHorno(String csvFile) {
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\nuevoHorno.csv";
         
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -137,8 +134,6 @@ public class Algoritmos {
         }
     }
     public int cargarDatos(String csvFile) {
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504sets_piezas.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\150sets_piezas.csv";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             inicializarGestoresProd();
@@ -190,9 +185,7 @@ public class Algoritmos {
     }
 
     public int cargarPedidos(String csvFile){
-        //int idP, int idS, int cant, Date entrega,int priorCliente)
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv";
-        //String csvFile = "C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\pedidos"+j+".csv";
+        if(lPedidos!=null && lPedidos.size()>0) gSets.reiniciarPedidos();
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             lPedidos=new ArrayList<>();
@@ -210,12 +203,13 @@ public class Algoritmos {
                 lPedidos.add(pActual);
             }
             return 1;
-        }  catch (IOException e) {
-            return -1;
+        } catch(ArrayIndexOutOfBoundsException  e){
+            return -3; //ARCHIVO DE PEDIDOS NO CORRESPONDE AL DE SETS
+        } catch (IOException e) {
+            return -1; //ERROR AL ABRIR EL ARCHIVO
         } catch(Exception e){
-            return -2;
-        }
-        
+            return -2; //ERROR: EL ARCHIVO NO TIENE FORMATO ADECUADO
+        }       
     }
     private void crearEstructuraAuxiliares(){
         //MATRIZ DE DIMENSIONES

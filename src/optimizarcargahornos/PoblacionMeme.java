@@ -7,14 +7,14 @@ import java.util.List;
 /**
  * @author Natalia Palomares Melgarejo
  */
-public class PoblacionMeme {
+public class PoblacionMeme extends Poblacion{
     List<SolucionMeme> pob;
-    int tamanio;
+    //int tamanio; PENDIENTE
     SolucionMeme mejor;
     
     public PoblacionMeme(){
+        super();
         this.pob=new ArrayList<>();
-        this.tamanio=0;
         this.mejor=null;
     }
     public SolucionMeme getMejor(){
@@ -36,51 +36,29 @@ public class PoblacionMeme {
         setMejor(mejorActual);
         return mejorActual;
     }
-    public int size(){
-        return this.tamanio;
-    }
     public void add(SolucionMeme sol){
         this.pob.add(sol);
-        this.tamanio++;
+        tamanio++;
+        sumaFitness+=sol.getFitness();
         if(tamanio==1 || this.mejor.getFitness()<sol.getFitness()) this.setMejor(sol);
     }
     public void remove(SolucionMeme sol){
+        sumaFitness-=sol.getFitness();
         this.pob.remove(sol);
-        this.tamanio--;
+        tamanio--;
     }
     public void remove(int ind){
         remove(this.pob.get(ind));
     }
     public double[] preparacionRuleta(){
-        double[] rangosRuleta=new double[this.tamanio];
-        double sumaFitness=0;
-        for(int i=0;i<this.tamanio;i++){
-            sumaFitness+=this.pob.get(i).getFitness();
-        }
+        double[] rangosRuleta=new double[tamanio];
         double anterior=0;
-        for(int i=0;i<this.tamanio;i++){
+        for(int i=0;i<tamanio;i++){
             rangosRuleta[i]=anterior+(this.pob.get(i).getFitness()/sumaFitness);
             anterior=rangosRuleta[i];
         }
         return rangosRuleta;
-    }
-    private int ruleta(double[] rangosRuleta,int izq,int der,double r){
-        //Ruleta búsqueda binaria
-        int mitad=(izq+der)/2;
-        while (izq <= der) {
-            if (rangosRuleta[mitad] < r)
-                izq = mitad + 1;    
-            else if (rangosRuleta[mitad] > r) {
-                if(mitad==izq || rangosRuleta[mitad-1]<r){
-                    return mitad;
-                }
-                else der= mitad-1;
-            }
-            else return mitad;
-            mitad = (izq + der)/2;
-        }
-        return -1;  
-    }
+    }    
     public SolucionMeme ruleta(double[] rangosRuleta){
         double r=Math.random();
         int izq=0;

@@ -23,6 +23,15 @@ public class GestorSets {
         this.rSets=new int[cant][3];
         this.prioridadProm=new double[cant];
     }
+    public void reiniciarPedidos(){
+        //restablece a 0 la cantidad pedida en el resumen de sets y la
+        //prioridad promedio
+        int cant=this.lSets.length;
+        for(int i=0;i<cant;i++){
+            rSets[i][0]=0;//Cantidad pedida
+            prioridadProm[i]=0.0;//Prioridad promedio
+        }
+    }
     public void addRSet(int ind,char tipo,int cant){
         switch(tipo){
             case'P':rSets[ind][0]+=cant;// PEDIDO
