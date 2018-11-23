@@ -7,9 +7,7 @@ package optimizarcargahornos;
 public class OptimizarCargaHornos{
 
     public static void main(String[] args){
-        
-        //Algoritmos alg=new Algoritmos();
-        //alg.ejecutar();
+        //Abrir la ventana del programa optimizacion de carga de hornos
         OptimizarCargaVentana pantallaAlg=new OptimizarCargaVentana();
         pantallaAlg.setVisible(true);
     }
