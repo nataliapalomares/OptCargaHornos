@@ -6,8 +6,8 @@ package optimizarcargahornos;
 public class GestorProducto {
     //List<Producto> lProd;
     Producto[] lProd;
-    int[][] rProd;
-    double[] prioridadProm;
+    private int[][] rProd;
+    private double[] prioridadProm;
     public GestorProducto(){
     }
     public void add(Producto prodAgregar,int ind){

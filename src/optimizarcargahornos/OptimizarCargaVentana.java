@@ -281,11 +281,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 cargarDatosPan(evt);
             }
         });
-        startButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startButtonActionPerformed(evt);
-            }
-        });
 
         Pasos.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2285,24 +2280,24 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_startButtonActionPerformed
-
     private void cargarDatosPan(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarDatosPan
         // TODO add your handling code here:       
+        //Abre la ventana para cargar datos
         CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "cargarDatos");
     }//GEN-LAST:event_cargarDatosPan
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+        //Regresa a la pantalla de inicio
         CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "inicio");
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void nextCargaButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextCargaButtonMouseClicked
         // TODO add your handling code here:
+        //Si se han cargado todos los datos necesarios (horno, sets y pedidos)
+        //se podra ir a la pantalla de confParametros
         if (datosHorno && datosSets && datosPedidos) {
             CardLayout card = (CardLayout) ventanaContenedora.getLayout();
             card.show(ventanaContenedora, "confParametros");
@@ -2311,11 +2306,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
     private void backParametersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backParametersButtonMouseClicked
         // TODO add your handling code here:
+        //Retorna a la pantalla de cargar datos
         CardLayout card = (CardLayout) ventanaContenedora.getLayout();
         card.show(ventanaContenedora, "cargarDatos");
     }//GEN-LAST:event_backParametersButtonMouseClicked
     private void colocarValoresParametros() {
-        //Se asigna los valores especificados a los parametros
+        //Se asigna los valores especificados a los parametros del algoritmo
         //FACTORES CLIENTE
         Algoritmos.TIEMPO_MAXIMO = (int) maxTimeSpinner.getValue();
         if (equalFactorsCheckBox.isSelected()) {
@@ -2381,11 +2377,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         fitMemePiezasField.setText(String.format("%.4f", alg.mejorMeme.getFitness()));
         fitGenPiezasText.setText(String.format("%.4f", alg.mejorGen.getFitness()));
 
-        double volumenM = 0;
-        double pesoM = 0;
-        double volumenG = 0;
-        double pesoG = 0;
-
         //Limpiando las tablas
         DefaultTableModel modelMemePieza = (DefaultTableModel) solucionMemeTable.getModel();
         modelMemePieza.setRowCount(0);
@@ -2402,6 +2393,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         for(int i=0;i<Vagoneta.nCompartimentos;i++){
             indCompartimento[i]=i+1;
         }
+        
+        double volumenM = 0;
+        double pesoM = 0;
+        double volumenG = 0;
+        double pesoG = 0;
+        
+        //Agregando la columna con los indices de los compartimentos
         modelMemePieza.addColumn("Id Comp.", indCompartimento);
         modelGenPieza.addColumn("Id Comp.", indCompartimento);
         for (int i = 0; i < (Horno.nVagonetas); i++) {
@@ -2413,12 +2411,13 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
             //Llenando la tabla con la solucion Memetico
             Integer[] datosVagonM = IntStream.of(mejorMeme.getPiezasVagon(i)).boxed().toArray(Integer[]::new);
-            modelMemePieza.addColumn("Vagon " + (i + 1), datosVagonM);
+            modelMemePieza.addColumn("V" + (i + 1), datosVagonM);
 
             //Llenando la tabla con la solucion Genetico
             Integer[] datosVagonG = mejorGen.getPiezasVagon(i);
-            modelGenPieza.addColumn("Vagon " + (i + 1), datosVagonG);
+            modelGenPieza.addColumn("V" + (i + 1), datosVagonG);
         }
+        //Colocando los valores totales calculados en los campos
         volumeMemePiezas.setText(String.format("%.4f", volumenM));
         weightMemePiezas.setText(String.format("%.4f", pesoM));
 
@@ -2462,16 +2461,19 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             }
         }
         //Llenando la cantidad de productos seleccionados
-        int[] nuevoStockProdM=new int[alg.gProd.lProd.length];
-        int[] nuevoStockProdG=new int[alg.gProd.lProd.length];
+        int[] nuevoStockProdM=new int[alg.gProd.size()];
+        int[] nuevoStockProdG=new int[alg.gProd.size()];
         int indProd=0;
         for (Producto actualProd:alg.gProd.lProd){
             nuevoStockProdM[indProd]=Integer.MAX_VALUE;
             nuevoStockProdG[indProd]=Integer.MAX_VALUE;
             for(int idPieza:actualProd.listaPiezas()){
-                //Se calcula el productosCompletados=piezasAlmacen+stockHorneado;
+                //Se calcula la cantidad de piezas completadas=piezasAlmacen+stockHorneado;
                 int cantidadActualM=alg.gPiezas.stock(idPieza-1)+mejorMeme.getCantColocada(idPieza-1);
+                //La cantidad de productos completados sera igual a la cantidad minima
+                //de uno de sus componentes
                 if(cantidadActualM<nuevoStockProdM[indProd]) nuevoStockProdM[indProd]=cantidadActualM;
+                //De igual manera para el genetico
                 int cantidadActualG=alg.gPiezas.stock(idPieza-1)+mejorGen.getCantColocada(idPieza-1);
                 if(cantidadActualG<nuevoStockProdG[indProd]) nuevoStockProdG[indProd]=cantidadActualG;
             }
@@ -2479,6 +2481,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             if(nuevoStockProdG[indProd]==Integer.MAX_VALUE) nuevoStockProdG[indProd]=0;
             String[] descripcion=actualProd.descripcion();
             if(nuevoStockProdM[indProd]>0){
+                //id,modelo,color,tipo,cant. de productos fabricados
                 modelMProdAtend.addRow(new Object[]{actualProd.id(),descripcion[0],
                     descripcion[1],descripcion[2],nuevoStockProdM[indProd]});                
             }
@@ -2486,6 +2489,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
                 modelGProdAtend.addRow(new Object[]{actualProd.id(),descripcion[0],
                     descripcion[1],descripcion[2],nuevoStockProdG[indProd]});
             }
+            //Se calcula el nuevo stock=prod fabricados + stock inicial
             nuevoStockProdM[indProd]+=alg.gProd.stock(indProd);
             nuevoStockProdG[indProd]+=alg.gProd.stock(indProd);
             indProd++;
@@ -2497,12 +2501,15 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             int nuevoStockG=Integer.MAX_VALUE;
             for(int idProducto:actualSet.listaProd()){
                 int cantidadActualM=nuevoStockProdM[idProducto-1];
+                //la cantidad fabricada de sets sera igual a la cantidad minima entre
+                //los productos que lo componen
                 if(cantidadActualM<nuevoStockM) nuevoStockM=cantidadActualM;
                 int cantidadActualG=nuevoStockProdG[idProducto-1];
                 if(cantidadActualG<nuevoStockG) nuevoStockG=cantidadActualG;
             }
             if(nuevoStockM==Integer.MAX_VALUE) nuevoStockM=0;
             if(nuevoStockG==Integer.MAX_VALUE) nuevoStockG=0;
+            //si se llego a fabricar el set completo, entonces se mostrara en la tabla
             if(nuevoStockM>0){
                 modelMSetAtend.addRow(new Object[]{actualSet.id(),actualSet.modelo(),
                     actualSet.color(),nuevoStockM});
@@ -2553,13 +2560,16 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         double peso = (double) weightSpinner.getValue();
         double volumen = (double) volumeSpinner.getValue();
         double demanda = (double) demandSpinner.getValue();
+        //Si los factores cliente suman 1 se ejecutara el algoritmo
         if (equalFactorsCheckBox.isSelected() || ((peso + volumen + demanda) == 1)) {
             executionProgressBar.setValue(0);
             colocarValoresParametros();
+            //Se desactivan todos los campos durante la ejecucion del algoritmo
             activarElementos(false);
             SwingWorker work=alg.createWorker(executionProgressBar);
             work.execute();
         } else {
+            //Si los factores cliente no suman 1 entonces no se ejecutara el algoritmo
             mostrarMensaje(-3);
         }
     }//GEN-LAST:event_executeButtonMouseClicked
@@ -2574,7 +2584,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
     private void piezasRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_piezasRadioButtonStateChanged
         // TODO add your handling code here:
-
         if (piezasRadioButton.isSelected()) {
             CardLayout card = (CardLayout) panelTablas.getLayout();
             card.show(panelTablas, "resultPiezasAtendPanel");
@@ -2589,7 +2598,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
 
     private void examinateFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_examinateFileMouseClicked
         // TODO add your handling code here:
-
+        //Abre el navegador de archivos para seleccionar un archivo a cargar
         int returnVal = fc.showOpenDialog(OptimizarCargaVentana.this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -2601,6 +2610,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_examinateFileMouseClicked
     private void mostrarDatosHornoPestania() {
+        //Llenando los campos con los datos del horno
         maxVolume.setText(Double.toString(Horno.volMaximo));
         numberWagons.setText(Integer.toString(Horno.nVagonetas));
         maxWeight.setText(Double.toString(Vagoneta.pesoMaximo));
@@ -2723,30 +2733,43 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private void loadFileDataButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadFileDataButtonMouseClicked
         // TODO add your handling code here:
         if (typeOvenRadioButton.isSelected()) {
+            //Si se marco como tipo del archivo Horno, se tratara de leerlo
             int resultado = alg.datosHorno(fileName.getText());
+            //Si la carga fue exitosa se marca datosHorno como verdadero
             datosHorno = (resultado == 1);
             if (datosHorno) {
+                //Si la carga es exitosa se muestran los datos
                 mostrarDatosHornoPestania();
             }
+            //Se muestra un mensaje exitoso o una alerta segun sea el resultado
             mostrarMensaje(resultado);
 
         } else if (typeSetsRadioButton.isSelected()) {
+            //Si se marco como tipo del archivo Sets/Prod/Piezas se tratara de leerlo
             int resultado = alg.cargarDatos(fileName.getText());
             datosSets = (resultado == 1);
             if (datosSets) {
+                //Si la carga es exitosa se muestran los datos y se activa el
+                //radio button para poder cargar archivos de pedidos
                 typePedidosRadioButton.setEnabled(datosSets);
                 datosPedidos = false;
                 mostrarDatosSet();
             }
+            //Se muestra un mensaje exitoso o una alerta segun sea el resultado
             mostrarMensaje(resultado);
         } else if (typePedidosRadioButton.isSelected()) {
+            //Si se marco como tipo del archivo Pedidos se tratara de leerlo
             int resultado = alg.cargarPedidos(fileName.getText());
             datosPedidos = (resultado == 1);
             if (datosPedidos) {
+                //Si la carga fue exitosa se muestran los pedidos
                 mostrarDatosPedidos();
             }
+            //Se muestra un mensaje exitoso o una alerta segun sea el resultado
             mostrarMensaje(resultado);
         }
+        //Se desactiva el boton de cargar archivo y se limpia el campo de nombre
+        //de archivo
         loadFileDataButton.setEnabled(false);
         fileName.setText("");
         //Verifica que todos los archivos se hayan cargado antes de pasar a la 
@@ -2763,10 +2786,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
         //Boton que regresa todos los campos a su valor predeterminado
         //Factores cliente
         equalFactorsCheckBox.setSelected(true);
-        /*double factor=1.0/3.0;
-        demandSpinner.setValue(factor);
-        weightSpinner.setValue(factor);
-        volumeSpinner.setValue(factor);*/
         maxTimeSpinner.setValue(5); //                  Tiempo maximo de ejecucion
 
         //Parametros del GRASP--------------------------------------------------
@@ -2814,9 +2833,6 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             weightSpinner.setEnabled(false);
             volumeSpinner.setEnabled(false);
         } else {
-            //demandSpinner.setValue(0.4);
-            //weightSpinner.setValue(0.3);
-            //volumeSpinner.setValue(0.3);
             //Desbloquear los spinners
             demandSpinner.setEnabled(true);
             weightSpinner.setEnabled(true);
@@ -2827,9 +2843,12 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
     private void executionProgressBarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_executionProgressBarStateChanged
         // TODO add your handling code here:
         if(executionProgressBar.getValue()==100){
+            //Cuando la ejecucion del algoritmo se complete se mostraran los resultados
             mostrarSoluciones();
             mostrarAtendidos();
+            //Se activaran los campos de la ventana de configuracion de parametros
             activarElementos(true);
+            //Se mostrara la pantalla de resultados
             CardLayout card = (CardLayout) ventanaContenedora.getLayout();
             card.show(ventanaContenedora, "resultadosPiezas");
             executionProgressBar.setValue(0);
