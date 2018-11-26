@@ -143,8 +143,9 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
             int rV=aleatorio.nextInt(Horno.nVagonetas);
             int rC=aleatorio.nextInt(Vagoneta.nCompartimentos);
             int ind=this.getIndPieza(rV,rC);
-            //Quito la pieza junto con la prioridad, peso y volumen cargado de la pieza
             if(ind!=-1){
+                //Si el compartimento no esta vacio quito la pieza junto con la
+                //prioridad, peso y volumen cargado de la pieza
                 quitarElemento(rV,rC,gPiezas);
             }
             Pieza nuevaPieza=buscarReemplazo(ind,rC,mDimensiones,gPiezas);
@@ -184,9 +185,6 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
             this.prioridadV[v]=original.prioridadV[v];
             this.pesoV[v]=original.pesoV[v];
             this.volV[v]=original.volV[v];
-            /*for(int c=0;c<Vagoneta.nCompartimentos;c++){
-            this.arregloPiezas[v][c]=original.arregloPiezas[v][c];
-            }*/
             System.arraycopy(original.arregloPiezas[v], 0, this.arregloPiezas[v], 0, Vagoneta.nCompartimentos);            
         }
         System.arraycopy(original.piezasCol, 0, this.piezasCol, 0, this.piezasCol.length);
@@ -224,36 +222,8 @@ public class SolucionMeme implements Comparable<SolucionMeme>{
             Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void imprimir(long startCont,double fitnessGRASP){
-        /*for(int j=0;j<Horno.nVagonetas;j++){
-            if(j==0) System.out.print("\t");
-            System.out.print(String.format("[%3d]",j+1));
-        }
-        System.out.print("\n");
-        for(int i=0;i<Vagoneta.nCompartimentos;i++){
-            System.out.print("["+(i+1)+"]\t");
-            for(int j=0;j<Horno.nVagonetas;j++){
-                System.out.print(String.format("%5d",getIdPieza(j, i)));
-            }
-            System.out.print("\n");
-        }
-        System.out.println("FITNESS: "+fitness+" \tDURACIÓN: ");
-        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
-        for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
-        }*/
-        try(FileWriter fw = new FileWriter("memeticoThread.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw))
-        {
-            out.println("T: "+startCont+", "+fitnessGRASP+","+fitness);
-        } catch (IOException ex) {
-            Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     @Override
     public int compareTo(SolucionMeme solComparar) {
-       //  int compareage=((Student)comparestu).getStudentage();
        double fitnessComparar=solComparar.getFitness();
        return Double.compare(fitnessComparar, this.fitness);
     }

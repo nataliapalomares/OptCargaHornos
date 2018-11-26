@@ -29,6 +29,7 @@ public class GestorSets {
         int cant=this.lSets.length;
         for(int i=0;i<cant;i++){
             rSets[i][0]=0;//Cantidad pedida
+            rSets[i][2]=0;//Cantidad faltante
             prioridadProm[i]=0.0;//Prioridad promedio
         }
     }

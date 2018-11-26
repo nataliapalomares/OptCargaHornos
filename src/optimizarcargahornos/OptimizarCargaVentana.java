@@ -2570,7 +2570,7 @@ public class OptimizarCargaVentana extends javax.swing.JFrame {
             work.execute();
         } else {
             //Si los factores cliente no suman 1 entonces no se ejecutara el algoritmo
-            mostrarMensaje(-3);
+            mostrarMensaje(-4);
         }
     }//GEN-LAST:event_executeButtonMouseClicked
 

@@ -8,20 +8,20 @@ import java.util.List;
  * @author Natalia Palomares Melgarejo
  */
 public class PoblacionGen extends Poblacion{
-    List<SolucionG> pob;
-    SolucionG mejor;
+    private List<SolucionG> pob;
+    private SolucionG mejor;
     
     public PoblacionGen(){
         super();
         this.pob=new ArrayList<>();
-        this.mejor=null;
+        mejor=null;
     }
     
     public SolucionG getMejor(){
-        return this.mejor;
+        return mejor;
     }
     public void setMejor(SolucionG sol){
-        this.mejor=sol;
+        mejor=sol;
     }
     public SolucionG getInd(int ind){
         return this.pob.get(ind);
@@ -38,8 +38,8 @@ public class PoblacionGen extends Poblacion{
     public SolucionG ruleta(double[] rangosRuleta){
         //Ruleta binaria usada durante el casamiento
         double r=Math.random();
-        int izq=0;
-        int der=rangosRuleta.length-1;
+        int izq=0;//primer indice
+        int der=rangosRuleta.length-1;//ultimo indice
         int indice=ruleta(rangosRuleta,izq,der,r);
         return this.pob.get(indice);
     }
@@ -56,7 +56,7 @@ public class PoblacionGen extends Poblacion{
         this.pob.add(sol);
         tamanio++;
         sumaFitness+=sol.getFitness();
-        if(tamanio==1 || this.mejor.getFitness()<sol.getFitness()) this.setMejor(sol);
+        if(tamanio==1 || mejor.getFitness()<sol.getFitness()) this.setMejor(sol);
     }
     public void remove(SolucionG sol){
         sumaFitness-=sol.getFitness();

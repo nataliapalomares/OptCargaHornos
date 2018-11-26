@@ -11,11 +11,11 @@ import java.util.Random;
 public class Grasp {
 
     //parametros
-    int tamPoblacion;//tamano de la poblacion al terminar GRASP
-    double alpha;
+    private int tamPoblacion;//tamano de la poblacion al terminar GRASP
+    private double alpha;
     //datos
-    GestorPiezas gPiezas;
-    boolean[][] mDimension;
+    private GestorPiezas gPiezas;
+    private boolean[][] mDimension;
 
     public Grasp(int tamPoblacion, double alpha, GestorPiezas gPiezas, boolean[][] mDimension) {
         this.tamPoblacion = tamPoblacion;
@@ -43,6 +43,8 @@ public class Grasp {
 
     public double actualizarPrioridad(int compartimento, List<Double> prioridades, List<Pieza> candidatos,
         SolucionMeme nuevaSol) {
+        //Devuelve una lista preliminar de los candidatos para el RCL y sus prioridades
+        //Tambien retorna el valor limite usado para el calculo del RCL
         Vagoneta wagon = new Vagoneta();
         prioridades.clear();
         candidatos.clear();
@@ -69,7 +71,7 @@ public class Grasp {
                     if (valor < minimo) {
                         minimo = valor;
                     }
-                    //}
+                    
                 }
             }
         }
@@ -78,7 +80,7 @@ public class Grasp {
 
     public SolucionMeme construirSol() {
         SolucionMeme nuevaSol = new SolucionMeme();
-        int k = 0, w = 0;
+        int k = 0, w = 0; //indice de compartimento y vagoneta
         List<Double> prioridades = new ArrayList<>();
         List<Pieza> candidatos = new ArrayList<>();
         while (k < Vagoneta.nCompartimentos) {

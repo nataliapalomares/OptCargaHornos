@@ -1,14 +1,8 @@
 package optimizarcargahornos;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -31,32 +25,32 @@ public class Solucion implements Comparable<Solucion>{
     private double[] volV;
     
     public Solucion(){
-        this.fitness=0.0;
-        this.prioridadV=new double[Horno.nVagonetas];
-        this.volV=new double[Horno.nVagonetas];
-        this.pesoV=new double[Horno.nVagonetas];
-        this.piezasCol=new int[GestorPiezas.cantidadPiezas];
+        fitness=0.0;
+        prioridadV=new double[Horno.nVagonetas];
+        volV=new double[Horno.nVagonetas];
+        pesoV=new double[Horno.nVagonetas];
+        piezasCol=new int[GestorPiezas.cantidadPiezas];
     }
     public double getPrioridadV(int w){
-        return this.prioridadV[w];
+        return prioridadV[w];
     }
     public double getPesoV(int w){
-        return this.pesoV[w];
+        return pesoV[w];
     }
     public double getVolV(int w){
-        return this.volV[w];
+        return volV[w];
     }
     public double getFitness(){
-        return this.fitness;
+        return fitness;
     }
     public void setPrioridadV(int w,double prioridad){
-        this.prioridadV[w]=prioridad;
+        prioridadV[w]=prioridad;
     }
     public void setPesoV(int w, double peso){
-        this.pesoV[w]=peso;
+        pesoV[w]=peso;
     }
     public void setVolV(int w, double volumen){
-        this.volV[w]=volumen;
+        volV[w]=volumen;
     }
     public void setFitness(double fitness){
         this.fitness=fitness;
@@ -154,7 +148,6 @@ public class Solucion implements Comparable<Solucion>{
     
     @Override
     public int compareTo(Solucion solComparar) {
-       //  int compareage=((Student)comparestu).getStudentage();
        double fitnessComparar=solComparar.getFitness();
        return Double.compare(fitnessComparar, this.fitness);
     }

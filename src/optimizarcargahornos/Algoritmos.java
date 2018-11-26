@@ -48,12 +48,16 @@ public class Algoritmos {
                 PoblacionMeme pobInicial=graspPobInicial.ejecutar();
                 int porcentaje=Math.round(((System.currentTimeMillis()-inicioContador)*100/finalContador));
                 if(porcentaje>100){
+                    //Si se agoto el tiempo retorno la mejor solucion del grasp
                     mejorMeme=pobInicial.getMejor();                    
                     mejorGen=new SolucionG(mejorMeme);
                     return null;
                 }
+                else publish(porcentaje);
                 
                 Genetico algGenetico=new Genetico(gPiezas,mDimension);
+                //Convierto la poblacion a la estructura del genetico antes de
+                //iniciar los threads para evitar conflictos
                 PoblacionGen pobGen=algGenetico.convertirPoblacion(pobInicial);                
                 porcentaje=Math.round(((System.currentTimeMillis()-inicioContador)*100/finalContador));
                 if(porcentaje>100){
@@ -105,14 +109,14 @@ public class Algoritmos {
         gPiezas = new GestorPiezas();
     }
     public int datosHorno(String csvFile) {
-        
+        mDimension=null;
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             line = br.readLine();
             String[] linea = line.split(",");
-            double volMaximo = Double.parseDouble(linea[0]);
-            double pMaximo = Double.parseDouble(linea[1]);
-            int nVagonetas = Integer.parseInt(linea[2]);
+            double volMaximo = Double.parseDouble(linea[0]); //volumen maximo del horno
+            double pMaximo = Double.parseDouble(linea[1]); //peso maximo por vagon
+            int nVagonetas = Integer.parseInt(linea[2]); //cant. vagonetas
             int cantC = Integer.parseInt(linea[3]); //cantidad de compartimentos
             oven = new Horno(volMaximo, pMaximo, nVagonetas, cantC);
             Vagoneta wagon = new Vagoneta();
@@ -173,7 +177,7 @@ public class Algoritmos {
                     gPiezas.addRPiezas(i,'A',Integer.parseInt(linea[8]));//cantidad de piezas terminadas en el almacen
                     gPiezas.addRPiezas(i, 'Q',Integer.parseInt(linea[9]));//cantidad pendiente a hornear 
                     gPiezas.add(pActual,i++);
-    }
+                }
                 cant--;
             }
             return 1; //CARGA EXITOSA
@@ -185,6 +189,7 @@ public class Algoritmos {
     }
 
     public int cargarPedidos(String csvFile){
+        mDimension=null;
         if(lPedidos!=null && lPedidos.size()>0) gSets.reiniciarPedidos();
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -245,44 +250,5 @@ public class Algoritmos {
                 }
             }
         }
-    }
-    
-    private void ejecutar(){
-        
-        long inicioContador=System.currentTimeMillis();
-        long finalContador=(TIEMPO_MAXIMO*60*1000)+inicioContador;
-        /*CARGA DE DATOS: horno, productos, pedidos------------------------------
-        datosHorno("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\hornoPequenio.csv");
-        cargarDatos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-1\\Algoritmo optimizacion\\ArchivosExpNumerica\\150sets_piezas.csv");
-        cargarPedidos("C:\\Users\\Natalia\\SkyDrive\\Documentos\\2018-2\\ArchivosDatos\\504pedidos.csv");*/
-        
-        //ESTRUCTURAS AUXILIARES: se crea y completa la matriz de dimensiones y resumen
-        crearEstructuraAuxiliares();
-       
-        //GRASP-CREACION DE LA POBLACION INICIAL----------------------------------
-        Grasp graspPobInicial=new Grasp(TAM_INICIAL,ALF_INICIAL,gPiezas,mDimension);
-        //Instant first = Instant.now();
-        PoblacionMeme pobInicial=graspPobInicial.ejecutar();
-        //Instant second= Instant.now();
-        //Duration duration = Duration.between(first, second);
-
-        //ALGORITMO GENÉTICO----------------------------------------------------        
-        /*Thread threadGen = new Thread(){
-            public void run(){*/
-                Genetico algGenetico=new Genetico(gPiezas,mDimension);
-//                algGenetico.ejecutar(pobInicial,finalContador);
-//                this.mejorGen=algGenetico.mejor();
-        /*    }
-        };
-        threadGen.start();*/
-        //ALGORITMO MEMETICO------------------------------------------------------        
-        /*Thread threadMem = new Thread(){
-            public void run(){*/
-               Memetico algMemetico=new Memetico(gPiezas,mDimension,graspPobInicial);
-//               algMemetico.ejecutar(pobInicial,finalContador);
-               this.mejorMeme=algMemetico.mejor();
-        /*    }
-        };
-        threadMem.start();  */
-    }
+    }    
 }

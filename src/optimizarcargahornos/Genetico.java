@@ -7,22 +7,23 @@ import java.util.Random;
  */
 public class Genetico {
     //Estructuras auxiliares
-    GestorPiezas gPiezas;
-    boolean[][] mDimension;
-    SolucionG mejor;
+    private GestorPiezas gPiezas;
+    private boolean[][] mDimension;
+    private SolucionG mejor;
     
-    //Casamiento
+    //Parametros:
+    //-Casamiento
     static double TASA_CASAMIENTO;
     static double PROBABILIDAD_UC;
     
-    //Mutacion
+    //-Mutacion
     static double TASA_MUTACION;
     final static int NPIEZAS_MUTAR=1;
     
-    //Depuracion de la poblacion
+    //-Depuracion de la poblacion
     static double PORC_PRESERVAR;
 
-    //Condiciones de parada
+    //-Condiciones de parada
     static int MAX_ITERACIONES;
     static int MAX_SIN_MEJORA;
     

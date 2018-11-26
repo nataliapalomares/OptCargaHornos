@@ -21,6 +21,7 @@ public class GestorPiezas {
         return lPiezas.length;
     }
     public void completarIni(int cant){
+        this.maxFaltantes=0;
         this.lPiezas=new Pieza[cant];
         this.rPiezas=new int[cant][4];//PEDIDOS, EN ALMACEN, FALTANTES, PENDIENTES POR HORNEAR
         this.prioridadProm=new double[cant];
@@ -35,8 +36,8 @@ public class GestorPiezas {
             case'Q':rPiezas[ind][3]=cant;// PENDIENTES POR HORNEAR
         }
     }
-    public boolean cabeEnCompartimento(int id,double maximoDC,double minimoDC,double medioDC){
-        return this.lPiezas[id].cabeEnCompartimento(maximoDC, minimoDC, medioDC);
+    public boolean cabeEnCompartimento(int ind,double maximoDC,double minimoDC,double medioDC){
+        return this.lPiezas[ind].cabeEnCompartimento(maximoDC, minimoDC, medioDC);
     }
     public int calcularFaltante(int ind){
         rPiezas[ind][2]=Math.max(rPiezas[ind][0]-rPiezas[ind][1],0);

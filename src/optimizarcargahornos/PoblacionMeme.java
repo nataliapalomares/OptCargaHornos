@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class PoblacionMeme extends Poblacion{
     List<SolucionMeme> pob;
-    //int tamanio; PENDIENTE
     SolucionMeme mejor;
     
     public PoblacionMeme(){

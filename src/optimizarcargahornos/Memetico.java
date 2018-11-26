@@ -4,10 +4,10 @@ package optimizarcargahornos;
  */
 public class Memetico {
     //Parametros
-    GestorPiezas gPiezas;
-    boolean[][] mDimension;
-    SolucionMeme mejorSol;
-    Grasp graspRestaurar;
+    private GestorPiezas gPiezas;
+    private boolean[][] mDimension;
+    private SolucionMeme mejorSol;
+    private Grasp graspRestaurar;
     
     //Parametros para Generar Nueva Poblacion
     static double T_RECOMBINACION;
@@ -36,7 +36,6 @@ public class Memetico {
         this.mDimension=mDimension;
         this.graspRestaurar=graspRestaurar;
         this.mejorSol=null;
-        //this.graspRestaurar.setAlpha(ALF_RESTAURAR);
     }
     public SolucionMeme[] uniform_crossover(SolucionMeme p1,SolucionMeme p2){
         SolucionMeme[] hijos=new SolucionMeme[2];
@@ -100,7 +99,7 @@ public class Memetico {
     public PoblacionMeme actualizarPoblacion(PoblacionMeme pobHijos,PoblacionMeme pobPadre){
         //Funcion que reune las mejores soluciones de las dos poblaciones para formar una nueva poblacion
         int cantInd=pobPadre.size();
-        //ORrdenando poblacion padre e hijo
+        //Orrdenando poblacion padre e hijo
         pobHijos.ordenar();
         pobPadre.ordenar();
         SolucionMeme mejorHijoPob=pobHijos.getMejor();
@@ -127,19 +126,18 @@ public class Memetico {
     public PoblacionMeme restaurarPoblacion(PoblacionMeme poblacion){
         //Cuando se concluye que la poblacion se ha degenerado se
         //conservaran solo las mejores soluciones y el resto se desechará
-        //Luego, para completar la poblacion se generaran soluciones al azar.
+        
         PoblacionMeme nuevaPob=new PoblacionMeme();
         int tamanioPob=poblacion.size();
         int cPreservar=(int)Math.round(tamanioPob*PORC_PRESERVAR);
         int i=0;
         while(i<cPreservar){
             SolucionMeme mejor=poblacion.getInd(0);
-            //Solucion mejor=poblacion.buscarMejor();
             nuevaPob.add(mejor);
             poblacion.remove(mejor);
             i++;
         }
-        
+        //Luego, para completar la poblacion se generaran soluciones al azar.
         while(i<tamanioPob){
             SolucionMeme sol=graspRestaurar.construirSol();
             sol.mutar(NPIEZAS_RESTAURAR,this.gPiezas,mDimension);
@@ -151,7 +149,6 @@ public class Memetico {
         return nuevaPob;
     }
     public void ejecutar(PoblacionMeme pob){
-        //FALTA CONSIDERAR EL TEMPORIZADOR        
         //mejorSol=pob.buscarMejor();
         mejorSol=pob.getMejor();
         double fitnessGRASP=mejorSol.getFitness();
@@ -173,8 +170,6 @@ public class Memetico {
                 }
             }
         }
-        //mejorSol.imprimir(fitnessGRASP);
-        //return mejorSol;
     }
     public SolucionMeme mejor(){
         return this.mejorSol;

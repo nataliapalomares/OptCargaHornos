@@ -12,8 +12,8 @@ public class Vagoneta {
     public Vagoneta(){
         //this.lCompartimentos=new Compartimento[nCompartimentos];
     }
-    public void agregarCompartimento(int i,int id,double w,double l,double h){
-        lCompartimentos[i]=new Compartimento(id,w,l,h);
+    public void agregarCompartimento(int ind,int id,double w,double l,double h){
+        lCompartimentos[ind]=new Compartimento(id,w,l,h);
         volumenTotalComp+=(w*h*l);//en m3
     }
     public double getPesoLimite(int compartimento){
@@ -23,6 +23,8 @@ public class Vagoneta {
         return lCompartimentos[compartimento].getVolumenLimite();
     }
     public void setPorcentVolumen(){
+        //Calcula el porcentaje de volumen (aprox) que se deberia ocupar del 
+        //compartimento
         for(int i=0;i<Vagoneta.nCompartimentos;i++){
             lCompartimentos[i].setPorcentVolumen();
         }

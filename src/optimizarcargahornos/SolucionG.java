@@ -1,12 +1,6 @@
 package optimizarcargahornos;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Natalia Palomares Melgarejo
@@ -31,8 +25,8 @@ public class SolucionG extends Solucion{
             super.setPesoV(w,sol.getPesoV(w));
             super.setVolV(w,sol.getVolV(w));
         }
-        System.arraycopy(sol.piezasCol, 0, this.piezasCol, 0, this.piezasCol.length);
-        this.fitness=sol.getFitness();
+        System.arraycopy(sol.piezasCol, 0, piezasCol, 0, piezasCol.length);
+        fitness=sol.getFitness();
     }
     
     public void agregarElemento(int rV,int rC,int ind,GestorPiezas gPiezas){
@@ -42,7 +36,7 @@ public class SolucionG extends Solucion{
             this.arregloPiezas[rV*Vagoneta.nCompartimentos+rC]=0;
             return;
         }
-        //Si no busco la pieza de indice "ind"
+        //Si no, busco la pieza de indice "ind"
         Pieza nuevaPieza=gPiezas.getPieza(ind);
         agregarElemento(rV, rC, nuevaPieza, gPiezas);
     }
@@ -78,10 +72,10 @@ public class SolucionG extends Solucion{
             int rV=aleatorio.nextInt(Horno.nVagonetas);
             int rC=aleatorio.nextInt(Vagoneta.nCompartimentos);
             int ind=this.getIndPieza(rV,rC);
-            //Si el compartimento no esta vacio quito la pieza junto con la 
-            //prioridad, peso y volumen cargado de la pieza
-            
+                        
             if(ind!=-1){
+                //Si el compartimento no esta vacio quito la pieza junto con la 
+                //prioridad, peso y volumen cargado de la pieza
                 quitarElemento(rV,rC,gPiezas);
             }
             Pieza nuevaPieza=buscarReemplazo(ind,rC,mDimensiones,gPiezas);
@@ -95,11 +89,11 @@ public class SolucionG extends Solucion{
     public void copiar(SolucionG original){
         //Copia a la solucion que llama la funcion, los valores contenidos en la
         //solucion parametro (original)
-        this.setFitness(original.getFitness());
+        setFitness(original.getFitness());
         for(int w=0;w<Horno.nVagonetas;w++){
-            super.setPrioridadV(w, original.getPrioridadV(w));
-            super.setPesoV(w,original.getPesoV(w));
-            super.setVolV(w,original.getVolV(w));
+            setPrioridadV(w, original.getPrioridadV(w));
+            setPesoV(w,original.getPesoV(w));
+            setVolV(w,original.getVolV(w));
         }
         System.arraycopy(original.piezasCol, 0, this.piezasCol, 0, this.piezasCol.length);
         System.arraycopy(original.arregloPiezas, 0, this.arregloPiezas, 0, this.arregloPiezas.length);
@@ -117,34 +111,7 @@ public class SolucionG extends Solucion{
         //en el compartimento "comp"
         return this.arregloPiezas[vagon*Vagoneta.nCompartimentos+comp];
     }
-    public void imprimir(long startCont){
-        /*for(int j=0;j<Horno.nVagonetas;j++){
-            if(j==0) System.out.print("\t");
-            System.out.print(String.format("[%3d]",j+1));
-        }
-        System.out.print("\n");
-        for(int i=0;i<Vagoneta.nCompartimentos;i++){
-            System.out.print("["+(i+1)+"]\t");
-            for(int j=0;j<Horno.nVagonetas;j++){
-                System.out.print(String.format("%5d",getIdPieza(j, i)));
-            }
-            System.out.print("\n");
-        }
-        System.out.println("FITNESS: "+fitness+" \tDURACIÓN: ");
-        System.out.println("W\tVOLUMEN\t\tPESO\tPRIORIDAD");
-        for(int i=0;i<Horno.nVagonetas;i++){
-            System.out.println(String.format( "[%d]\t%.3f\t\t%.2f\t%.2f", i+1,volV[i],pesoV[i],prioridadV[i] ));
-        }*/
-        try(FileWriter fw = new FileWriter("GeneticoThread.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw))
-        {
-            
-            out.println("T:"+startCont+", "+fitness);
-        } catch (IOException ex) {
-            Logger.getLogger(SolucionMeme.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     public Integer[] getPiezasVagon(int indVagon){
         //Funcion que devuelve un arreglo con los indices de todas las piezas
         //que se cargaron en el vagon indVagon
